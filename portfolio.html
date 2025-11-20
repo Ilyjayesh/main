@@ -4,233 +4,132 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jayesh Sharma | Portfolio</title>
-  
-  <link rel="stylesheet" href="style.css">
-  
-  <link rel="icon" href="https://yt3.googleusercontent.com/rET6oq0t3S2P7F1cCojls3iRnKDpomzF-qzAgm6bEUQ_EhbHMlWQ8eCWOv5DjED3EpQ22o_vrA4=s160-c-k-c0x00ffffff-no-rj">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  
+  <link rel="icon" href="https://yt3.googleusercontent.com/J7wynSpzjFkN2YpAiFWTCw14qdDhHyrl6hWqSA7jGelqVAAmj8mLyQaAyI9racPE14zr0KQAd9I=s160-c-k-c0x00ffffff-no-rj">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* --- Page Specific Styles: Rectangular Box Mode --- */
+    :root { --bg: #0a0a0a; --text: #fff; --accent: #ff0055; }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+
+    /* Shared Elements */
+    .noise { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity:0.05; }
+    .cursor-dot { width:8px; height:8px; background:white; position:fixed; border-radius:50%; pointer-events:none; z-index:9999; transform: translate(-50%, -50%); }
+    .cursor-outline { width:40px; height:40px; border:1px solid rgba(255,255,255,0.5); position:fixed; border-radius:50%; pointer-events:none; z-index:9999; transform: translate(-50%, -50%); transition: .1s; }
+
+    nav { position: fixed; top: 30px; right: 50px; z-index: 1000; mix-blend-mode: difference; }
+    nav ul { list-style: none; display: flex; gap: 30px; }
+    nav a { text-decoration: none; color: white; font-family: 'Syne'; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+
+    /* Portfolio Specific */
+    main { padding: 150px 10%; min-height: 100vh; }
+    .page-title { font-family: 'Syne'; font-size: 4rem; font-weight: 800; margin-bottom: 10px; }
+    .page-subtitle { color: #888; margin-bottom: 60px; max-width: 400px; }
+
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
     
-    /* Film Grain Texture Overlay */
-    .noise-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.07;
-      background: url('https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.16/renderers/dailymotion.png');
-      animation: noiseMove 0.5s infinite linear;
-    }
-
-    @keyframes noiseMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 100px 100px; }
-    }
-
-    main {
-      padding-top: 8rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .portfolio-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .portfolio-header h1 {
-      font-size: 4rem;
-      font-family: 'Playfair Display', serif;
-      background: linear-gradient(to right, #fff, #777);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .portfolio-header p {
-      font-size: 1.2rem;
-      color: var(--primary-accent);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-top: 1rem;
-    }
-
-    /* --- Rectangular Box Grid --- */
-    .cinema-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Wider columns for video */
-      gap: 2rem;
-      padding: 0 2rem;
-    }
-
-    .cinema-card {
+    .work-card {
       position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9; /* FORCE RECTANGULAR VIDEO SHAPE */
-      border-radius: 0; /* SHARP CORNERS */
+      height: 300px;
       overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      cursor: none; /* Handled by JS */
+    }
+    
+    .work-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      filter: grayscale(100%);
     }
 
-    .cinema-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(229, 9, 20, 0.25);
-      border-color: var(--primary-accent);
-      z-index: 10;
-    }
+    .work-card:hover img { transform: scale(1.1); filter: grayscale(0%); }
 
-    .cinema-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Ensures thumbnail fills the rectangle perfectly */
-      opacity: 0.85;
-      transition: opacity 0.4s ease, transform 0.5s ease;
+    .card-overlay {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      padding: 20px;
+      background: linear-gradient(to top, black, transparent);
+      transform: translateY(100%);
+      transition: transform 0.4s;
     }
-
-    .cinema-card:hover img {
-      opacity: 0.3; /* Darken more on hover so text pops */
-      transform: scale(1.05);
-    }
-
-    /* The Text Content */
-    .cinema-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 1.5rem;
-      background: linear-gradient(to top, rgba(0,0,0,1), transparent);
-      transform: translateY(100%); /* Hidden initially */
-      transition: transform 0.3s ease;
-    }
-
-    .cinema-card:hover .cinema-info {
-      transform: translateY(0);
-    }
-
-    .cinema-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: #fff;
-      margin-bottom: 0.2rem;
-      text-transform: uppercase;
-    }
-
-    .cinema-info p {
-      font-size: 0.9rem;
-      color: #ccc;
-      margin: 0;
-    }
-
-    /* Boxy Play Button */
-    .play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      width: 60px;
-      height: 60px;
-      background: var(--primary-accent);
-      border-radius: 0; /* SHARP SQUARE BOX */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 0 rgba(229, 9, 20, 0.6);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.27);
-    }
-
-    .play-btn::after {
-      content: '';
-      width: 0; 
-      height: 0; 
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-left: 14px solid white;
-      margin-left: 4px;
-    }
-
-    .cinema-card:hover .play-btn {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .cinema-grid { grid-template-columns: 1fr; } /* Full width on mobile */
-      .portfolio-header h1 { font-size: 2.5rem; }
-    }
+    
+    .work-card:hover .card-overlay { transform: translateY(0); }
+    .card-title { font-family: 'Syne'; font-size: 1.5rem; color: white; }
   </style>
 </head>
 <body>
+  <div class="noise"></div>
+  <div class="cursor-dot" data-cursor-dot></div>
+  <div class="cursor-outline" data-cursor-outline></div>
 
-  <div class="noise-overlay"></div>
-
-  <nav class="main-nav">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="dreams.html">Dreams</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+ <nav data-aos="fade-down">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="dreams.html">Dreams</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
 
   <main>
-    <header class="portfolio-header" data-aos="fade-down">
-      <p>Visual Narrative</p>
-      <h1>Selected Works</h1>
-    </header>
+    <h1 class="page-title" data-aos="fade-right">SELECTED<br>WORKS</h1>
+    <p class="page-subtitle" data-aos="fade-right" data-aos-delay="100">
+      A curated collection of visual storytelling, documentaries, and conceptual edits.
+    </p>
 
-    <section class="cinema-grid">
+    <div class="gallery">
       
-      <div class="cinema-card" onclick="window.open('https://www.youtube.com/watch?v=hhSe3E1PZvw','_blank')" data-aos="fade-up" data-aos-delay="100">
-        <img src="https://i.ytimg.com/vi/hhSe3E1PZvw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD-bknA2lQS3y-RJrbJaxOq3ogTnQ" alt="Documentary">
-        <div class="play-btn"></div>
-        <div class="cinema-info">
-          <h3>The Documentary</h3>
-          <p>Storytelling • Visuals</p>
+      <div class="work-card" onclick="window.open('https://youtu.be/2vnaxQhUXi8','_blank')" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://i.ytimg.com/vi/2vnaxQhUXi8/hqdefault.jpg" alt="Documentary">
+        <div class="card-overlay">
+          <div class="card-title">The Documentary</div>
         </div>
       </div>
 
-      <div class="cinema-card" onclick="window.open('https://youtu.be/RDGhEXpmVgk','_blank')" data-aos="fade-up" data-aos-delay="200">
+      <div class="work-card" onclick="window.open('https://youtu.be/RDGhEXpmVgk','_blank')" data-aos="fade-up" data-aos-delay="300">
         <img src="https://img.youtube.com/vi/RDGhEXpmVgk/maxresdefault.jpg" alt="Concept">
-        <div class="play-btn"></div>
-        <div class="cinema-info">
-          <h3>The Concept</h3>
-          <p>Rhythm • Editing</p>
+        <div class="card-overlay">
+          <div class="card-title">Concept Visuals</div>
         </div>
       </div>
 
-      <div class="cinema-card" onclick="window.open('https://ilyjayesh.github.io/youtube/','_blank')" data-aos="fade-up" data-aos-delay="300">
-        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop" alt="Archive">
-        <div class="play-btn"></div>
-        <div class="cinema-info">
-          <h3>The Archive</h3>
-          <p>Full Collection</p>
+      <div class="work-card" onclick="window.open('https://ilyjayesh.github.io/youtube/','_blank')" data-aos="fade-up" data-aos-delay="400">
+        <img src="https://i.pinimg.com/736x/7f/cb/4d/7fcb4d3f7bc6238760bb566aa2887839.jpg" alt="More">
+        <div class="card-overlay">
+          <div class="card-title">Archive / More</div>
         </div>
       </div>
 
-    </section>
+    </div>
   </main>
-
-  <footer>
-    © 2025 Jayesh Sharma | Based in Jaipur, Rajasthan
-  </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 50
+    AOS.init({ duration: 800, once: true });
+    
+    const cursorDot = document.querySelector('[data-cursor-dot]');
+    const cursorOutline = document.querySelector('[data-cursor-outline]');
+    
+    window.addEventListener("mousemove", (e) => {
+      const posX = e.clientX; const posY = e.clientY;
+      cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
+      cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+    });
+
+    // Hover effect for cursor
+    document.querySelectorAll('.work-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        cursorOutline.style.width = '80px';
+        cursorOutline.style.height = '80px';
+        cursorOutline.style.borderColor = '#ff0055';
+        cursorOutline.innerHTML = '<span style="font-size:10px; display:flex; justify-content:center; align-items:center; height:100%;">VIEW</span>';
+      });
+      card.addEventListener('mouseleave', () => {
+        cursorOutline.style.width = '40px';
+        cursorOutline.style.height = '40px';
+        cursorOutline.style.borderColor = 'rgba(255,255,255,0.5)';
+        cursorOutline.innerHTML = '';
+      });
     });
   </script>
 </body>
