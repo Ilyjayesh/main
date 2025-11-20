@@ -4,34 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jayesh Sharma | Contact</title>
-  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://yt3.googleusercontent.com/J7wynSpzjFkN2YpAiFWTCw14qdDhHyrl6hWqSA7jGelqVAAmj8mLyQaAyI9racPE14zr0KQAd9I=s160-c-k-c0x00ffffff-no-rj">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --bg: #0a0a0a; --text: #fff; --glass: rgba(255, 255, 255, 0.03); }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+
+    .noise { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.05; z-index: 0; }
+    .blob-cont { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 10s infinite; }
+    .blob:nth-child(1) { top: 10%; left: 10%; width: 300px; height: 300px; background: #7000ff; }
+    .blob:nth-child(2) { bottom: 20%; right: 10%; width: 400px; height: 400px; background: #ff0055; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, -50px); } }
+
+    .cursor-dot { width: 8px; height: 8px; background: white; position: fixed; border-radius: 50%; z-index: 9999; transform: translate(-50%, -50%); pointer-events: none; }
+    .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); position: fixed; border-radius: 50%; z-index: 9999; transform: translate(-50%, -50%); pointer-events: none; transition: .1s; }
+
+    nav { position: absolute; top: 40px; right: 60px; z-index: 10; mix-blend-mode: difference; }
+    nav ul { display: flex; gap: 40px; list-style: none; }
+    nav a { text-decoration: none; color: white; font-family: 'Syne'; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+
+    main { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; height: 100%; padding: 20px; }
+    .contact-wrapper { width: 100%; max-width: 900px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
+    
+    .hero-text h2 { font-family: 'Syne'; font-size: 5rem; line-height: 0.9; font-weight: 800; margin-bottom: 20px; background: linear-gradient(to right, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .contact-card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); padding: 60px 40px; display: flex; flex-direction: column; justify-content: center; gap: 30px; clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%); }
+    .contact-link { text-decoration: none; color: white; font-size: 1.2rem; padding: 15px 20px; background: rgba(255,255,255,0.05); transition: 0.3s; border-left: 2px solid transparent; }
+    .contact-link:hover { background: rgba(255,255,255,0.1); border-left: 2px solid #7000ff; padding-left: 30px; }
+    .contact-label { font-family: 'Syne'; font-size: 0.8rem; color: #888; text-transform: uppercase; display: block; margin-bottom: 5px; }
+
+    footer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #888; font-size: 0.8rem; }
+  </style>
 </head>
 <body>
-  <nav class="main-nav">
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="dreams.html">Dreams</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+  <div class="noise"></div>
+  <div class="blob-cont"><div class="blob"></div><div class="blob"></div></div>
+  <div class="cursor-dot" data-cursor-dot></div><div class="cursor-outline" data-cursor-outline></div>
+
+  <nav><ul><li><a href="index.html">Home</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="dreams.html">Dreams</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
 
   <main>
-    <section data-aos="fade-up">
-      <h2 class="section-title">Get In Touch</h2>
-      <p>For collaborations, inquiries, or a chat about visual storytelling and finance, please reach out.</p>
-      <p style="font-size: 1.2rem;">Email: <a href="mailto:beastgamerxjay@gmail.com">beastgamerxjay@gmail.com</a></p>
-      <p style="font-size: 1.2rem;">Instagram: <a href="https://instagram.com/ihyjayesh" target="_blank">@ihyjayesh</a></p>
-    </section>
+    <div class="contact-wrapper">
+      <section class="hero-text" data-aos="fade-right"><h2>LET'S<br>CREATE<br>MAGIC.</h2><p style="color:#888; max-width:400px;">Visual storytelling and finance collaborations.</p></section>
+      <section class="contact-card" data-aos="fade-up" data-aos-delay="200">
+        <a href="mailto:beastgamerxjay@gmail.com" class="contact-link"><div><span class="contact-label">Email Me</span>beastgamerxjay@gmail.com</div></a>
+        <a href="https://instagram.com/ihyjayesh" target="_blank" class="contact-link"><div><span class="contact-label">Instagram</span>@ihyjayesh</div></a>
+      </section>
+    </div>
   </main>
 
-  <footer>
-    Back to <a href="index.html">Home</a> | © 2025 Jayesh Sharma
-  </footer>
-
+  <footer>© 2025 Jayesh Sharma</footer>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init({ duration: 800, once: true });</script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+    const cd=document.querySelector('[data-cursor-dot]'), co=document.querySelector('[data-cursor-outline]');
+    window.addEventListener("mousemove",e=>{cd.style.left=`${e.clientX}px`;cd.style.top=`${e.clientY}px`;co.animate({left:`${e.clientX}px`,top:`${e.clientY}px`},{duration:500,fill:"forwards"});});
+  </script>
 </body>
 </html>
