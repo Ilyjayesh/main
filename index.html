@@ -11,11 +11,86 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    /* --- Page Specific Overrides: Cinema Home Mode --- */
+    
+    /* 1. Film Grain Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.07;
+      background: url('https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.16/renderers/dailymotion.png');
+      animation: noiseMove 0.5s infinite linear;
+    }
+
+    @keyframes noiseMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+
+    /* 2. Hero Typography Enhancements */
+    .hero-header h1 {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -2px;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .hero-header .titles-wrapper {
+      font-family: 'Roboto', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 1rem;
+      color: #ddd;
+      background: rgba(0,0,0,0.3);
+      padding: 5px 15px;
+      display: inline-block;
+      backdrop-filter: blur(5px);
+    }
+
+    /* 3. Brutalist "Boxy" Cards for Skills */
+    /* Overriding the default rounded cards from style.css to match Portfolio */
+    .grid-container .card {
+      border-radius: 0; /* Sharp corners */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #000; /* Pure black for contrast */
+      box-shadow: none;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .grid-container .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 10px 10px 0px var(--primary-accent); /* Retro "Block" Shadow */
+      border-color: #fff;
+    }
+
+    .grid-container .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #fff;
+      border-bottom: 1px solid var(--primary-accent);
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+
+    /* Fix About Section Text */
+    #about p {
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: #ccc;
+      max-width: 900px;
+    }
+  </style>
 </head>
 <body>
+
+  <div class="noise-overlay"></div>
 
   <nav class="main-nav">
     <ul>
@@ -37,41 +112,45 @@
     </div>
     <div class="overlay"></div>
     
-    <div class="hero-header" data-aos="fade-in" data-aos-delay="300">
+    <div class="hero-header" data-aos="fade-in" data-aos-duration="1500">
       <h1 class="main-name">Jayesh Sharma</h1>
-      <p class="titles-wrapper">Aspiring ACCA | B.Com International Business Student</p>
+      <p class="titles-wrapper">Aspiring ACCA | B.Com International Business</p>
     </div>
   </header>
 
   <main>
     <section id="about" data-aos="fade-up">
-      <h2 class="section-title">About Me</h2>
+      <h2 class="section-title">The Narrative</h2>
       <p>
-        I am an Aspiring ACCA and B.Com International Business student at GCEC Global, combining strong analytical finance training with a creative edge in digital communication. While my passion lies in finance, my experience in video production has honed my ability to present complex information clearly and effectively. I leverage technical skills in Python, SQL, and advanced Excel to analyze data, aiming for a career where I can translate data-driven insights into compelling business strategies.
+        I am an Aspiring ACCA student at GCEC Global, merging <strong>analytical finance</strong> with a <strong>creative edge</strong> in digital communication. My passion lies in finance, yet my background in video production allows me to translate complex data into clear, compelling strategies. I leverage Python, SQL, and advanced Excel to turn raw numbers into business insights.
       </p>
     </section>
 
     <section id="skills" data-aos="fade-up">
-      <h2 class="section-title">Core Competencies</h2>
+      <h2 class="section-title">Core Arsenal</h2>
       <div class="grid-container">
+        
         <div class="card" data-aos="fade-up" data-aos-delay="100">
             <div class="card-content">
                 <h3>Number Cruncher</h3>
-                <p>Studying towards ACCA and B.Com qualifications, providing a strong foundation in international business and financial analysis.</p>
+                <p>Pursuing ACCA & B.Com. Building a rock-solid foundation in international business mechanics and financial architecture.</p>
             </div>
         </div>
+        
         <div class="card" data-aos="fade-up" data-aos-delay="200">
             <div class="card-content">
                 <h3>Data Analysis</h3>
-                <p>Proficient in Python, SQL, and advanced Excel for data manipulation, analysis, and translating insights into strategy.</p>
+                <p>Proficient in Python, SQL, and Excel. I manipulate data to find the story hidden within the numbers.</p>
             </div>
         </div>
+        
         <div class="card" data-aos="fade-up" data-aos-delay="300">
             <div class="card-content">
-                <h3>Digital Communication</h3>
-                <p>Skilled in video production and visual storytelling, enabling clear and effective presentation of complex information.</p>
+                <h3>Visual Storytelling</h3>
+                <p>Skilled in video production and digital narrative. Making complex information not just visible, but unforgettable.</p>
             </div>
         </div>
+
       </div>
     </section>
   </main>
@@ -81,6 +160,12 @@
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init({ duration: 800, once: true });</script>
+  <script>
+    AOS.init({ 
+      duration: 800, 
+      once: true,
+      offset: 100
+    });
+  </script>
 </body>
 </html>
