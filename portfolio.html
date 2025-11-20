@@ -4,46 +4,231 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jayesh Sharma | Portfolio</title>
+  
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://yt3.googleusercontent.com/J7wynSpzjFkN2YpAiFWTCw14qdDhHyrl6hWqSA7jGelqVAAmj8mLyQaAyI9racPE14zr0KQAd9I=s160-c-k-c0x00ffffff-no-rj">
+  
+  <link rel="icon" href="https://yt3.googleusercontent.com/rET6oq0t3S2P7F1cCojls3iRnKDpomzF-qzAgm6bEUQ_EhbHMlWQ8eCWOv5DjED3EpQ22o_vrA4=s160-c-k-c0x00ffffff-no-rj">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    /* --- Page Specific Styles: Cinema Mode --- */
+    
+    /* Film Grain Texture Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.07;
+      background: url('https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.16/renderers/dailymotion.png'); /* Fallback noise texture pattern */
+      animation: noiseMove 0.5s infinite linear;
+    }
+
+    @keyframes noiseMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+
+    main {
+      padding-top: 8rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portfolio-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .portfolio-header h1 {
+      font-size: 4rem;
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(to right, #fff, #777);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .portfolio-header p {
+      font-size: 1.2rem;
+      color: var(--primary-accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
+
+    /* --- Cinematic Grid --- */
+    .cinema-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      padding: 0 2rem;
+    }
+
+    .cinema-card {
+      position: relative;
+      height: 500px; /* Tall poster format */
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27), box-shadow 0.4s ease;
+      background: #000;
+    }
+
+    .cinema-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(229, 9, 20, 0.3); /* Red glow */
+      z-index: 10;
+    }
+
+    .cinema-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      transition: opacity 0.5s ease, transform 6s ease; /* Slow zoom effect */
+    }
+
+    .cinema-card:hover img {
+      opacity: 0.4; /* Darken image on hover */
+      transform: scale(1.1);
+    }
+
+    /* The Text Content */
+    .cinema-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 2.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+    }
+
+    .cinema-card:hover .cinema-info {
+      transform: translateY(0);
+    }
+
+    .cinema-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .cinema-info p {
+      font-size: 0.9rem;
+      color: #ccc;
+      text-align: left;
+      margin: 0;
+    }
+
+    /* The Play Button Icon */
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 80px;
+      height: 80px;
+      background: var(--primary-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px var(--primary-accent);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.27);
+    }
+
+    .play-btn::after {
+      content: '';
+      width: 0; 
+      height: 0; 
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 18px solid white;
+      margin-left: 5px;
+    }
+
+    .cinema-card:hover .play-btn {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cinema-card { height: 350px; }
+      .portfolio-header h1 { font-size: 2.5rem; }
+    }
+  </style>
 </head>
 <body>
- <nav class="main-nav">
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="dreams.html">Dreams</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+
+  <div class="noise-overlay"></div>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="dreams.html">Dreams</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
   <main>
-    <section data-aos="fade-up">
-      <h2 class="section-title">Video Showcase</h2>
-      <p>A collection of my work in visual storytelling, from documentaries to concept videos.</p>
-      <div class="grid-container">
-        <div class="card" onclick="window.open('https://youtu.be/2vnaxQhUXi8','_blank')" data-aos="fade-up" data-aos-delay="100">
-          <img src="https://i.ytimg.com/vi/2vnaxQhUXi8/hqdefault.jpg" alt="Documentary">
-          <div class="card-overlay">Watch Documentary</div>
-        </div>
-        <div class="card" onclick="window.open('https://youtu.be/RDGhEXpmVgk','_blank')" data-aos="fade-up" data-aos-delay="200">
-          <img src="https://img.youtube.com/vi/RDGhEXpmVgk/maxresdefault.jpg" alt="Concept">
-          <div class="card-overlay">Watch Concept</div>
-        </div>
-        <div class="card" onclick="window.open('https://ilyjayesh.github.io/youtube/','_blank')" data-aos="fade-up" data-aos-delay="300">
-          <img src="https://i.pinimg.com/736x/7f/cb/4d/7fcb4d3f7bc6238760bb566aa2887839.jpg" alt="More Coming Soon">
-          <div class="card-overlay">All videos</div>
+    <header class="portfolio-header" data-aos="fade-down">
+      <p>Visual Narrative</p>
+      <h1>Selected Works</h1>
+    </header>
+
+    <section class="cinema-grid">
+      
+      <div class="cinema-card" onclick="window.open('https://www.youtube.com/watch?v=hhSe3E1PZvw','_blank')" data-aos="fade-up" data-aos-delay="100">
+        <img src="https://i.ytimg.com/vi/hhSe3E1PZvw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD-bknA2lQS3y-RJrbJaxOq3ogTnQ" alt="Documentary">
+        <div class="play-btn"></div>
+        <div class="cinema-info">
+          <h3>The Documentary</h3>
+          <p>A deep dive into visual storytelling.</p>
         </div>
       </div>
+
+      <div class="cinema-card" onclick="window.open('https://youtu.be/RDGhEXpmVgk','_blank')" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://img.youtube.com/vi/RDGhEXpmVgk/maxresdefault.jpg" alt="Concept">
+        <div class="play-btn"></div>
+        <div class="cinema-info">
+          <h3>The Concept</h3>
+          <p>Abstract editing and rhythm.</p>
+        </div>
+      </div>
+
+      <div class="cinema-card" onclick="window.open('https://ilyjayesh.github.io/youtube/','_blank')" data-aos="fade-up" data-aos-delay="300">
+        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop" alt="Archive">
+        <div class="play-btn"></div>
+        <div class="cinema-info">
+          <h3>The Archive</h3>
+          <p>Full collection of video works.</p>
+        </div>
+      </div>
+
     </section>
   </main>
 
   <footer>
-    Back to <a href="index.html">Home</a> | © 2025 Jayesh Sharma
+    © 2025 Jayesh Sharma | Based in Jaipur, Rajasthan
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init({ duration: 800, once: true });</script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 50
+    });
+  </script>
 </body>
 </html>
