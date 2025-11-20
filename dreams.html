@@ -3,141 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jayesh Sharma | Dreams</title>
-  
-  <link rel="stylesheet" href="style.css">
-  
-  <link rel="icon" href="https://yt3.googleusercontent.com/rET6oq0t3S2P7F1cCojls3iRnKDpomzF-qzAgm6bEUQ_EhbHMlWQ8eCWOv5DjED3EpQ22o_vrA4=s160-c-k-c0x00ffffff-no-rj">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  
+  <title>BeastBalak | Dreams</title>
+  <link rel="icon" href="https://yt3.googleusercontent.com/J7wynSpzjFkN2YpAiFWTCw14qdDhHyrl6hWqSA7jGelqVAAmj8mLyQaAyI9racPE14zr0KQAd9I=s160-c-k-c0x00ffffff-no-rj">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* --- Dreamy Atmosphere --- */
-    body {
-      overflow-x: hidden;
-      position: relative;
-    }
+    :root { --bg: #0a0a0a; --text: #fff; --accent: #7000ff; }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* Floating Background Blobs */
-    .abstract-blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      z-index: -1;
-      opacity: 0.4;
-      animation: floatBlob 10s infinite alternate ease-in-out;
-    }
+    /* Ambient Background */
+    .blob-cont { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
+    .blob:nth-child(1) { top: 10%; left: 10%; width: 300px; height: 300px; background: purple; }
+    .blob:nth-child(2) { bottom: 20%; right: 10%; width: 400px; height: 400px; background: blue; animation-delay: -5s; }
+    @keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(30px, -50px); } }
 
-    .blob-1 {
-      top: -10%;
-      left: -10%;
-      width: 500px;
-      height: 500px;
-      background: var(--primary-accent); /* Crimson Glow */
-      animation-delay: 0s;
-    }
+    /* Cursor & Noise */
+    .noise { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity:0.05; }
+    .cursor-dot { width:8px; height:8px; background:white; position:fixed; border-radius:50%; pointer-events:none; z-index:9999; transform: translate(-50%, -50%); }
+    .cursor-outline { width:40px; height:40px; border:1px solid rgba(255,255,255,0.5); position:fixed; border-radius:50%; pointer-events:none; z-index:9999; transform: translate(-50%, -50%); transition: .1s; }
 
-    .blob-2 {
-      bottom: 10%;
-      right: -5%;
-      width: 400px;
-      height: 400px;
-      background: #4a4a4a; /* Charcoal Glow */
-      animation-delay: -5s;
-    }
+    nav { position: fixed; top: 30px; right: 50px; z-index: 1000; mix-blend-mode: difference; }
+    nav ul { list-style: none; display: flex; gap: 30px; }
+    nav a { text-decoration: none; color: white; font-family: 'Syne'; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
 
-    @keyframes floatBlob {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, 50px) scale(1.1); }
-    }
+    main { padding: 150px 15%; max-width: 1200px; margin: 0 auto; }
+    
+    h1 { font-family: 'Syne'; font-size: 5rem; font-weight: 800; margin-bottom: 80px; line-height: 0.9; }
+    
+    .dream-section { margin-bottom: 100px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 40px; position: relative; }
+    .dream-section::before { content: ''; position: absolute; left: -1px; top: 0; width: 1px; height: 0%; background: var(--accent); transition: height 0.5s; }
+    .dream-section:hover::before { height: 100%; }
+    
+    h2 { font-family: 'Syne'; font-size: 2rem; margin-bottom: 20px; color: #ddd; }
+    p { font-size: 1.1rem; line-height: 1.8; color: #aaa; max-width: 600px; }
+    
+    .goals-list li { margin-bottom: 15px; font-family: 'Syne'; font-size: 1.2rem; list-style: none; display: flex; align-items: center; gap: 15px; }
+    .goals-list li::before { content: '✦'; color: var(--accent); }
 
-    /* --- Centered Layout Enhancements --- */
-    .dream-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 8rem 1rem 4rem; /* Top padding clears fixed nav */
-      display: flex;
-      flex-direction: column;
-      gap: 6rem; /* Space between sections */
-      text-align: center;
-    }
-
-    .dream-header h1 {
-      font-size: clamp(4rem, 8vw, 6rem);
-      margin-bottom: 1rem;
-      letter-spacing: -2px;
-      background: linear-gradient(to right, #fff, #999);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .dream-card {
-      position: relative;
-      padding: 2rem;
-    }
-
-    /* Vertical Line Connector */
-    .dream-card::before {
-      content: '';
-      position: absolute;
-      top: -3rem;
-      left: 50%;
-      width: 1px;
-      height: 3rem;
-      background: linear-gradient(to bottom, transparent, var(--primary-accent));
-      transform: translateX(-50%);
-    }
-
-    .dream-card h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      color: #fff;
-    }
-
-    .dream-card p {
-      font-size: 1.2rem;
-      color: #ccc;
-      line-height: 1.8;
-      font-weight: 300;
-    }
-
-    /* Floating Goals Pills */
-    .goals-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .goal-pill {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      color: #eee;
-      font-size: 1rem;
-      transition: 0.3s;
-    }
-
-    .goal-pill:hover {
-      background: var(--primary-accent);
-      border-color: var(--primary-accent);
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(229, 9, 20, 0.4);
-    }
+    footer { text-align: center; padding: 50px; opacity: 0.5; font-size: 0.8rem; }
   </style>
 </head>
 <body>
+  <div class="noise"></div>
+  <div class="blob-cont">
+    <div class="blob"></div>
+    <div class="blob"></div>
+  </div>
+  <div class="cursor-dot" data-cursor-dot></div>
+  <div class="cursor-outline" data-cursor-outline></div>
 
-  <div class="abstract-blob blob-1"></div>
-  <div class="abstract-blob blob-2"></div>
-
-  <nav class="main-nav">
+  <nav data-aos="fade-down">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
@@ -146,53 +64,49 @@
     </ul>
   </nav>
 
-  <main class="dream-container">
-    
-    <header class="dream-header" data-aos="zoom-in" data-aos-duration="1000">
-      <h1>Manifesto</h1>
-      <p>Where vision meets reality.</p>
+  <main>
+    <header data-aos="fade-down">
+      <h1>MANIFESTO<br>& VISION</h1>
     </header>
 
-    <section class="dream-card" data-aos="fade-up">
-      <h2 class="section-title">Creative Vision</h2>
+    <section class="dream-section" data-aos="fade-up">
+      <h2>The Creative Vision</h2>
       <p>
         Ever since I picked up my first camera, I've dreamed of creating immersive, cinematic experiences.
-        My passion isn't just in capturing moments, but in <strong>blending storytelling with visual artistry</strong> to evoke raw emotion.
+        My passion isn't just recording reality—it's about blending storytelling with visual artistry to make the viewer <em>feel</em> the moment.
       </p>
     </section>
 
-    <section class="dream-card" data-aos="fade-up" data-aos-delay="100">
-      <h2 class="section-title">Visual Symphony</h2>
+    <section class="dream-section" data-aos="fade-up" data-aos-delay="100">
+      <h2>Music Video Productions</h2>
       <p>
-        I aspire to direct and edit music videos that resonate on a deeper level.
-        By combining rhythmic cuts, stunning locations, and dynamic lighting, I aim to amplify the artist's message and create a visual language that speaks louder than words.
+        The intersection of audio and visual is where magic happens. I aspire to direct edits that resonate emotionally,
+        combining rhythmic cuts, stunning locations, and dynamic lighting to amplify the song's soul.
       </p>
     </section>
 
-    <section class="dream-card" data-aos="fade-up" data-aos-delay="200">
-      <h2 class="section-title">Future Goals</h2>
-      <p style="margin-bottom: 0;">The milestones I am chasing:</p>
-      
-      <div class="goals-grid">
-        <div class="goal-pill" data-aos="flip-up" data-aos-delay="300">Top-Tier Collaborations</div>
-        <div class="goal-pill" data-aos="flip-up" data-aos-delay="400">Mentorship Studio</div>
-        <div class="goal-pill" data-aos="flip-up" data-aos-delay="500">AR/VR Storytelling</div>
-        <div class="goal-pill" data-aos="flip-up" data-aos-delay="600">Global Cinema</div>
-      </div>
+    <section class="dream-section" data-aos="fade-up" data-aos-delay="200">
+      <h2>The Roadmap</h2>
+      <ul class="goals-list">
+        <li>Collaborate with top-tier musicians and brands</li>
+        <li>Build a creative studio that mentors young editors</li>
+        <li>Innovate with AR/VR storytelling techniques</li>
+      </ul>
     </section>
-
   </main>
 
-  <footer>
-    © 2025 Jayesh Sharma | Based in Jaipur, Rajasthan
-  </footer>
+  <footer>© 2025 Jayesh Sharma</footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100
+    AOS.init({ duration: 1000, once: true });
+    
+    const cursorDot = document.querySelector('[data-cursor-dot]');
+    const cursorOutline = document.querySelector('[data-cursor-outline]');
+    window.addEventListener("mousemove", (e) => {
+      const posX = e.clientX; const posY = e.clientY;
+      cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
+      cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
     });
   </script>
 </body>
