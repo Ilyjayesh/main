@@ -74,7 +74,7 @@
             position: fixed; z-index: 9999; transform: translate(-50%, -50%); pointer-events: none;
         }
         .cursor-crosshair {
-            position: fixed; top: 0; left: 0; w-index: 9998; pointer-events: none;
+            position: fixed; top: 0; left: 0; z-index: 9998; pointer-events: none;
             width: 40px; height: 40px;
             transform: translate(-50%, -50%);
             mix-blend-mode: difference;
@@ -131,69 +131,32 @@
             justify-content: flex-end;
             padding: 80px;
         }
-        .video-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; opacity: 0.3; object-fit: cover;
-            filter: grayscale(100%) contrast(1.2); pointer-events: none;
-        }
-
-        /* --- PAGE 2: ABOUT (THE INTERSECTION) --- */
-        .about-grid {
-            display: grid; grid-template-columns: 1fr 1fr; height: 100%;
-        }
-        .about-left {
-            border-right: var(--border); padding: 80px;
-            display: flex; align-items: center;
-        }
-        .about-right {
-            padding: 80px; display: flex; flex-direction: column; justify-content: center;
-        }
-
-        /* --- PAGE 3 & 4: SELECTED WORKS --- */
-        .work-card {
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-        }
-        .work-image {
-            height: 70%; width: 100%;
-            overflow: hidden; border-bottom: var(--border);
-            position: relative;
-        }
-        .work-image img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            filter: grayscale(100%);
-        }
-        .work-image:hover img { transform: scale(1.05); filter: grayscale(0%); }
-        .work-info {
-            height: 30%; padding: 40px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .work-title { font-size: 4rem; }
-        .work-meta { text-align: right; font-family: 'Inter'; opacity: 0.7; }
-
-        /* --- PAGE 5: ARCHIVE (LIST STYLE) --- */
+        
+        /* --- PAGE 2: ALL VIDEOS (LIST STYLE) --- */
         .archive-row {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 40px 0; border-bottom: var(--border);
+            padding: 60px 0; border-bottom: var(--border); /* Increased padding for size */
             transition: 0.3s;
         }
-        .archive-row:hover { background: var(--accent); padding-left: 20px; padding-right: 20px; }
+        .archive-row:hover { background: var(--accent); padding-left: 40px; padding-right: 40px; }
         .archive-row:hover * { color: #000 !important; }
 
-        /* --- PAGE 6: SKILLS (DENSE DATA GRID) --- */
+        /* --- PAGE 3: SKILLS (DENSE DATA GRID) --- */
         .skills-container {
             display: grid; grid-template-columns: repeat(4, 1fr);
             border-top: var(--border); border-left: var(--border);
+            height: 60vh; /* Make grid take up substantial space */
         }
         .skill-box {
             padding: 40px 20px;
             border-right: var(--border); border-bottom: var(--border);
             text-align: center;
             transition: 0.2s;
+            display: flex; align-items: center; justify-content: center;
         }
         .skill-box:hover { background: var(--accent); }
         .skill-box:hover span { color: #000; }
-        .skill-box span { display: block; font-family: 'Syne'; font-weight: 700; font-size: 1.2rem; }
+        .skill-box span { display: block; font-family: 'Syne'; font-weight: 700; font-size: 1.5rem; }
 
         /* --- MARQUEE --- */
         .marquee {
@@ -233,8 +196,8 @@
     <nav>
         <div class="nav-logo">JS 2025©</div>
         <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#works">Works</a>
+            <a href="#videos">Videos</a>
+            <a href="#skills">Skills</a>
             <a href="#vision">Vision</a>
             <a href="#contact">Contact</a>
         </div>
@@ -271,184 +234,14 @@
         </div>
     </div>
 
-    <section class="page-section" id="about">
-        <div class="about-grid">
-            <div class="about-left" data-aos="fade-right">
-                <h2 style="font-size: 4rem;">THE<br>INTERSECTION.</h2>
-            </div>
-            <div class="about-right" data-aos="fade-left">
-                <p style="font-size: 1.5rem; line-height: 1.5; color: white;">
-                    I exist between the logic of <strong>Analytical Finance</strong> and the chaos of <strong>Digital Creativity</strong>. 
-                    <br><br>
-                    While numbers are my language, video is my medium. I leverage Python and SQL to find the story, and Premiere Pro to tell it.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section" id="works">
-        <div class="container" style="height: 80vh;">
-            <div class="work-card">
-                <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="work-image">
-                    <img src="https://i.ytimg.com/vi/2vnaxQhUXi8/hqdefault.jpg" alt="Documentary">
-                </a>
-                <div class="work-info">
-                    <div>
-                        <div class="work-title">THE DOCUMENTARY</div>
-                        <div style="font-family:'Syne'; color:var(--highlight);">FEATURED PROJECT</div>
-                    </div>
-                    <div class="work-meta">
-                        <div>VIDEO / EDITING</div>
-                        <div>2025</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section">
-        <div class="container" style="height: 80vh;">
-            <div class="work-card">
-                <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="work-image">
-                    <img src="https://img.youtube.com/vi/RDGhEXpmVgk/maxresdefault.jpg" alt="Concept Visuals">
-                </a>
-                <div class="work-info">
-                    <div>
-                        <div class="work-title">CONCEPT VISUALS</div>
-                        <div style="font-family:'Syne'; color:var(--highlight);">ART DIRECTION</div>
-                    </div>
-                    <div class="work-meta">
-                        <div>EXPERIMENTAL</div>
-                        <div>2024</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section">
+    <section class="page-section" id="videos">
         <div class="container">
-            <h2 data-aos="fade-right">ARCHIVE / REPO</h2>
+            <h2 data-aos="fade-right" style="font-size: 4rem;">ALL VIDEOS</h2>
             
             <div style="margin-top: 50px;">
-                <a href="https://ilyjayesh.github.io/youtube/" target="_blank" class="archive-row" style="width:100%">
-                    <span class="mega-text" style="font-size:2rem;">GITHUB REPO</span>
-                    <span style="font-family:'Inter';">WEB DEVELOPMENT</span>
+                <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="archive-row" style="width:100%">
+                    <span class="mega-text" style="font-size:3rem;">THE DOCUMENTARY</span>
+                    <span style="font-family:'Inter'; text-transform:uppercase;">Latest Upload</span>
                 </a>
-                <a href="#" class="archive-row" style="width:100%">
-                    <span class="mega-text" style="font-size:2rem;">HOSTEL LIFE VLOG</span>
-                    <span style="font-family:'Inter';">YOUTUBE</span>
-                </a>
-                <a href="#" class="archive-row" style="width:100%">
-                    <span class="mega-text" style="font-size:2rem;">FINANCE NOTES</span>
-                    <span style="font-family:'Inter';">ACCA / EXCEL</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section">
-        <div class="container">
-            <h2 style="margin-bottom: 40px;">COMPETENCIES</h2>
-            <div class="skills-container">
-                <div class="skill-box"><span>FINANCIAL MODELING</span></div>
-                <div class="skill-box"><span>ACCA / IFRS</span></div>
-                <div class="skill-box"><span>COST ACCOUNTING</span></div>
-                <div class="skill-box"><span>AUDITING</span></div>
-                <div class="skill-box"><span>PYTHON</span></div>
-                <div class="skill-box"><span>SQL / DATABASE</span></div>
-                <div class="skill-box"><span>ADVANCED EXCEL</span></div>
-                <div class="skill-box"><span>DATA MINING</span></div>
-                <div class="skill-box"><span>PREMIERE PRO</span></div>
-                <div class="skill-box"><span>AFTER EFFECTS</span></div>
-                <div class="skill-box"><span>PHOTOSHOP</span></div>
-                <div class="skill-box"><span>STORYTELLING</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section" id="vision">
-        <div class="container">
-            <div style="display: flex; gap: 50px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 300px;" data-aos="fade-up">
-                    <h3 style="font-size: 3rem; margin-bottom: 30px;">THE ROADMAP</h3>
-                    <ul style="list-style: none;">
-                        <li style="margin-bottom: 20px; border-left: 2px solid var(--highlight); padding-left: 20px;">
-                            <strong style="color:white; font-size:1.2rem;">COLLABORATION</strong><br>
-                            Work with top-tier musicians and brands to visualize sound.
-                        </li>
-                        <li style="margin-bottom: 20px; border-left: 2px solid var(--highlight); padding-left: 20px;">
-                            <strong style="color:white; font-size:1.2rem;">MENTORSHIP</strong><br>
-                            Build a creative studio that mentors young editors.
-                        </li>
-                        <li style="border-left: 2px solid var(--highlight); padding-left: 20px;">
-                            <strong style="color:white; font-size:1.2rem;">INNOVATION</strong><br>
-                            Innovate with AR/VR storytelling techniques in finance.
-                        </li>
-                    </ul>
-                </div>
-                <div style="flex: 1; min-width: 300px;" data-aos="fade-up" data-aos-delay="100">
-                     <h3 style="font-size: 3rem; margin-bottom: 30px;">MANIFESTO</h3>
-                     <p style="font-size: 1.2rem; line-height: 1.6;">
-                        Ever since I picked up my first camera, I've dreamed of creating immersive, cinematic experiences. 
-                        My passion isn't just recording reality—it's about blending storytelling with visual artistry to make the viewer <em>feel</em> the moment.
-                     </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section contact-footer" id="contact" style="border-bottom: none;">
-        <p style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Ready to create magic?</p>
-        
-        <a href="mailto:jayeshsharmattk@gmail.com" class="giant-link">EMAIL ME</a>
-        
-        <div style="margin-top: 50px; display: flex; gap: 40px;">
-            <a href="https://instagram.com/ihyjayesh" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">INSTAGRAM</a>
-            <a href="#" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">LINKEDIN</a>
-            <a href="#" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">TWITTER</a>
-        </div>
-
-        <div style="margin-top: 150px; opacity: 0.4; font-size: 0.8rem;">
-            © 2025 JAYESH SHARMA | JAIPUR, RAJASTHAN
-        </div>
-    </section>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-
-        // Mouse Cursor Logic
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorCrosshair = document.getElementById('cursor-crosshair');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Crosshair follows with slight delay
-            cursorCrosshair.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        // Hover Effects
-        const interactive = document.querySelectorAll('a');
-        interactive.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorCrosshair.style.transform = 'translate(-50%, -50%) scale(1.5) rotate(45deg)';
-                cursorCrosshair.style.borderColor = 'var(--highlight)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorCrosshair.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
-                cursorCrosshair.style.borderColor = 'transparent';
-            });
-        });
-    </script>
-</body>
-</html>
+                
+                <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="archive-row" style="width:100%">
