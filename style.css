@@ -1,228 +1,205 @@
-/* --- UNIFIED STYLESHEET --- */
-
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
-
-/* --- Base Reset and Theme --- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* --- PATRICK DAVID STYLE: NEO-BRUTALISM --- */
+:root {
+    --bg: #050505;        /* Deepest Black */
+    --text: #e0e0e0;      /* Off-White for readability */
+    --accent: #ffffff;    /* Stark White for borders/highlights */
+    --highlight: #7000ff; /* Your specific purple, used sparingly */
+    --border: 1px solid rgba(255, 255, 255, 0.2);
+    --border-hover: 1px solid #ffffff;
 }
 
-:root {
-  --background-color: #121212; /* Deep Charcoal */
-  --text-color: #EAEAEA;       /* Soft Off-White */
-  --primary-accent: #E50914;    /* Striking Crimson Red */
-  --secondary-bg: #1E1E1E;    /* Slightly Lighter Charcoal */
-  --border-color: rgba(229, 9, 20, 0.4);
-  --heading-font: 'Playfair Display', serif;
-  --body-font: 'Roboto', sans-serif;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    cursor: none; /* Keep your custom cursor */
 }
 
 body {
-  font-family: var(--body-font);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  scroll-behavior: smooth;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.2;
+}
+
+/* --- TYPOGRAPHY: MASSIVE & TIGHT --- */
+h1, h2, h3, .brand-font {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+h1 {
+    font-size: clamp(4rem, 12vw, 15rem); /* Giant responsive text */
+    line-height: 0.85;
+    color: var(--accent);
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: clamp(2rem, 5vw, 6rem);
+    border-bottom: var(--border);
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #999;
+    max-width: 600px;
 }
 
 a {
-  color: var(--primary-accent);
-  text-decoration: none;
-  transition: color 0.3s ease;
+    text-decoration: none;
+    color: var(--text);
+    transition: 0.2s;
 }
 
-a:hover {
-  color: #FFFFFF;
+/* --- NAVIGATION: MINIMAL & RAW --- */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 40px;
+    background: rgba(5, 5, 5, 0.9); /* Solid backing, no blur */
+    border-bottom: var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* --- Navigation --- */
-nav.main-nav {
-  background: rgba(18, 18, 18, 0.85); /* Increased opacity slightly for readability */
-  backdrop-filter: blur(10px);
-  padding: 1.25rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+nav ul {
+    display: flex;
+    gap: 40px;
+    list-style: none;
 }
 
-nav.main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 2.5rem;
-  justify-content: center;
+nav a {
+    font-family: 'Syne';
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-nav.main-nav ul li a {
-  font-weight: 500;
-  font-size: 1.1rem;
-  color: var(--text-color);
+nav a:hover {
+    color: var(--highlight);
+    text-decoration: line-through; /* Patrick style hover */
 }
 
-nav.main-nav ul li a:hover {
-    color: var(--primary-accent);
+/* --- THE SIGNATURE MARQUEE --- */
+.marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-top: var(--border);
+    border-bottom: var(--border);
+    padding: 15px 0;
+    background: var(--bg);
+    margin: 80px 0;
+    transform: rotate(-2deg) scale(1.05); /* The "Raw" Tilt */
 }
 
-/* --- Hero Section (Home Page) --- */
-header.hero {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
 }
 
-header.hero .video-bg {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -2;
-  pointer-events: none;
+.marquee-item {
+    font-family: 'Syne';
+    font-size: 4rem;
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text); /* Outline text effect */
+    margin-right: 60px;
+    text-transform: uppercase;
 }
 
-/* YouTube iframe sizing hack */
-header.hero .video-bg iframe {
-  width: 100vw;
-  height: 56.25vw; /* 16:9 ratio */
-  min-height: 100vh;
-  min-width: 177.77vh;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
-header.hero .overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  /* Gradient allows video to be seen while keeping text readable */
-  background: linear-gradient(to top, rgba(18,18,18,1) 5%, rgba(18,18,18,0.5) 50%);
-  z-index: -1;
+/* --- CARDS: HARD EDGES (NO GLASS) --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 0; /* Brutalist grids often touch */
+    border-top: var(--border);
+    border-left: var(--border);
 }
 
-.hero-header .main-name {
-  font-family: var(--heading-font);
-  font-size: clamp(3rem, 10vw, 5rem);
-  color: #FFFFFF;
-  margin-bottom: 0.5rem;
+.brutalist-card {
+    background: var(--bg);
+    border-right: var(--border);
+    border-bottom: var(--border);
+    padding: 40px;
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.hero-header .titles-wrapper {
-  font-size: clamp(1.2rem, 4vw, 1.5rem);
-  color: var(--text-color);
+.brutalist-card:hover {
+    background: var(--text); /* Invert colors on hover */
+    color: var(--bg);
 }
 
-/* --- General Content & Sections --- */
-main {
-  padding: 1rem;
+.brutalist-card:hover h3, 
+.brutalist-card:hover p,
+.brutalist-card:hover .card-num {
+    color: var(--bg);
 }
 
-section {
-  padding: 4rem 2rem;
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
+.card-num {
+    font-family: 'Syne';
+    font-size: 4rem;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-/* Headings */
-h2.section-title {
-  font-family: var(--heading-font);
-  font-size: 2.5rem;
-  color: #FFFFFF;
-  position: relative;
-  display: inline-block;
-  margin-bottom: 1.5rem;
+/* --- IMAGES & VIDEO --- */
+.hero-video-container {
+    position: fixed; /* Fixed background */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    opacity: 0.4; /* Darker for better text contrast */
+    filter: grayscale(100%) contrast(1.2); /* Gritty look */
 }
 
-/* Animated Underline for Headings */
-h2.section-title::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 100%;
-  height: 3px;
-  background-color: var(--primary-accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: drawUnderline 1s ease-out forwards;
-  animation-delay: 0.5s;
-}
-
-@keyframes drawUnderline {
-  to { transform: scaleX(1); }
-}
-
-p, li {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #BDBDBD;
-  max-width: 800px;
-  margin: 0 auto 1rem auto;
-  text-align: center;
-}
-
-ul {
-  list-style-position: inside;
-}
-
-/* --- Card Grids (Portfolio & Skills) --- */
-.grid-container {
-  display: flex;
-  overflow-x: auto; /* Horizontal scroll for Netflix-style feel */
-  gap: 1.5rem;
-  padding: 2rem 1rem;
-  scrollbar-width: none; /* Firefox hide scrollbar */
-}
-.grid-container::-webkit-scrollbar { display: none; } /* Chrome, Safari hide scrollbar */
-
-.card {
-  background: var(--secondary-bg);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-  min-width: 300px; /* Adjusted for better fit */
-  flex: 0 0 auto;   /* Ensures cards don't shrink in the flex row */
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: left;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(229, 9, 20, 0.15); /* Subtle red glow on hover */
-  border-color: var(--border-color);
-}
-
-.card .card-content {
-  padding: 1.5rem;
-}
-
-.card .card-content h3 {
-  color: #FFFFFF;
-  font-family: var(--heading-font);
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
-.card .card-content p {
-    font-size: 0.95rem;
-    text-align: left;
-    margin-bottom: 0;
-}
-
-/* --- Footer --- */
+/* --- FOOTER: GIANT LINKS --- */
 footer {
-  text-align: center;
-  padding: 2.5rem;
-  background: #0A0A0A;
-  color: #888;
-  margin-top: 2rem;
+    padding: 100px 5%;
+    border-top: var(--border);
+    text-align: center;
 }
+
+.footer-link {
+    font-family: 'Syne';
+    font-size: 8vw; /* Responsive giant text */
+    font-weight: 800;
+    display: block;
+    line-height: 0.9;
+    color: #333;
+    transition: 0.3s;
+}
+
+.footer-link:hover {
+    color: var(--highlight);
+    transform: skewX(-10deg);
+}
+
+/* --- UTILITIES --- */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+.noise { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9000; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity:0.08; }
+.section-pad { padding: 150px 0; }
+
+/* Custom Cursor (Keep existing logic) */
+.cursor-dot, .cursor-outline { mix-blend-mode: difference; }
