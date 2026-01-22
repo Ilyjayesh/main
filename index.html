@@ -1,133 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jayesh Sharma | Home</title>
-  <link rel="icon" href="https://yt3.googleusercontent.com/J7wynSpzjFkN2YpAiFWTCw14qdDhHyrl6hWqSA7jGelqVAAmj8mLyQaAyI9racPE14zr0KQAd9I=s160-c-k-c0x00ffffff-no-rj">
-  
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root { --bg: #0a0a0a; --text: #fff; --accent: #7000ff; --glass: rgba(255,255,255,0.05); }
-    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
-
-    /* --- ATMOSPHERE --- */
-    .noise { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity:0.05; }
-    .cursor-dot { width:8px; height:8px; background:white; position:fixed; border-radius:50%; pointer-events:none; z-index:9999; transform: translate(-50%, -50%); }
-    .cursor-outline { width:40px; height:40px; border:1px solid rgba(255,255,255,0.5); position:fixed; border-radius:50%; pointer-events:none; z-index:9999; transform: translate(-50%, -50%); transition: .1s; }
-
-    /* --- NAV --- */
-    nav { position: fixed; top: 30px; right: 50px; z-index: 1000; mix-blend-mode: difference; }
-    nav ul { list-style: none; display: flex; gap: 30px; }
-    nav a { text-decoration: none; color: white; font-family: 'Syne'; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-
-    /* --- HERO --- */
-    .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
-    .video-bg iframe { width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-    .hero-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, rgba(10,10,10,0.2), #0a0a0a); z-index: 0; }
-    
-    .hero-content { position: relative; z-index: 2; text-align: center; }
-    h1 { font-family: 'Syne'; font-size: 6vw; font-weight: 800; line-height: 0.9; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 10px; }
-    .subtitle { font-size: 1.2rem; color: #ccc; letter-spacing: 1px; text-transform: uppercase; margin-top: 20px;}
-
-    /* --- CONTENT --- */
-    main { padding: 100px 10%; position: relative; z-index: 2; }
-    .section-title { font-family: 'Syne'; font-size: 3rem; margin-bottom: 40px; color: var(--accent); }
-    
-    .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 40px;
-      border-radius: 0px; /* Brutalist edge */
-      transition: transform 0.3s;
-    }
-    .glass-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-5px); }
-
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
-    
-    h3 { font-family: 'Syne'; font-size: 1.5rem; margin-bottom: 15px; }
-    p { line-height: 1.6; color: #aaa; }
-
-    footer { text-align: center; padding: 50px; color: #555; font-size: 0.8rem; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Jayesh Sharma | Visual Finance</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="cursor-dot" data-cursor-dot></div>
-  <div class="cursor-outline" data-cursor-outline></div>
+    <div class="noise"></div>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
 
-  <nav data-aos="fade-down">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="dreams.html">Dreams</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+    <nav>
+        <div style="font-family:'Syne'; font-weight:800;">JS 2025©</div>
+        <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="portfolio.html">Works</a></li>
+            <li><a href="dreams.html">Vision</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
-  <header class="hero">
-    <div class="video-bg">
-      <iframe src="https://www.youtube.com/embed/hhSe3E1PZvw?start=30&autoplay=1&mute=1&controls=0&loop=1&playlist=hhSe3E1PZvw" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+    <header style="height: 100vh; display: flex; align-items: flex-end; padding-bottom: 100px;">
+        <div class="hero-video-container">
+            <iframe src="https://www.youtube.com/embed/hhSe3E1PZvw?start=30&autoplay=1&mute=1&controls=0&loop=1&playlist=hhSe3E1PZvw" frameborder="0" style="width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); pointer-events:none;"></iframe>
+        </div>
+        
+        <div class="container" data-aos="fade-up">
+            <h1 style="mix-blend-mode: difference;">JAYESH<br>SHARMA</h1>
+            <p style="font-family: 'Syne'; font-size: 1.5rem; color: white; letter-spacing: 2px;">
+                FINANCE ANALYST <span style="color:var(--highlight)">×</span> VISUAL STORYTELLER
+            </p>
+        </div>
+    </header>
+
+    <div class="marquee-wrapper">
+        <div class="marquee-content">
+            <span class="marquee-item">Data Driven Stories • </span>
+            <span class="marquee-item">Finance x Visuals • </span>
+            <span class="marquee-item">ACCA Aspiring • </span>
+            <span class="marquee-item">Premiere Pro • </span>
+            <span class="marquee-item">Data Driven Stories • </span>
+        </div>
     </div>
-    <div class="hero-overlay"></div>
-    
-    <div class="hero-content" data-aos="zoom-in" data-aos-duration="1500">
-      <h1>Jayesh<br>Sharma</h1>
-      <p class="subtitle">Finance Analyst | Visual Storyteller</p>
-    </div>
-  </header>
 
-  <main>
-    <section id="about" data-aos="fade-up">
-      <h2 class="section-title">ABOUT.</h2>
-      <div class="glass-card">
-        <p style="font-size: 1.2rem; color: #ddd;">
-          I am an Aspiring ACCA and B.Com International Business student at GCEC Global. I exist at the intersection of <strong>Analytical Finance</strong> and <strong>Digital Creativity</strong>. While numbers are my language, video is my medium. I leverage Python, SQL, and Excel to find the story in the data, and Premiere Pro to tell it.
-        </p>
-      </div>
+    <main class="container section-pad">
+        <div data-aos="fade-up">
+            <h2>The Intersection</h2>
+            <p style="font-size: 2rem; line-height: 1.4; color: white; max-width: 100%;">
+                I exist between the logic of <strong>Analytical Finance</strong> and the chaos of <strong>Digital Creativity</strong>. While numbers are my language, video is my medium. I leverage Python and SQL to find the story, and Premiere Pro to tell it.
+            </p>
+        </div>
+    </main>
+
+    <section class="container section-pad">
+        <h2>Competencies</h2>
+        <div class="grid">
+            <div class="brutalist-card" data-aos="fade-up" data-aos-delay="0">
+                <span class="card-num">01.</span>
+                <h3>Finance Logic</h3>
+                <p>ACCA & B.Com background. Strong foundation in international business logic and strategic auditing.</p>
+            </div>
+            <div class="brutalist-card" data-aos="fade-up" data-aos-delay="100">
+                <span class="card-num">02.</span>
+                <h3>Data Mining</h3>
+                <p>Translating raw data into strategy using Python, SQL, and Advanced Excel.</p>
+            </div>
+            <div class="brutalist-card" data-aos="fade-up" data-aos-delay="200">
+                <span class="card-num">03.</span>
+                <h3>Visual Artistry</h3>
+                <p>Video production and conceptual editing. I don't just present reports; I create narratives.</p>
+            </div>
+        </div>
     </section>
 
-    <section id="skills" style="margin-top: 100px;">
-      <h2 class="section-title" data-aos="fade-right">Skills</h2>
-      <div class="grid">
-        <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-            <h3>01. Number Cruncher</h3>
-            <p>ACCA & B.Com background. Strong foundation in international business logic, financial reporting, and strategic auditing.</p>
+    <footer>
+        <p style="margin-bottom: 20px;">READY TO START?</p>
+        <a href="contact.html" class="footer-link">LET'S TALK</a>
+        <div style="margin-top: 100px; font-size: 0.8rem; opacity: 0.5;">
+            © 2025 JAYESH SHARMA | JAIPUR, RJ
         </div>
-        <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
-            <h3>02. Data Analysis</h3>
-            <p>Translating raw data into strategy using Python, SQL, and Advanced Excel. I make data speak human.</p>
-        </div>
-        <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
-            <h3>03. Visual Artistry</h3>
-            <p>Video production, editing, and visual storytelling. I don't just present reports; I create compelling narratives.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-  
-  <footer>© 2025 Jayesh Sharma | Jaipur, Rajasthan</footer>
+    </footer>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, once: true });
-    
-    // Cursor Logic
-    const cursorDot = document.querySelector('[data-cursor-dot]');
-    const cursorOutline = document.querySelector('[data-cursor-outline]');
-    window.addEventListener("mousemove", (e) => {
-      const posX = e.clientX; const posY = e.clientY;
-      cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
-      cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
-    });
-  </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 600, easing: 'cubic-bezier(0.25, 1, 0.5, 1)', once: true });
+        // Cursor Logic (Keep existing)
+        const cursorDot = document.querySelector('[data-cursor-dot]');
+        const cursorOutline = document.querySelector('[data-cursor-outline]');
+        window.addEventListener("mousemove", (e) => {
+            const posX = e.clientX; const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 400, fill: "forwards" });
+        });
+    </script>
 </body>
 </html>
