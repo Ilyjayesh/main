@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAYESH SHARMA | FINAL PORTFOLIO</title>
     
+    <link rel="icon" href="https://yt3.googleusercontent.com/CY2fQXnL7DIhKoLYvPUsFA-FxgUSLD1QYqkrDGk3WLFk32yzIE7C6rloy1ljXmkcbMDcgJFg7Q=s160-c-k-c0x00ffffff-no-rj">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +20,6 @@
             --accent: #ffffff;
             --highlight: #7000ff;
             --border: 1px solid rgba(255, 255, 255, 0.2);
-            --border-hard: 1px solid #ffffff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
@@ -52,7 +53,7 @@
 
         /* --- 2. LAYOUT GRID SYSTEM --- */
         .page-section {
-            min-height: 100vh; /* Forces "Full Page" feel */
+            min-height: 100vh;
             width: 100%;
             border-bottom: var(--border);
             position: relative;
@@ -118,7 +119,7 @@
             text-orientation: mixed;
             transform: rotate(180deg);
             font-family: 'Syne';
-            font-size: 10vh; /* Responsive giant text */
+            font-size: 10vh; 
             font-weight: 800;
             white-space: nowrap;
             color: var(--accent);
@@ -135,7 +136,7 @@
         /* --- PAGE 2: ALL VIDEOS (LIST STYLE) --- */
         .archive-row {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 60px 0; border-bottom: var(--border); /* Increased padding for size */
+            padding: 60px 0; border-bottom: var(--border);
             transition: 0.3s;
         }
         .archive-row:hover { background: var(--accent); padding-left: 40px; padding-right: 40px; }
@@ -145,7 +146,7 @@
         .skills-container {
             display: grid; grid-template-columns: repeat(4, 1fr);
             border-top: var(--border); border-left: var(--border);
-            height: 60vh; /* Make grid take up substantial space */
+            height: 60vh;
         }
         .skill-box {
             padding: 40px 20px;
@@ -185,6 +186,15 @@
             line-height: 0.9; color: #333; transition: 0.3s;
         }
         .giant-link:hover { color: var(--highlight); letter-spacing: -5px; }
+
+        /* Responsive Fixes */
+        @media(max-width: 768px) {
+            .hello-column { display: none; }
+            .hero-content { width: 100%; padding: 20px; }
+            .skills-container { grid-template-columns: repeat(2, 1fr); height: auto; }
+            .archive-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .giant-link { font-size: 15vw; }
+        }
 
     </style>
 </head>
@@ -245,3 +255,126 @@
                 </a>
                 
                 <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="archive-row" style="width:100%">
+                    <span class="mega-text" style="font-size:3rem;">CONCEPT VISUALS</span>
+                    <span style="font-family:'Inter'; text-transform:uppercase;">Art Direction</span>
+                </a>
+
+                <a href="#" class="archive-row" style="width:100%">
+                    <span class="mega-text" style="font-size:3rem;">HOSTEL VLOGS</span>
+                    <span style="font-family:'Inter'; text-transform:uppercase;">Series</span>
+                </a>
+
+                <a href="https://ilyjayesh.github.io/youtube/" target="_blank" class="archive-row" style="width:100%">
+                    <span class="mega-text" style="font-size:3rem;">FULL ARCHIVE</span>
+                    <span style="font-family:'Inter'; text-transform:uppercase;">External Link</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="skills">
+        <div class="container">
+            <h2 style="margin-bottom: 40px; font-size: 4rem;">SKILLS</h2>
+            <div class="skills-container">
+                <div class="skill-box"><span>FINANCIAL MODELING</span></div>
+                <div class="skill-box"><span>ACCA / IFRS</span></div>
+                <div class="skill-box"><span>COST ACCOUNTING</span></div>
+                <div class="skill-box"><span>AUDITING</span></div>
+                <div class="skill-box"><span>PYTHON</span></div>
+                <div class="skill-box"><span>SQL / DATABASE</span></div>
+                <div class="skill-box"><span>ADVANCED EXCEL</span></div>
+                <div class="skill-box"><span>DATA MINING</span></div>
+                <div class="skill-box"><span>PREMIERE PRO</span></div>
+                <div class="skill-box"><span>AFTER EFFECTS</span></div>
+                <div class="skill-box"><span>PHOTOSHOP</span></div>
+                <div class="skill-box"><span>STORYTELLING</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="vision">
+        <div class="container">
+            <div style="display: flex; gap: 50px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;" data-aos="fade-up">
+                    <h3 style="font-size: 3rem; margin-bottom: 30px;">THE ROADMAP</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 30px; border-left: 2px solid var(--highlight); padding-left: 30px;">
+                            <strong style="color:white; font-size:1.5rem;">COLLABORATION</strong><br>
+                            Work with top-tier musicians and brands to visualize sound.
+                        </li>
+                        <li style="margin-bottom: 30px; border-left: 2px solid var(--highlight); padding-left: 30px;">
+                            <strong style="color:white; font-size:1.5rem;">MENTORSHIP</strong><br>
+                            Build a creative studio that mentors young editors.
+                        </li>
+                        <li style="border-left: 2px solid var(--highlight); padding-left: 30px;">
+                            <strong style="color:white; font-size:1.5rem;">INNOVATION</strong><br>
+                            Innovate with AR/VR storytelling techniques in finance.
+                        </li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 300px;" data-aos="fade-up" data-aos-delay="100">
+                     <h3 style="font-size: 3rem; margin-bottom: 30px;">MANIFESTO</h3>
+                     <p style="font-size: 1.4rem; line-height: 1.6; color: #bbb;">
+                        Ever since I picked up my first camera, I've dreamed of creating immersive, cinematic experiences. 
+                        <br><br>
+                        My passion isn't just recording reality—it's about blending storytelling with visual artistry to make the viewer <em>feel</em> the moment.
+                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section contact-footer" id="contact" style="border-bottom: none;">
+        <p style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Ready to create magic?</p>
+        
+        <a href="mailto:jayeshsharmattk@gmail.com" class="giant-link">EMAIL ME</a>
+        
+        <div style="margin-top: 50px; display: flex; gap: 40px;">
+            <a href="https://instagram.com/ihyjayesh" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">INSTAGRAM</a>
+            <a href="#" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">LINKEDIN</a>
+            <a href="#" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">TWITTER</a>
+        </div>
+
+        <div style="margin-top: 150px; opacity: 0.4; font-size: 0.8rem;">
+            © 2025 JAYESH SHARMA | JAIPUR, RAJASTHAN
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Mouse Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorCrosshair = document.getElementById('cursor-crosshair');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Crosshair follows with slight delay
+            cursorCrosshair.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Hover Effects
+        const interactive = document.querySelectorAll('a, .skill-box, .archive-row');
+        interactive.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorCrosshair.style.transform = 'translate(-50%, -50%) scale(1.5) rotate(45deg)';
+                cursorCrosshair.style.borderColor = 'var(--highlight)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorCrosshair.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
+                cursorCrosshair.style.borderColor = 'transparent';
+            });
+        });
+    </script>
+</body>
+</html>
