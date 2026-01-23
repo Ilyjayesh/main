@@ -22,7 +22,7 @@
             --border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         html { scroll-behavior: smooth; }
 
@@ -49,7 +49,7 @@
             max-width: 600px;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.2s; display: inline-block; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; display: inline-block; cursor: pointer; }
 
         /* --- 2. LAYOUT GRID SYSTEM --- */
         .page-section {
@@ -69,25 +69,7 @@
             width: 100%;
         }
 
-        /* --- 3. THE CURSOR (PRECISION CROSSHAIR) --- */
-        .cursor-dot {
-            width: 8px; height: 8px; background: var(--highlight);
-            position: fixed; z-index: 9999; transform: translate(-50%, -50%); pointer-events: none;
-        }
-        .cursor-crosshair {
-            position: fixed; top: 0; left: 0; z-index: 9998; pointer-events: none;
-            width: 40px; height: 40px;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
-        .cursor-crosshair::before, .cursor-crosshair::after {
-            content: ''; position: absolute; background: white;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-        }
-        .cursor-crosshair::before { width: 100%; height: 2px; } /* Horizontal */
-        .cursor-crosshair::after { width: 2px; height: 100%; } /* Vertical */
-
-        /* --- 4. NAVIGATION --- */
+        /* --- 3. NAVIGATION --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             padding: 25px 50px;
@@ -138,6 +120,7 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 60px 0; border-bottom: var(--border);
             transition: 0.3s;
+            cursor: pointer;
         }
         .archive-row:hover { background: var(--accent); padding-left: 40px; padding-right: 40px; }
         .archive-row:hover * { color: #000 !important; }
@@ -154,6 +137,7 @@
             text-align: center;
             transition: 0.2s;
             display: flex; align-items: center; justify-content: center;
+            cursor: default;
         }
         .skill-box:hover { background: var(--accent); }
         .skill-box:hover span { color: #000; }
@@ -200,11 +184,8 @@
 </head>
 <body>
 
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-crosshair" id="cursor-crosshair"></div>
-
     <nav>
-        <div class="nav-logo">JS 2025©</div>
+        <div class="nav-logo"></div>
         <div class="nav-links">
             <a href="#videos">Videos</a>
             <a href="#skills">Skills</a>
@@ -329,10 +310,10 @@
         
         <a href="mailto:jayeshsharmattk@gmail.com" class="giant-link">EMAIL ME</a>
         
-        <div style="margin-top: 50px; display: flex; gap: 40px;">
-            <a href="https://instagram.com/ihyjayesh" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">INSTAGRAM</a>
-            <a href="#" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">LINKEDIN</a>
-            <a href="#" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">TWITTER</a>
+        <div style="margin-top: 50px; display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;">
+            <a href="https://instagram.com/ihyjayesh" target="_blank" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">INSTAGRAM</a>
+            <a href="https://www.linkedin.com/in/jayeshsharma7" target="_blank" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">LINKEDIN</a>
+            <a href="https://youtube.com/@beastbalak" target="_blank" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">YOUTUBE</a>
         </div>
 
         <div style="margin-top: 150px; opacity: 0.4; font-size: 0.8rem;">
@@ -343,38 +324,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-
-        // Mouse Cursor Logic
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorCrosshair = document.getElementById('cursor-crosshair');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Crosshair follows with slight delay
-            cursorCrosshair.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        // Hover Effects
-        const interactive = document.querySelectorAll('a, .skill-box, .archive-row');
-        interactive.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorCrosshair.style.transform = 'translate(-50%, -50%) scale(1.5) rotate(45deg)';
-                cursorCrosshair.style.borderColor = 'var(--highlight)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorCrosshair.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
-                cursorCrosshair.style.borderColor = 'transparent';
-            });
-        });
     </script>
 </body>
 </html>
