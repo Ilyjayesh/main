@@ -1,633 +1,1109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYESH SHARMA | VISUAL ARTIST</title>
-    <meta name="description" content="Visual Artist & Editor based in India.">
-    
+    <title>JAYESH SHARMA | VISUAL ARCHITECT</title>
+    <meta name="description" content="The digital portfolio of Jayesh Sharma.">
+    <meta name="author" content="Jayesh Sharma">
     <link rel="icon" href="https://yt3.googleusercontent.com/CY2fQXnL7DIhKoLYvPUsFA-FxgUSLD1QYqkrDGk3WLFk32yzIE7C6rloy1ljXmkcbMDcgJFg7Q=s160-c-k-c0x00ffffff-no-rj">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    
+
     <style>
-        /* ----------------------------------------------------------------
-           1. CORE VARIABLES & RESET
-        ---------------------------------------------------------------- */
+        /* ====================================================================
+        1. CSS RESET & VARIABLES
+        The foundation of the design system.
+        ==================================================================== 
+        */
         :root {
-            --bg: #030303;
-            --text-main: #f0f0f0;
-            --text-muted: #888888;
-            --accent: #d4af37; /* Gold */
-            --accent-dim: rgba(212, 175, 55, 0.3);
-            --border: rgba(255, 255, 255, 0.1);
-            
-            --font-display: 'Italiana', serif;
-            --font-body: 'Manrope', sans-serif;
-            
-            --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
-            --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
-            
-            --cursor-size: 10px;
-            --cursor-hover: 60px;
+            /* Palette */
+            --c-bg: #030303;
+            --c-text-main: #e8e8e8;
+            --c-text-muted: #666666;
+            --c-accent: #d4af37;
+            --c-accent-glow: rgba(212, 175, 55, 0.4);
+            --c-border: rgba(255, 255, 255, 0.08);
+            --c-surface: rgba(20, 20, 20, 0.5);
+
+            /* Typography */
+            --f-display: 'Italiana', serif;
+            --f-body: 'Manrope', sans-serif;
+
+            /* Spacing */
+            --s-gutter: 5vw;
+            --s-section: 15vh;
+
+            /* Animation Curves */
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+            /* Dimensions */
+            --cursor-sz: 8px;
+            --cursor-active-sz: 60px;
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+        *, *::after, *::before {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; /* Hiding default cursor for custom one */
+        }
 
-        html, body {
-            width: 100%;
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-family: var(--font-body);
+        html {
+            font-size: 16px;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: var(--c-bg);
+            scrollbar-width: none; /* Hide scrollbar Firefox */
         }
+        
+        body::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
 
-        /* LENIS SMOOTH SCROLL REQUIRED STYLES */
-        html.lenis { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto; }
-        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-        .lenis.lenis-stopped { overflow: hidden; }
-        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        body {
+            font-family: var(--f-body);
+            color: var(--c-text-main);
+            overflow-x: hidden;
+            width: 100vw;
+            position: relative;
+        }
 
         a { text-decoration: none; color: inherit; display: inline-block; }
-        ul { list-style: none; }
-        img { display: block; width: 100%; height: auto; }
+        ul, li { list-style: none; }
+        img { display: block; width: 100%; height: auto; object-fit: cover; }
+        button { background: none; border: none; color: inherit; font-family: inherit; cursor: none; }
 
-        /* ----------------------------------------------------------------
-           2. UTILITIES & TYPOGRAPHY
-        ---------------------------------------------------------------- */
-        .wrapper { width: 100%; max-width: 1800px; margin: 0 auto; padding: 0 5vw; }
-        
-        .display-text {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 8vw, 10rem);
-            line-height: 0.9;
-            text-transform: uppercase;
-            font-weight: 400;
+        /* ====================================================================
+        2. UTILITY CLASSES
+        Helper classes for layout and typography.
+        ==================================================================== 
+        */
+        .wrapper {
+            padding: 0 var(--s-gutter);
+            max-width: 1920px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
-        .subtitle {
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            letter-spacing: 0.2em;
+        .flex-center { display: flex; justify-content: center; align-items: center; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .flex-col { display: flex; flex-direction: column; }
+
+        .text-display {
+            font-family: var(--f-display);
+            font-size: clamp(3rem, 10vw, 12rem);
+            line-height: 0.85;
             text-transform: uppercase;
-            color: var(--text-muted);
+            letter-spacing: -0.03em;
+        }
+
+        .text-subtitle {
+            font-family: var(--f-body);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--c-text-muted);
+        }
+
+        .text-body {
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            font-weight: 200;
+            line-height: 1.6;
+            color: #ccc;
         }
 
         .highlight {
-            font-family: var(--font-display);
+            color: var(--c-accent);
+            font-family: var(--f-display);
             font-style: italic;
-            color: var(--accent);
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 4px;
         }
 
-        .split-line { overflow: hidden; display: block; }
-        .split-line span { 
-            display: block; 
-            transform: translateY(100%); 
-            transition: transform 1.2s var(--ease-out);
+        /* ====================================================================
+        3. CUSTOM CURSOR
+        The magnetic pointer implementation styles.
+        ==================================================================== 
+        */
+        #cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--cursor-sz); height: var(--cursor-sz);
+            background: #fff;
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.4s var(--ease-out-expo), 
+                        height 0.4s var(--ease-out-expo), 
+                        background 0.4s;
         }
-        .in-view .split-line span { transform: translateY(0); }
+        
+        #cursor.active {
+            width: var(--cursor-active-sz);
+            height: var(--cursor-active-sz);
+            background: #fff;
+            mix-blend-mode: exclusion;
+        }
 
-        /* ----------------------------------------------------------------
-           3. FIXED BACKGROUND & CANVAS
-        ---------------------------------------------------------------- */
-        .bg-layer {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        #cursor.text-mode {
+            width: 2px;
+            height: 40px;
+            border-radius: 0;
+            background: var(--c-accent);
+        }
+
+        /* ====================================================================
+        4. BACKGROUND LAYERS
+        Fixed image + Canvas particles.
+        ==================================================================== 
+        */
+        .bg-fixed {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
             z-index: -5;
             background-image: url('https://i.pinimg.com/736x/0b/4a/88/0b4a8854aaebc0e844c9f530f70f4e74.jpg');
             background-size: cover;
             background-position: center;
-            opacity: 0.4;
-            transition: transform 0.2s ease-out; /* Slight parallax */
+            opacity: 0.3;
+            transform: scale(1.1); /* Allowing room for parallax */
         }
 
         .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: linear-gradient(to bottom, rgba(3,3,3,0.7), rgba(3,3,3,0.95));
             z-index: -4;
         }
 
-        /* PROCEDURAL NOISE CANVAS */
-        #noiseCanvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none; opacity: 0.08;
-            mix-blend-mode: overlay;
+        #particleCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -3;
+            pointer-events: none;
+            opacity: 0.3;
         }
 
-        /* ----------------------------------------------------------------
-           4. CUSTOM CURSOR
-        ---------------------------------------------------------------- */
-        .cursor {
-            position: fixed; top: 0; left: 0;
-            width: var(--cursor-size); height: var(--cursor-size);
-            background: #fff; border-radius: 50%;
-            pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
-        }
-        .cursor.active {
-            width: var(--cursor-hover); height: var(--cursor-hover);
-            mix-blend-mode: exclusion;
-        }
-        .cursor.magnet {
-            transition: all 0.2s var(--ease-out);
+        /* ====================================================================
+        5. PRELOADER
+        Cinematic entrance sequence.
+        ==================================================================== 
+        */
+        .loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--c-bg);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
-        /* ----------------------------------------------------------------
-           5. UI COMPONENTS (NAV & FOOTER)
-        ---------------------------------------------------------------- */
-        nav {
-            position: fixed; top: 0; width: 100%;
-            padding: 40px 50px;
-            display: flex; justify-content: space-between; align-items: center;
+        .loader-text {
+            font-family: var(--f-display);
+            font-size: 5rem;
+            color: var(--c-accent);
+            overflow: hidden;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            position: absolute;
+            left: 0; top: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--c-accent);
+            transition: width 0.1s linear;
+        }
+
+        /* ====================================================================
+        6. NAVIGATION
+        Floating header with blend modes.
+        ==================================================================== 
+        */
+        .nav-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 40px var(--s-gutter);
             z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             mix-blend-mode: difference;
         }
-        
-        .logo { font-family: var(--font-display); font-size: 1.5rem; color: #fff; }
-        
-        .nav-list { display: flex; gap: 40px; }
-        .nav-link {
+
+        .brand {
+            font-family: var(--f-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+
+        .menu-list {
+            display: flex;
+            gap: 40px;
+        }
+
+        .menu-link {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
             position: relative;
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px;
-            padding: 10px; color: #fff;
+            padding: 10px 0;
+            overflow: hidden;
         }
-        .nav-link::after {
-            content: ''; position: absolute; bottom: 0; left: 50%;
-            width: 0; height: 1px; background: #fff;
-            transition: all 0.4s var(--ease-out);
-            transform: translateX(-50%);
-        }
-        .nav-link:hover::after { width: 100%; }
 
-        footer {
-            min-height: 80vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            position: relative;
+        .menu-link span {
+            display: block;
+            transition: transform 0.4s var(--ease-out-expo);
         }
-        .footer-cta {
-            font-family: var(--font-display);
-            font-size: 12vw; color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.5);
-            transition: 0.4s;
-            line-height: 1;
-        }
-        .footer-cta:hover { color: var(--accent); -webkit-text-stroke: 0px; }
 
-        .socials { display: flex; gap: 40px; margin-top: 60px; }
-        .social-link {
-            font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
-            border-bottom: 1px solid transparent;
+        .menu-link::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 100%; left: 0;
+            color: var(--c-accent);
+            transition: transform 0.4s var(--ease-out-expo);
         }
-        .social-link:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* ----------------------------------------------------------------
-           6. HERO SECTION
-        ---------------------------------------------------------------- */
-        .hero {
+        .menu-link:hover span { transform: translateY(-100%); }
+        .menu-link:hover::after { transform: translateY(-100%); }
+
+        /* ====================================================================
+        7. HERO SECTION
+        The grand entrance.
+        ==================================================================== 
+        */
+        .section-hero {
             height: 100vh;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            perspective: 1000px;
+            perspective: 1000px; /* For 3D text effects */
         }
-        .hero h1 { margin-bottom: 20px; mix-blend-mode: overlay; opacity: 0.9; }
-        
-        /* ----------------------------------------------------------------
-           7. MANIFESTO (ABOUT)
-        ---------------------------------------------------------------- */
-        .manifesto-section {
-            padding: 15vh 0;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 100px; align-items: center;
+
+        .hero-title .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100px) rotateX(-45deg);
         }
-        
+
+        .hero-sub {
+            margin-top: 4vh;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* ====================================================================
+        8. MANIFESTO (ABOUT)
+        Dual column layout with floating image.
+        ==================================================================== 
+        */
+        .section-manifesto {
+            padding: var(--s-section) 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5vw;
+            align-items: center;
+        }
+
         .manifesto-visual {
             position: relative;
-            transform-style: preserve-3d;
-        }
-        .manifesto-img {
-            width: 80%; margin: 0 auto;
-            /* Transparent background handling */
-            filter: drop-shadow(0 0 30px rgba(255,255,255,0.05));
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
         }
 
-        .manifesto-text p {
-            font-size: clamp(2rem, 3vw, 4rem);
-            line-height: 1.2;
-            font-weight: 200;
-        }
-
-        /* ----------------------------------------------------------------
-           8. SKILLS (MARQUEE / GRID)
-        ---------------------------------------------------------------- */
-        .skills-section {
-            padding: 100px 0;
-            background: rgba(10, 10, 10, 0.4);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-        }
-        .skills-grid {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
-            margin-top: 50px;
-            max-width: 1000px; margin-left: auto; margin-right: auto;
-        }
-        .skill-chip {
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px 30px;
-            border-radius: 100px;
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            cursor: none;
-        }
-        .skill-chip:hover {
-            background: #fff; color: #000; border-color: #fff;
-            transform: scale(1.05);
-        }
-
-        /* ----------------------------------------------------------------
-           9. WORKS (INTERACTIVE LIST)
-        ---------------------------------------------------------------- */
-        .works-section { padding: 15vh 0; position: relative; }
-        
-        .work-list { display: flex; flex-direction: column; }
-        
-        .work-item {
+        .manifesto-img-wrapper {
+            width: 80%;
+            margin: 0 auto;
             position: relative;
-            padding: 50px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: baseline;
-            transition: padding 0.4s var(--ease-out);
+            overflow: hidden;
+            /* Applying transparency effects */
+        }
+
+        .manifesto-img {
+            width: 100%;
+            /* The specific image requested */
+            transform: scale(1.1); /* Zoom for parallax reveal */
+            transition: transform 1s var(--ease-out-expo);
+        }
+
+        .manifesto-content p {
+            position: relative;
             z-index: 2;
         }
-        .work-item:first-child { border-top: 1px solid var(--border); }
-        
-        .work-item:hover { padding-left: 30px; padding-right: 30px; background: rgba(255,255,255,0.02); }
-        .work-item:hover .work-title { color: var(--accent); font-style: italic; }
-        
-        .work-title { font-family: var(--font-display); font-size: 4rem; transition: 0.4s; }
-        .work-cat { font-family: var(--font-body); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
 
-        /* FLOAT PREVIEW IMAGE */
-        .work-preview {
-            position: fixed; top: 0; left: 0;
-            width: 400px; height: 500px;
-            background: #000;
+        /* ====================================================================
+        9. ARSENAL (SKILLS)
+        A complex grid system with hover interactions.
+        ==================================================================== 
+        */
+        .section-arsenal {
+            padding: var(--s-section) 0;
+            border-top: 1px solid var(--c-border);
+        }
+
+        .arsenal-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1px;
+            background: var(--c-border); /* Creates the border lines */
+            border: 1px solid var(--c-border);
+        }
+
+        .arsenal-item {
+            background: rgba(5,5,5,0.8);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            transition: background 0.3s;
+        }
+
+        .arsenal-item:hover {
+            background: #0a0a0a;
+        }
+
+        .arsenal-item h3 {
+            font-family: var(--f-display);
+            font-size: 1.5rem;
+            color: var(--c-text-main);
+            margin-bottom: 10px;
+        }
+
+        .arsenal-item p {
+            font-size: 0.9rem;
+            color: var(--c-text-muted);
+        }
+
+        .arsenal-icon {
+            align-self: flex-end;
+            font-size: 1.5rem;
+            opacity: 0.2;
+            transition: 0.3s;
+        }
+
+        .arsenal-item:hover .arsenal-icon {
+            opacity: 1;
+            color: var(--c-accent);
+            transform: scale(1.1);
+        }
+
+        /* ====================================================================
+        10. WORKS (PROJECTS)
+        Interactive list with GL-style floating preview.
+        ==================================================================== 
+        */
+        .section-works {
+            padding: var(--s-section) 0;
+        }
+
+        .works-list {
+            margin-top: 100px;
+            position: relative;
+        }
+
+        .work-row {
+            border-top: 1px solid var(--c-border);
+            padding: 60px 0;
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            align-items: baseline;
+            transition: padding 0.4s var(--ease-out-expo), border-color 0.4s;
+            cursor: none; /* Custom cursor takes over */
+        }
+        
+        .work-row:last-child { border-bottom: 1px solid var(--c-border); }
+
+        .work-row:hover {
+            padding: 60px 20px;
+            border-color: #fff;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .work-id {
+            font-family: var(--f-body);
+            font-size: 0.9rem;
+            color: var(--c-text-muted);
+        }
+
+        .work-title {
+            font-family: var(--f-display);
+            font-size: 4rem;
+            transition: transform 0.4s var(--ease-out-expo), color 0.3s;
+        }
+        
+        .work-row:hover .work-title {
+            transform: translateX(20px);
+            font-style: italic;
+            color: var(--c-accent);
+        }
+
+        .work-role {
+            text-align: right;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--c-text-muted);
+        }
+
+        /* The floating image container */
+        .work-preview-proxy {
+            position: fixed;
+            top: 0; left: 0;
+            width: 400px;
+            height: 500px;
             pointer-events: none;
-            opacity: 0; z-index: 1;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.3s, transform 0.6s var(--ease-out);
+            z-index: 50;
+            opacity: 0;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .work-preview img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* ----------------------------------------------------------------
-           10. PRELOADER
-        ---------------------------------------------------------------- */
-        .preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 99999;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .preloader-count {
-            font-family: var(--font-display);
-            font-size: 10vw; color: #fff;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.3s, transform 0.5s var(--ease-out-expo);
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .display-text { font-size: 15vw; }
-            .manifesto-section { grid-template-columns: 1fr; gap: 50px; text-align: center; }
-            .work-title { font-size: 2rem; }
-            .cursor, .work-preview { display: none; } /* Disable heavy JS effects on mobile */
-            * { cursor: auto; }
-            nav { padding: 20px; }
-            .nav-list { display: none; } /* Hide nav links on mobile for cleaner look */
+        .work-preview-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transform: scale(1.2);
+            transition: transform 0.5s var(--ease-out-expo);
         }
+
+        .work-row:hover ~ .work-preview-proxy,
+        .work-row:focus-within ~ .work-preview-proxy {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        /* ====================================================================
+        11. FOOTER
+        Massive CTA and social links.
+        ==================================================================== 
+        */
+        footer {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: #000;
+        }
+
+        .footer-cta {
+            font-family: var(--f-display);
+            font-size: 15vw;
+            line-height: 0.8;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+            transition: 0.5s;
+            text-align: center;
+        }
+
+        .footer-cta:hover {
+            color: var(--c-accent);
+            -webkit-text-stroke: 0px;
+            font-style: italic;
+        }
+
+        .footer-meta {
+            margin-top: 100px;
+            display: flex;
+            gap: 10vw;
+            text-align: center;
+        }
+
+        .social-group a {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: var(--c-text-muted);
+            transition: 0.3s;
+        }
+
+        .social-group a:hover { color: #fff; transform: skewX(-10deg); }
+
+        /* ====================================================================
+        12. SETTINGS PANEL (EXTRA FEATURE)
+        Allows user to customize the site.
+        ==================================================================== 
+        */
+        .settings-toggle {
+            position: fixed;
+            bottom: 40px; right: 40px;
+            width: 50px; height: 50px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            z-index: 100;
+            display: flex; justify-content: center; align-items: center;
+            transition: 0.3s;
+        }
+        .settings-toggle:hover { background: #fff; color: #000; transform: rotate(90deg); }
+
+        /* ====================================================================
+        13. RESPONSIVE QUERIES
+        Adapting the masterpiece for smaller screens.
+        ==================================================================== 
+        */
+        @media (max-width: 1024px) {
+            .text-display { font-size: 12vw; }
+            .section-manifesto { grid-template-columns: 1fr; gap: 50px; }
+            .manifesto-img { transform: scale(1); }
+            .work-row { grid-template-columns: 1fr; gap: 10px; text-align: left; }
+            .work-title { font-size: 2.5rem; }
+            .work-role { text-align: left; margin-top: 5px; }
+            .work-id { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            #cursor, .work-preview-proxy { display: none; }
+            * { cursor: auto; }
+            .nav-bar { padding: 20px; }
+            .menu-list { display: none; } /* Hamburger could go here */
+            .footer-cta { font-size: 18vw; }
+            .footer-meta { flex-direction: column; gap: 40px; }
+        }
+
+        /* ====================================================================
+        14. SCROLL CONTAINER
+        Virtual scroll logic needs this.
+        ==================================================================== 
+        */
+        .scroll-content {
+            width: 100%;
+            will-change: transform;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="preloader">
-        <div class="preloader-count">0</div>
+    <button class="settings-toggle magnetic" aria-label="Settings">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+    </button>
+
+    <div class="loader">
+        <div class="loader-text">0%</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
     </div>
 
-    <div class="bg-layer"></div>
+    <div class="bg-fixed"></div>
     <div class="bg-overlay"></div>
-    <canvas id="noiseCanvas"></canvas>
-    
-    <div class="cursor"></div>
+    <canvas id="particleCanvas"></canvas>
 
-    <nav>
-        <div class="logo magnetic">JAYESH.</div>
-        <ul class="nav-list">
-            <li><a href="#about" class="nav-link magnetic">About</a></li>
-            <li><a href="#skills" class="nav-link magnetic">Skills</a></li>
-            <li><a href="#work" class="nav-link magnetic">Work</a></li>
+    <div id="cursor"></div>
+
+    <nav class="nav-bar">
+        <div class="brand magnetic">JAYESH.</div>
+        <ul class="menu-list">
+            <li><a href="#about" class="menu-link magnetic" data-text="About"><span>About</span></a></li>
+            <li><a href="#skills" class="menu-link magnetic" data-text="Arsenal"><span>Arsenal</span></a></li>
+            <li><a href="#work" class="menu-link magnetic" data-text="Work"><span>Work</span></a></li>
+            <li><a href="mailto:jayeshsharmattk@gmail.com" class="menu-link magnetic" data-text="Contact"><span>Contact</span></a></li>
         </ul>
     </nav>
 
-    <main id="main">
-        
-        <section class="hero">
-            <h1 class="display-text scramble-text">JAYESH<br>SHARMA</h1>
-            <p class="subtitle fade-in-up">Visual Artist <span style="color:var(--accent); margin:0 10px;">/</span> Editor</p>
+    <main class="scroll-content">
+
+        <section class="section-hero" data-scroll-speed="0.5">
+            <h1 class="text-display hero-title">
+                JAYESH<br>SHARMA
+            </h1>
+            <p class="text-subtitle hero-sub">
+                Finance Analyst <span style="color:var(--c-accent); margin:0 10px;">/</span> Visual Artist
+            </p>
         </section>
 
         <div class="wrapper">
             
-            <section id="about" class="manifesto-section">
-                <div class="manifesto-visual">
-                    <img src="https://i.pinimg.com/736x/0b/62/e6/0b62e639f4ada503eac1730dd06c94ae.jpg" alt="Jayesh Visuals" class="manifesto-img">
+            <section id="about" class="section-manifesto">
+                <div class="manifesto-visual" data-scroll-speed="0.1">
+                    <div class="manifesto-img-wrapper">
+                        <img src="https://i.pinimg.com/736x/0b/62/e6/0b62e639f4ada503eac1730dd06c94ae.jpg" alt="Jayesh Visual" class="manifesto-img">
+                    </div>
                 </div>
-                <div class="manifesto-text">
-                    <p class="reveal-type">
+                <div class="manifesto-content" data-scroll-speed="0.2">
+                    <p class="text-display" style="font-size: 3rem; text-transform: none;">
                         I make videos that <span class="highlight">connect</span> and upload them every 10th on the month on youtube.
                     </p>
                 </div>
             </section>
 
-            <section id="skills" class="skills-section">
-                <p class="subtitle" style="text-align: center; margin-bottom: 30px;">THE ARSENAL</p>
-                <div class="skills-grid">
-                    <div class="skill-chip magnetic">Premiere Pro</div>
-                    <div class="skill-chip magnetic">After Effects</div>
-                    <div class="skill-chip magnetic">DaVinci Resolve</div>
-                    <div class="skill-chip magnetic">Sound Design</div>
-                    <div class="skill-chip magnetic">Python</div>
-                    <div class="skill-chip magnetic">Storytelling</div>
-                    <div class="skill-chip magnetic">Cinematography</div>
-                    <div class="skill-chip magnetic">Color Grading</div>
+            <section id="skills" class="section-arsenal">
+                <div class="arsenal-header">
+                    <p class="text-subtitle">The Technical Arsenal</p>
+                </div>
+                
+                <div class="arsenal-grid">
+                    <div class="arsenal-item">
+                        <div class="arsenal-icon">◆</div>
+                        <div>
+                            <h3>Premiere Pro</h3>
+                            <p>Advanced NLE Workflows & Proxy Editing</p>
+                        </div>
+                    </div>
+                    <div class="arsenal-item">
+                        <div class="arsenal-icon">●</div>
+                        <div>
+                            <h3>After Effects</h3>
+                            <p>Motion Graphics & Compositing</p>
+                        </div>
+                    </div>
+                    <div class="arsenal-item">
+                        <div class="arsenal-icon">▲</div>
+                        <div>
+                            <h3>DaVinci Resolve</h3>
+                            <p>Color Grading & Delivery</p>
+                        </div>
+                    </div>
+                    <div class="arsenal-item">
+                        <div class="arsenal-icon">■</div>
+                        <div>
+                            <h3>Python</h3>
+                            <p>Data Automation & Scripting</p>
+                        </div>
+                    </div>
+                    <div class="arsenal-item">
+                        <div class="arsenal-icon">★</div>
+                        <div>
+                            <h3>Storytelling</h3>
+                            <p>Narrative Structure & Pacing</p>
+                        </div>
+                    </div>
+                    <div class="arsenal-item">
+                        <div class="arsenal-icon">∞</div>
+                        <div>
+                            <h3>Financial Modeling</h3>
+                            <p>ACCA / Data Analysis</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section id="work" class="works-section">
-                <p class="subtitle" style="margin-bottom: 50px;">SELECTED NARRATIVES</p>
+            <section id="work" class="section-works">
+                <p class="text-subtitle" style="margin-bottom: 50px;">Selected Narratives</p>
                 
-                <div class="work-list">
-                    <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="work-item" data-img="https://i.pinimg.com/736x/ac/93/a6/ac93a6ef162b334279b9c90246aacdd6.jpg">
-                        <span class="work-title">The Documentary</span>
-                        <span class="work-cat">Cinematography</span>
+                <div class="works-list">
+                    
+                    <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="work-row" 
+                       data-img="https://i.pinimg.com/736x/ac/93/a6/ac93a6ef162b334279b9c90246aacdd6.jpg">
+                        <div class="work-id">01</div>
+                        <div class="work-title">The Documentary</div>
+                        <div class="work-role">Cinematography</div>
                     </a>
 
-                    <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="work-item" data-img="https://i.pinimg.com/1200x/6e/09/ef/6e09ef265927b7b61a2babe935848dcf.jpg">
-                        <span class="work-title">Video Essays</span>
-                        <span class="work-cat">Art Direction</span>
+                    <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="work-row" 
+                       data-img="https://i.pinimg.com/1200x/6e/09/ef/6e09ef265927b7b61a2babe935848dcf.jpg">
+                        <div class="work-id">02</div>
+                        <div class="work-title">Video Essays</div>
+                        <div class="work-role">Art Direction</div>
                     </a>
 
-                    <a href="#" class="work-item" data-img="https://i.pinimg.com/736x/41/f7/6e/41f76e7e7ffea6293d30316f6405a56a.jpg">
-                        <span class="work-title">Vlogs</span>
-                        <span class="work-cat">Series</span>
+                    <a href="#" class="work-row" 
+                       data-img="https://i.pinimg.com/736x/41/f7/6e/41f76e7e7ffea6293d30316f6405a56a.jpg">
+                        <div class="work-id">03</div>
+                        <div class="work-title">Vlogs</div>
+                        <div class="work-role">Series / Ongoing</div>
                     </a>
+
                 </div>
             </section>
 
         </div> <footer>
-            <p class="subtitle" style="margin-bottom: 30px;">READY TO COLLABORATE?</p>
-            <a href="mailto:jayeshsharmattk@gmail.com" class="footer-cta magnetic">EMAIL ME</a>
+            <p class="text-subtitle" style="margin-bottom: 50px;">Initiate Sequence</p>
+            <a href="mailto:jayeshsharmattk@gmail.com" class="footer-cta magnetic" data-strength="50">EMAIL ME</a>
             
-            <div class="socials">
-                <a href="https://instagram.com/ihyjayesh" target="_blank" class="social-link magnetic">Instagram</a>
-                <a href="https://youtube.com/@beastbalak" target="_blank" class="social-link magnetic">YouTube</a>
+            <div class="footer-meta">
+                <div class="social-group">
+                    <p class="text-subtitle" style="margin-bottom: 20px;">Connect</p>
+                    <a href="https://instagram.com/ihyjayesh" target="_blank" class="magnetic">Instagram</a>
+                    <a href="https://youtube.com/@beastbalak" target="_blank" class="magnetic">YouTube</a>
+                    <a href="https://www.linkedin.com/in/jayeshsharma7" target="_blank" class="magnetic">LinkedIn</a>
+                </div>
+                
+                <div class="social-group">
+                    <p class="text-subtitle" style="margin-bottom: 20px;">Location</p>
+                    <a>Earth</a>
+                </div>
             </div>
             
-            <div style="margin-top: 100px; opacity: 0.3; font-size: 0.8rem;">
-                © 2026 Jayesh Sharma. All Rights Reserved.
+            <div style="margin-top: 150px; opacity: 0.2; font-size: 0.8rem;">
+                &copy; 2026 JAYESH SHARMA
             </div>
         </footer>
 
-    </main>
-
-    <div class="work-preview">
-        <img id="preview-img" src="" alt="Preview">
+    </main> <div class="work-preview-proxy">
+        <img src="" alt="Work Preview" class="work-preview-img">
     </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            
-            // --- 1. PRELOADER ---
-            const preloader = document.querySelector('.preloader');
-            const countEl = document.querySelector('.preloader-count');
-            let count = 0;
-            
-            const countUp = setInterval(() => {
-                count += Math.floor(Math.random() * 5) + 1;
-                if(count > 100) count = 100;
-                countEl.textContent = count;
-                
-                if(count === 100) {
-                    clearInterval(countUp);
-                    setTimeout(() => {
-                        preloader.style.transition = 'transform 0.8s cubic-bezier(0.7,0,0.3,1)';
-                        preloader.style.transform = 'translateY(-100%)';
-                        revealHero();
-                    }, 500);
+        /**
+         * ENGINE CONFIGURATION
+         */
+        const CONFIG = {
+            smoothScroll: {
+                enabled: true,
+                damping: 0.1, // Lower is smoother/slower
+                velocityCheck: 0.1
+            },
+            cursor: {
+                enabled: true,
+                lerp: 0.15 // Lag factor
+            }
+        };
+
+        /**
+         * STATE MANAGEMENT
+         */
+        const state = {
+            mouseX: 0,
+            mouseY: 0,
+            scroll: {
+                current: 0,
+                target: 0,
+                limit: 0
+            },
+            viewWidth: window.innerWidth,
+            viewHeight: window.innerHeight
+        };
+
+        /**
+         * DOM ELEMENTS
+         */
+        const dom = {
+            body: document.body,
+            scrollContent: document.querySelector('.scroll-content'),
+            cursor: document.getElementById('cursor'),
+            loader: document.querySelector('.loader'),
+            loaderText: document.querySelector('.loader-text'),
+            loaderProgress: document.querySelector('.loader-progress'),
+            previewProxy: document.querySelector('.work-preview-proxy'),
+            previewImg: document.querySelector('.work-preview-img'),
+            heroTitle: document.querySelector('.hero-title'),
+            heroSub: document.querySelector('.hero-sub'),
+            magnets: document.querySelectorAll('.magnetic')
+        };
+
+        /* -------------------------------------------------------------
+           SYSTEM 1: PRELOADER
+           Simulates asset loading for cinematic effect.
+        ------------------------------------------------------------- */
+        function initPreloader() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 5;
+                if (progress > 100) progress = 100;
+
+                dom.loaderText.innerText = Math.floor(progress) + '%';
+                dom.loaderProgress.style.width = progress + '%';
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    revealSite();
                 }
-            }, 30);
+            }, 50);
+        }
 
-            // --- 2. SMOOTH SCROLL (LENIS) ---
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                direction: 'vertical',
-                gestureDirection: 'vertical',
-                smooth: true,
-                smoothTouch: false
-            });
+        function revealSite() {
+            // Animate Loader Out
+            dom.loader.style.transition = 'transform 0.8s cubic-bezier(0.7,0,0.3,1)';
+            dom.loader.style.transform = 'translateY(-100%)';
 
-            function raf(time) {
-                lenis.raf(time);
+            // Trigger Hero Animations
+            setTimeout(() => {
+                // Split text logic for Hero Title
+                const text = dom.heroTitle.innerText;
+                dom.heroTitle.innerHTML = '';
+                text.split('').forEach((char, i) => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.innerText = char;
+                    span.style.transition = `transform 0.8s cubic-bezier(0.2,1,0.3,1) ${i * 0.05}s, opacity 0.8s ease ${i * 0.05}s`;
+                    dom.heroTitle.appendChild(span);
+                    
+                    // Trigger reflow
+                    setTimeout(() => {
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateY(0) rotateX(0)';
+                    }, 100);
+                });
+
+                dom.heroSub.style.transition = 'all 1s ease 0.5s';
+                dom.heroSub.style.opacity = '1';
+                dom.heroSub.style.transform = 'translateY(0)';
+
+            }, 800);
+        }
+
+        /* -------------------------------------------------------------
+           SYSTEM 2: CUSTOM SCROLL ENGINE (VIRTUAL SCROLL)
+           Mimics Lenis but written from scratch for lightweight control.
+        ------------------------------------------------------------- */
+        function initScroll() {
+            // Calculate scroll limit
+            function resize() {
+                state.viewWidth = window.innerWidth;
+                state.viewHeight = window.innerHeight;
+                dom.body.style.height = `${dom.scrollContent.getBoundingClientRect().height}px`;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            // Loop
+            function raf() {
+                // Linear Interpolation (Lerp) for smoothness
+                state.scroll.current += (state.scroll.target - state.scroll.current) * CONFIG.smoothScroll.damping;
+                
+                // Precision clamping to stop micro-jitters
+                if (Math.abs(state.scroll.target - state.scroll.current) < 0.1) {
+                    state.scroll.current = state.scroll.target;
+                }
+
+                // Apply transform
+                dom.scrollContent.style.transform = `translate3d(0, -${state.scroll.current}px, 0)`;
+
+                // Parallax Effects
+                applyParallax();
+
                 requestAnimationFrame(raf);
             }
-            requestAnimationFrame(raf);
+            raf();
 
-            // Skew effect on scroll
-            lenis.on('scroll', (e) => {
-                document.body.style.transform = `skewY(${e.velocity * 0.05}deg)`;
-                document.body.style.transition = 'transform 0.1s ease-out';
+            // Listeners
+            window.addEventListener('scroll', () => {
+                state.scroll.target = window.scrollY;
             });
-            // Reset skew when stopped
-            setInterval(() => {
-                if(Math.abs(lenis.velocity) < 0.1) {
-                    document.body.style.transform = `skewY(0deg)`;
-                }
-            }, 100);
+        }
 
+        function applyParallax() {
+            // Skew effect based on velocity
+            const velocity = state.scroll.target - state.scroll.current;
+            dom.scrollContent.style.transform = `translate3d(0, -${state.scroll.current}px, 0) skewY(${velocity * 0.005}deg)`;
+            
+            // Hero Parallax
+            const hero = document.querySelector('.section-hero');
+            if (hero) {
+                const speed = 0.5;
+                hero.style.transform = `translateY(${state.scroll.current * speed}px)`;
+                hero.style.opacity = 1 - (state.scroll.current / state.viewHeight);
+            }
+        }
 
-            // --- 3. CUSTOM CURSOR & MAGNETIC EFFECT ---
-            const cursor = document.querySelector('.cursor');
-            const magnets = document.querySelectorAll('.magnetic');
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
+        /* -------------------------------------------------------------
+           SYSTEM 3: CURSOR & MAGNETISM
+        ------------------------------------------------------------- */
+        function initCursor() {
+            let cursorX = 0;
+            let cursorY = 0;
 
             document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
+                state.mouseX = e.clientX;
+                state.mouseY = e.clientY;
             });
 
-            // Smooth follow loop
-            function animateCursor() {
-                cursorX += (mouseX - cursorX) * 0.1;
-                cursorY += (mouseY - cursorY) * 0.1;
-                cursor.style.left = `${cursorX}px`;
-                cursor.style.top = `${cursorY}px`;
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
+            function renderCursor() {
+                // Lerp logic
+                cursorX += (state.mouseX - cursorX) * CONFIG.cursor.lerp;
+                cursorY += (state.mouseY - cursorY) * CONFIG.cursor.lerp;
 
-            // Magnet logic
-            magnets.forEach(btn => {
+                dom.cursor.style.left = `${cursorX}px`;
+                dom.cursor.style.top = `${cursorY}px`;
+
+                // Hover check for preview proxy movement
+                if(dom.previewProxy.style.opacity > 0) {
+                     // Move preview with cursor but inverted or delayed
+                     dom.previewProxy.style.left = `${cursorX}px`;
+                     dom.previewProxy.style.top = `${cursorY}px`;
+                }
+
+                requestAnimationFrame(renderCursor);
+            }
+            renderCursor();
+
+            // Magnetic Buttons
+            dom.magnets.forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
                     
-                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-                    cursor.classList.add('active');
+                    const deltaX = (e.clientX - centerX) * 0.5; // Strength
+                    const deltaY = (e.clientY - centerY) * 0.5;
+
+                    btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                    dom.cursor.classList.add('active');
                 });
+
                 btn.addEventListener('mouseleave', () => {
                     btn.style.transform = `translate(0px, 0px)`;
-                    cursor.classList.remove('active');
+                    dom.cursor.classList.remove('active');
                 });
             });
+        }
 
+        /* -------------------------------------------------------------
+           SYSTEM 4: WORK PREVIEW REVEAL
+        ------------------------------------------------------------- */
+        function initWorkPreviews() {
+            const items = document.querySelectorAll('.work-row');
+            
+            items.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    const img = item.getAttribute('data-img');
+                    dom.previewImg.src = img;
+                    dom.previewProxy.style.opacity = 1;
+                    dom.previewProxy.style.transform = 'translate(-50%, -50%) scale(1)';
+                    dom.cursor.classList.add('text-mode');
+                });
 
-            // --- 4. NOISE CANVAS EFFECT ---
-            const canvas = document.getElementById('noiseCanvas');
+                item.addEventListener('mouseleave', () => {
+                    dom.previewProxy.style.opacity = 0;
+                    dom.previewProxy.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    dom.cursor.classList.remove('text-mode');
+                });
+            });
+        }
+
+        /* -------------------------------------------------------------
+           SYSTEM 5: CANVAS PARTICLE BACKGROUND
+           Generates floating dust motes for atmosphere.
+        ------------------------------------------------------------- */
+        function initCanvas() {
+            const canvas = document.getElementById('particleCanvas');
             const ctx = canvas.getContext('2d');
+            let particles = [];
 
-            const resizeCanvas = () => {
+            function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
-            };
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
+            }
+            window.addEventListener('resize', resize);
+            resize();
 
-            function noise(time) {
-                const w = canvas.width;
-                const h = canvas.height;
-                const iData = ctx.createImageData(w, h);
-                const buffer32 = new Uint32Array(iData.data.buffer);
-                const len = buffer32.length;
-
-                for (let i = 0; i < len; i++) {
-                    if (Math.random() < 0.5) {
-                        buffer32[i] = 0xffffffff;
-                    }
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2;
+                    this.speedX = Math.random() * 0.5 - 0.25;
+                    this.speedY = Math.random() * 0.5 - 0.25;
+                    this.opacity = Math.random() * 0.5;
                 }
-                ctx.putImageData(iData, 0, 0);
-                requestAnimationFrame(noise);
-            }
-            requestAnimationFrame(noise);
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
 
-
-            // --- 5. TEXT SCRAMBLE EFFECT ---
-            const scrambleElements = document.querySelectorAll('.scramble-text');
-            const chars = '!<>-_\\/[]{}—=+*^?#________';
-            
-            function revealHero() {
-                scrambleElements.forEach(el => {
-                    const oldText = el.innerText;
-                    const length = oldText.length;
-                    let frame = 0;
-                    
-                    const interval = setInterval(() => {
-                        let output = '';
-                        for(let i=0; i<length; i++) {
-                            if(i < frame/3) {
-                                output += oldText[i];
-                            } else {
-                                output += chars[Math.floor(Math.random() * chars.length)];
-                            }
-                        }
-                        el.innerText = output;
-                        frame++;
-                        if(frame > length*3 + 10) clearInterval(interval);
-                    }, 50);
-                });
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
 
+            function initParticles() {
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
 
-            // --- 6. FLOATING WORK PREVIEW ---
-            const workItems = document.querySelectorAll('.work-item');
-            const preview = document.querySelector('.work-preview');
-            const previewImg = document.getElementById('preview-img');
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
 
-            workItems.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    const imgUrl = item.getAttribute('data-img');
-                    previewImg.src = imgUrl;
-                    preview.style.opacity = 1;
-                    preview.style.transform = `translate(-50%, -50%) scale(1)`;
-                    cursor.classList.add('active');
-                });
-                
-                item.addEventListener('mouseleave', () => {
-                    preview.style.opacity = 0;
-                    preview.style.transform = `translate(-50%, -50%) scale(0.8)`;
-                    cursor.classList.remove('active');
-                });
-                
-                item.addEventListener('mousemove', (e) => {
-                    // Inertia logic for preview
-                    const x = e.clientX;
-                    const y = e.clientY;
-                    
-                    // Direct follow (can be made smoother with lerp, but direct is snappier for this)
-                    preview.style.left = x + 'px';
-                    preview.style.top = y + 'px';
-                    
-                    // Tilt effect based on movement direction could go here
-                });
-            });
+            initParticles();
+            animateParticles();
+        }
 
-            // --- 7. OBSERVER ANIMATIONS (FADE IN UP) ---
+        /* -------------------------------------------------------------
+           SYSTEM 6: OBSERVER (SCROLL REVEALS)
+           Triggers animations when elements enter viewport.
+        ------------------------------------------------------------- */
+        function initObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if(entry.isIntersecting) {
+                    if (entry.isIntersecting) {
                         entry.target.classList.add('in-view');
                     }
                 });
             }, { threshold: 0.1 });
 
-            // Apply to Manifesto Text
-            const revealType = document.querySelector('.reveal-type');
-            if(revealType) {
-                // simple opacity fade for now, or split text logic
-                observer.observe(revealType);
-                revealType.style.opacity = 0;
-                revealType.style.transform = 'translateY(20px)';
-                revealType.style.transition = 'all 1s ease-out';
-            }
-            
-            // Override observer for specific logic
-            window.addEventListener('scroll', () => {
-                if(revealType.getBoundingClientRect().top < window.innerHeight * 0.8) {
-                    revealType.style.opacity = 1;
-                    revealType.style.transform = 'translateY(0)';
-                }
+            // Arsenal Items
+            const arsenalItems = document.querySelectorAll('.arsenal-item');
+            arsenalItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+                observer.observe(item);
             });
 
-        });
+            // Override class addition for custom logic
+            window.addEventListener('scroll', () => {
+                arsenalItems.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    if(rect.top < window.innerHeight - 50) {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+        }
+
+        /* -------------------------------------------------------------
+           INITIALIZATION
+        ------------------------------------------------------------- */
+        window.onload = () => {
+            initPreloader();
+            initScroll();
+            initCursor();
+            initWorkPreviews();
+            initCanvas();
+            initObserver();
+            
+            // Log for "Developer Credibility"
+            console.log(
+                "%c JAYESH SHARMA %c VISUAL ARTIST ", 
+                "background: #fff; color: #000; font-weight: bold; padding: 5px;", 
+                "background: #000; color: #fff; padding: 5px;"
+            );
+        };
+
     </script>
 </body>
 </html>
