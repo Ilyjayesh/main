@@ -6,325 +6,417 @@
     <title>JAYESH SHARMA | VISUAL ARTIST</title>
     
     <link rel="icon" href="https://yt3.googleusercontent.com/CY2fQXnL7DIhKoLYvPUsFA-FxgUSLD1QYqkrDGk3WLFk32yzIE7C6rloy1ljXmkcbMDcgJFg7Q=s160-c-k-c0x00ffffff-no-rj">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;300;400;600&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- 0. RESET & ATMOSPHERE --- */
+        /* --- 0. CORE SETTINGS --- */
         :root {
-            --bg: #030303;
-            --text: #e0e0e0;
-            --gold: #d4af37; /* Subtle accent */
+            --bg: #050505;
+            --text: #e1e1e1;
+            --accent: #d4af37;
+            --cursor-size: 20px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; /* HIDE DEFAULT CURSOR */ }
         
+        html.lenis { height: auto; } 
+        .lenis.lenis-smooth { scroll-behavior: auto; } 
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; } 
+        .lenis.lenis-stopped { overflow: hidden; } 
+        .lenis.lenis-scrolling iframe { pointer-events: none; } 
+
         body {
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Manrope', sans-serif;
             overflow-x: hidden;
-            cursor: crosshair; /* Artistic cursor */
+            width: 100vw;
         }
 
-        /* --- TEXTURE --- */
-        .grain {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999; opacity: 0.08;
-            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+        /* --- 1. CUSTOM CURSOR --- */
+        #cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--cursor-size); height: var(--cursor-size);
+            border: 1px solid white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+        #cursor.hovered {
+            background-color: white;
+            width: 50px; height: 50px;
+            border: none;
+            mix-blend-mode: exclusion;
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3, .serif-font {
-            font-family: 'Italiana', serif;
-            font-weight: 400;
-            text-transform: uppercase;
-        }
-
-        a { text-decoration: none; color: inherit; transition: 0.5s ease; }
-
-        /* --- HERO SECTION (The Masterpiece) --- */
-        .hero {
-            height: 100vh;
-            width: 100%;
-            position: relative;
+        /* --- 2. PRELOADER --- */
+        .preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: #000;
+            z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
         }
-
-        /* The Image Container - Centered like a painting */
-        .art-frame {
-            position: absolute;
-            width: 40vw;
-            height: 60vh;
-            z-index: 1;
-            opacity: 0.8;
-            filter: grayscale(40%) contrast(110%);
-            transition: transform 0.2s ease-out;
-            box-shadow: 0 0 100px rgba(0,0,0,0.8) inset; /* Vignette */
-        }
-
-        .art-frame img {
-            width: 100%; height: 100%; object-fit: cover;
-            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-        }
-
-        /* The Overlapping Text - The "Magazine" Look */
-        .title-layer {
-            position: absolute;
-            z-index: 2;
-            width: 100%;
-            text-align: center;
-            pointer-events: none; /* Let clicks pass through */
-        }
-
-        .huge-name {
-            font-size: 14vw;
-            line-height: 0.8;
+        .counter {
+            font-family: 'Italiana';
+            font-size: 5rem;
             color: #fff;
-            mix-blend-mode: exclusion; /* This creates the artsy inversion */
-            letter-spacing: -0.05em;
-            opacity: 0; /* Animated in JS */
-            transform: translateY(50px);
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 0.5em;
-            margin-top: 20px;
-            font-weight: 200;
-            text-transform: uppercase;
-            opacity: 0.7;
+        /* --- 3. ATMOSPHERE --- */
+        .grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9000; opacity: 0.05;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
         }
 
-        /* --- NAVIGATION --- */
+        /* --- 4. TYPOGRAPHY & UTILS --- */
+        h1, h2, h3, .serif { font-family: 'Italiana', serif; font-weight: 400; }
+        .uppercase { text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        /* Skew effect on hover for links */
+        .hover-skew { display: inline-block; transition: transform 0.3s ease; }
+        a:hover .hover-skew { transform: skewX(-10deg) translateX(5px); color: var(--accent); }
+
+        /* --- 5. NAVIGATION --- */
         nav {
-            position: fixed; top: 40px; width: 100%; 
-            display: flex; justify-content: space-between; padding: 0 50px;
+            position: fixed; top: 0; width: 100%; 
+            padding: 40px 60px;
+            display: flex; justify-content: space-between; align-items: center;
             z-index: 100; mix-blend-mode: difference;
         }
-        .nav-item { font-family: 'Manrope'; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        .logo { font-family: 'Italiana'; font-size: 1.5rem; }
+        .menu-item { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; position: relative; }
+        .menu-item::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: white; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .menu-item:hover::after { width: 100%; }
 
-        /* --- SECTION: THE GALLERY (Selected Works) --- */
-        .gallery-section {
-            padding: 150px 5%;
+        /* --- 6. HERO SECTION --- */
+        .hero {
+            height: 100vh; width: 100%;
             position: relative;
-        }
-
-        .section-header {
-            font-size: 4rem; margin-bottom: 100px; text-align: center;
-            opacity: 0.5;
-        }
-
-        .project-card {
-            display: flex; align-items: center; justify-content: space-between;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 60px 0;
-            transition: 0.4s;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
         }
         
-        .project-card:hover {
-            padding-left: 30px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+        /* The Art Container */
+        .img-container {
+            width: 35vw; height: 55vh;
+            position: absolute;
+            z-index: 1;
+            overflow: hidden;
+            opacity: 0; /* Hidden initially for preloader */
+            transform: scale(1.2); /* Zoomed in initially */
+            transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
-
-        .project-title { font-size: 3rem; margin-bottom: 10px; }
-        .project-meta { font-family: 'Manrope'; font-weight: 200; color: #888; text-transform: uppercase; letter-spacing: 1px;}
-        .project-arrow { font-size: 2rem; opacity: 0; transform: translateX(-20px); transition: 0.4s; }
-        
-        .project-card:hover .project-arrow { opacity: 1; transform: translateX(0); }
-        .project-card:hover .project-title { color: var(--gold); } /* Subtle gold hover */
-
-        /* --- SECTION: THE MIND (Skills/Philosophy) --- */
-        .mind-section {
-            min-height: 80vh;
-            display: grid; grid-template-columns: 1fr 1fr;
-            padding: 0 5%;
-            align-items: center;
-        }
-
-        .mind-text p {
-            font-size: 1.8rem; line-height: 1.6; font-weight: 200; color: #ccc;
-            margin-bottom: 40px;
-        }
-        .highlight { font-family: 'Italiana'; color: #fff; font-style: italic; }
-
-        .tags-cloud { display: flex; flex-wrap: wrap; gap: 15px; }
-        .tag {
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .tag:hover { border-color: #fff; background: #fff; color: #000; }
-
-        /* --- FOOTER --- */
-        footer {
-            height: 100vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            position: relative;
-        }
-        
-        .contact-link {
-            font-family: 'Italiana';
-            font-size: 8vw;
-            line-height: 1;
-            border-bottom: 2px solid transparent;
+        .img-container img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(100%) contrast(120%);
             transition: 0.5s;
         }
-        .contact-link:hover {
-            font-style: italic;
-            border-bottom: 2px solid #fff;
-            transform: scale(1.05);
+        .img-container:hover img { filter: grayscale(0%); transform: scale(1.05); }
+
+        /* Text Layers */
+        .hero-text {
+            position: absolute; z-index: 2; width: 100%;
+            text-align: center; pointer-events: none;
+            mix-blend-mode: exclusion;
+        }
+        .name-line {
+            display: block;
+            font-family: 'Italiana';
+            font-size: 13vw;
+            line-height: 0.85;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: 1s ease-out;
         }
 
-        .socials {
-            margin-top: 50px; display: flex; gap: 40px;
+        .scroll-indicator {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6;
+            animation: bounce 2s infinite;
         }
-        .social-link {
-            font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
-            position: relative;
-        }
-        .social-link::after {
-            content: ''; position: absolute; width: 0; height: 1px; background: #fff; bottom: -5px; left: 0; transition: 0.3s;
-        }
-        .social-link:hover::after { width: 100%; }
+        @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 10px); } }
 
-        /* Mobile Adjustments */
+        /* --- 7. SELECTED WORKS (Editorial Layout) --- */
+        .works-section { padding: 10vh 10vw; position: relative; }
+        
+        .section-title {
+            font-size: 10vw; color: rgba(255,255,255,0.05);
+            position: absolute; top: 0; left: -5vw;
+            white-space: nowrap; pointer-events: none;
+            z-index: 0;
+        }
+
+        .work-item {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 80px 0; margin-bottom: 20px;
+            position: relative; z-index: 1;
+            transition: 0.4s;
+        }
+        .work-item:hover { border-bottom-color: #fff; padding: 80px 20px; }
+        
+        .work-info h3 { font-size: 4rem; margin-bottom: 10px; transition: 0.3s; }
+        .work-meta { font-family: 'Manrope'; font-weight: 300; color: #888; letter-spacing: 1px; display: flex; gap: 20px; }
+        .year { border: 1px solid #333; padding: 2px 10px; border-radius: 20px; font-size: 0.8rem; }
+        
+        .work-preview {
+            width: 300px; height: 180px; background: #111;
+            position: absolute; left: 40%; top: 50%; transform: translate(-50%, -50%) scale(0) rotate(-5deg);
+            opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none; z-index: 5;
+            overflow: hidden;
+            border: 1px solid #fff;
+        }
+        .work-item:hover .work-preview { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        .work-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- 8. MANIFESTO (Dual Column) --- */
+        .manifesto-section {
+            min-height: 80vh; background: #0a0a0a;
+            display: grid; grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+        .manifesto-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: sepia(50%); }
+        .manifesto-content { padding: 10vw; }
+        .manifesto-text { font-size: 2rem; line-height: 1.5; font-weight: 200; color: #ccc; }
+        .highlight { font-family: 'Italiana'; color: #fff; border-bottom: 1px solid #d4af37; }
+
+        /* --- 9. FOOTER --- */
+        footer {
+            height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+        }
+        .footer-cta {
+            font-family: 'Italiana'; font-size: 12vw; line-height: 0.9;
+            color: transparent; -webkit-text-stroke: 1px #fff;
+            transition: 0.5s; cursor: none;
+        }
+        .footer-cta:hover { color: #fff; font-style: italic; }
+        
+        .contact-grid {
+            margin-top: 50px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; text-align: left;
+        }
+        .contact-col h4 { font-size: 0.9rem; color: #666; margin-bottom: 15px; text-transform: uppercase; }
+        .contact-col a { display: block; margin-bottom: 5px; font-size: 1.1rem; }
+
+        /* MOBILE */
         @media(max-width: 768px) {
-            .art-frame { width: 80vw; height: 50vh; opacity: 0.6; }
-            .huge-name { font-size: 20vw; }
-            .mind-section { grid-template-columns: 1fr; gap: 50px; }
-            .project-title { font-size: 2rem; }
-            .contact-link { font-size: 12vw; }
+            .name-line { font-size: 18vw; }
+            .img-container { width: 70vw; height: 40vh; }
+            .works-section { padding: 5vh 5vw; }
+            .work-info h3 { font-size: 2.5rem; }
+            .work-preview { display: none; } /* Hide hover preview on mobile */
+            .manifesto-section { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+            .footer-cta { font-size: 15vw; }
+            /* Disable custom cursor on mobile */
+            #cursor { display: none; }
+            * { cursor: auto; }
         }
     </style>
 </head>
 <body>
 
+    <div id="cursor"></div>
+
     <div class="grain"></div>
 
+    <div class="preloader">
+        <div class="counter">0</div>
+    </div>
+
     <nav>
-        <div class="nav-item">Jayesh Sharma</div>
-        <div class="nav-item">Jaipur, IN</div>
+        <div class="logo">JAYESH.</div>
+        <div style="display:flex; gap:30px;">
+            <a href="#work" class="menu-item link-hover">Work</a>
+            <a href="#about" class="menu-item link-hover">About</a>
+            <a href="mailto:jayeshsharmattk@gmail.com" class="menu-item link-hover">Contact</a>
+        </div>
     </nav>
 
-    <section class="hero">
-        <div class="art-frame" id="artFrame">
-            <img src="https://i.pinimg.com/736x/0b/4a/88/0b4a8854aaebc0e844c9f530f70f4e74.jpg" alt="Artistic Hands">
-        </div>
+    <main>
         
-        <div class="title-layer">
-            <div class="huge-name" id="name1">JAYESH</div>
-            <div class="huge-name" id="name2">SHARMA</div>
-            <div class="subtitle" data-aos="fade-in" data-aos-delay="800">Visual Storyteller</div>
-        </div>
-    </section>
-
-    <section class="gallery-section">
-        <h2 class="section-header" data-aos="fade-up">Selected Narratives</h2>
-
-        <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="project-card" data-aos="fade-up">
-            <div>
-                <div class="project-title">The Documentary</div>
-                <div class="project-meta">Cinematography / Editing / 2025</div>
+        <section class="hero">
+            <div class="img-container" id="heroImage">
+                <img src="https://i.pinimg.com/736x/0b/4a/88/0b4a8854aaebc0e844c9f530f70f4e74.jpg" alt="Artistic Hands">
             </div>
-            <div class="project-arrow">→</div>
-        </a>
-
-        <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="project-card" data-aos="fade-up" data-aos-delay="100">
-            <div>
-                <div class="project-title">Concept Visuals</div>
-                <div class="project-meta">Art Direction / Sound Design</div>
+            
+            <div class="hero-text">
+                <span class="name-line" id="name1">JAYESH</span>
+                <span class="name-line" id="name2">SHARMA</span>
             </div>
-            <div class="project-arrow">→</div>
-        </a>
 
-        <div class="project-card" data-aos="fade-up" data-aos-delay="200" style="opacity: 0.5; cursor: not-allowed;">
-            <div>
-                <div class="project-title">Hostel Archives</div>
-                <div class="project-meta">Vlog Series / Ongoing</div>
+            <div class="scroll-indicator">Scroll to Explore</div>
+        </section>
+
+        <section id="work" class="works-section">
+            <h2 class="section-title" data-aos="fade-right">SELECTED WORKS</h2>
+
+            <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="work-item link-hover" data-aos="fade-up">
+                <div class="work-info">
+                    <div class="work-meta"><span class="year">2025</span> <span class="uppercase">Cinematography</span></div>
+                    <h3><span class="hover-skew">The Documentary</span></h3>
+                </div>
+                <div class="work-preview">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop" alt="Preview">
+                </div>
+            </a>
+
+            <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="work-item link-hover" data-aos="fade-up" data-aos-delay="100">
+                <div class="work-info">
+                    <div class="work-meta"><span class="year">2024</span> <span class="uppercase">Art Direction</span></div>
+                    <h3><span class="hover-skew">Concept Visuals</span></h3>
+                </div>
+                <div class="work-preview">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="Preview">
+                </div>
+            </a>
+
+            <div class="work-item" data-aos="fade-up" data-aos-delay="200" style="opacity: 0.5;">
+                <div class="work-info">
+                    <div class="work-meta"><span class="year">ONGOING</span> <span class="uppercase">Vlog Series</span></div>
+                    <h3>Hostel Archives</h3>
+                </div>
             </div>
-            <div class="project-arrow">locked</div>
-        </div>
-    </section>
+        </section>
 
-    <section class="mind-section">
-        <div class="mind-text" data-aos="fade-right">
-            <p>
-                I don't just edit videos; I sculpt <span class="highlight">time</span>. 
-            </p>
-            <p>
-                Coming from a background in Finance Analysis, I understand structure, rhythm, and precision. I deconstruct the chaotic world of data and rebuild it as visual poetry.
-            </p>
-        </div>
-        
-        <div data-aos="fade-left">
-            <h3 style="font-size: 1.5rem; margin-bottom: 20px; color: #888;">The Toolkit</h3>
-            <div class="tags-cloud">
-                <div class="tag">Premiere Pro</div>
-                <div class="tag">After Effects</div>
-                <div class="tag">Cinematography</div>
-                <div class="tag">Sound Design</div>
-                <div class="tag">Color Grading</div>
-                <div class="tag">Visual Storytelling</div>
-                <div class="tag">Python (Data)</div>
-                <div class="tag">Financial Modeling</div>
+        <section id="about" class="manifesto-section">
+            <div style="height:100%;">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop" class="manifesto-img" alt="Landscape">
             </div>
-        </div>
-    </section>
+            <div class="manifesto-content" data-aos="fade-left">
+                <p class="manifesto-text">
+                    I translate the rigid structure of finance into the fluid language of <span class="highlight">cinema</span>.
+                    <br><br>
+                    My work is not about capturing what happened. It is about capturing how it felt.
+                </p>
+                <div style="margin-top: 50px; display:flex; gap: 15px; flex-wrap:wrap;">
+                    <span class="year">Premiere Pro</span>
+                    <span class="year">After Effects</span>
+                    <span class="year">Python</span>
+                    <span class="year">Visual Storytelling</span>
+                </div>
+            </div>
+        </section>
 
-    <footer>
-        <div style="margin-bottom: 20px; font-family: 'Manrope'; font-size: 0.9rem; letter-spacing: 2px;">LET'S COLLABORATE</div>
-        <a href="mailto:jayeshsharmattk@gmail.com" class="contact-link">EMAIL ME</a>
-        
-        <div class="socials">
-            <a href="https://instagram.com/ihyjayesh" target="_blank" class="social-link">Instagram</a>
-            <a href="https://www.linkedin.com/in/jayeshsharma7" target="_blank" class="social-link">LinkedIn</a>
-            <a href="https://youtube.com/@beastbalak" target="_blank" class="social-link">YouTube</a>
-        </div>
-    </footer>
+        <footer>
+            <div class="uppercase" style="margin-bottom: 20px; opacity: 0.5;">Start a project</div>
+            <a href="mailto:jayeshsharmattk@gmail.com" class="footer-cta link-hover">EMAIL ME</a>
+
+            <div class="contact-grid">
+                <div class="contact-col">
+                    <h4>Socials</h4>
+                    <a href="https://instagram.com/ihyjayesh" class="link-hover">Instagram</a>
+                    <a href="https://youtube.com/@beastbalak" class="link-hover">YouTube</a>
+                </div>
+                <div class="contact-col">
+                    <h4>Location</h4>
+                    <a href="#">Jaipur, Rajasthan</a>
+                    <a href="#">India</a>
+                </div>
+                <div class="contact-col">
+                    <h4>Current Status</h4>
+                    <a href="#">Open for freelance</a>
+                    <a href="#">Editing Commissions</a>
+                </div>
+            </div>
+        </footer>
+    </main>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    
     <script>
-        AOS.init({ duration: 1200, once: true });
+        // 1. INITIALIZE AOS (Scroll Animations)
+        AOS.init({ duration: 1000, once: true });
 
-        // --- ENTRANCE ANIMATION ---
-        window.onload = () => {
-            const n1 = document.getElementById('name1');
-            const n2 = document.getElementById('name2');
-            
-            // Staggered reveal
-            setTimeout(() => {
-                n1.style.transition = "all 1.5s ease-out";
-                n1.style.opacity = "1";
-                n1.style.transform = "translateY(0)";
-            }, 300);
+        // 2. INITIALIZE LENIS (Smooth Scrolling)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
 
-            setTimeout(() => {
-                n2.style.transition = "all 1.5s ease-out";
-                n2.style.opacity = "1";
-                n2.style.transform = "translateY(0)";
-            }, 600);
-        };
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
 
-        // --- MOUSE PARALLAX ON IMAGE ---
-        // This makes the art frame move slightly opposite to your mouse
-        const artFrame = document.getElementById('artFrame');
+        // 3. PRELOADER LOGIC
+        const preloader = document.querySelector('.preloader');
+        const counter = document.querySelector('.counter');
+        let count = 0;
         
+        const countInterval = setInterval(() => {
+            if(count < 100) {
+                count++;
+                counter.innerText = count;
+            } else {
+                clearInterval(countInterval);
+                preloader.style.transform = 'translateY(-100%)'; // Slide up
+                
+                // Trigger Hero Animations after preloader is gone
+                setTimeout(() => {
+                    document.getElementById('img-container').style.opacity = '1';
+                    document.getElementById('img-container').style.transform = 'scale(1)';
+                }, 500);
+                
+                setTimeout(() => {
+                    document.getElementById('name1').style.opacity = '1';
+                    document.getElementById('name1').style.transform = 'translateY(0)';
+                }, 800);
+                setTimeout(() => {
+                    document.getElementById('name2').style.opacity = '1';
+                    document.getElementById('name2').style.transform = 'translateY(0)';
+                }, 1000);
+                
+                // Show Image after slight delay
+                setTimeout(() => {
+                   document.querySelector('.img-container').style.opacity = '1';
+                   document.querySelector('.img-container').style.transform = 'scale(1)';
+                }, 500);
+            }
+        }, 20); // Speed of counter
+
+        // 4. CUSTOM CURSOR LOGIC
+        const cursor = document.getElementById('cursor');
+        const links = document.querySelectorAll('.link-hover, a');
+
         document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth - e.pageX*2) / 50;
-            const y = (window.innerHeight - e.pageY*2) / 50;
-            
-            artFrame.style.transform = `translate(${x}px, ${y}px)`;
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.classList.add('hovered');
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hovered');
+            });
         });
 
     </script>
