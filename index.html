@@ -1,1108 +1,939 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYESH SHARMA | VISUAL ARCHITECT</title>
-    <meta name="description" content="The digital portfolio of Jayesh Sharma.">
-    <meta name="author" content="Jayesh Sharma">
+    <title>JAYESH SHARMA | VISUAL ARTIST</title>
+    <meta name="description" content="Portfolio of Jayesh Sharma - Video Editor & Visual Artist">
     <link rel="icon" href="https://yt3.googleusercontent.com/CY2fQXnL7DIhKoLYvPUsFA-FxgUSLD1QYqkrDGk3WLFk32yzIE7C6rloy1ljXmkcbMDcgJFg7Q=s160-c-k-c0x00ffffff-no-rj">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* ====================================================================
-        1. CSS RESET & VARIABLES
-        The foundation of the design system.
-        ==================================================================== 
+        /* ================================================================
+        1. DESIGN TOKENS & RESET
+        ================================================================
         */
         :root {
-            /* Palette */
-            --c-bg: #030303;
-            --c-text-main: #e8e8e8;
-            --c-text-muted: #666666;
-            --c-accent: #d4af37;
-            --c-accent-glow: rgba(212, 175, 55, 0.4);
-            --c-border: rgba(255, 255, 255, 0.08);
-            --c-surface: rgba(20, 20, 20, 0.5);
-
-            /* Typography */
-            --f-display: 'Italiana', serif;
-            --f-body: 'Manrope', sans-serif;
-
-            /* Spacing */
-            --s-gutter: 5vw;
-            --s-section: 15vh;
-
-            /* Animation Curves */
-            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-
-            /* Dimensions */
-            --cursor-sz: 8px;
-            --cursor-active-sz: 60px;
+            /* Colors */
+            --bg-color: #050505;
+            --bg-card: rgba(20, 20, 20, 0.8);
+            --text-main: #f0f0f0;
+            --text-muted: #888;
+            --accent: #d4af37; /* Gold */
+            --accent-glow: rgba(212, 175, 55, 0.2);
+            --border: rgba(255, 255, 255, 0.1);
+            --game-ui: #00ffcc;
+            
+            /* Fonts */
+            --font-display: 'Italiana', serif;
+            --font-body: 'Manrope', sans-serif;
+            --font-code: 'Space Mono', monospace;
+            
+            /* Animation */
+            --ease: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        *, *::after, *::before {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none; /* Hiding default cursor for custom one */
+            cursor: none; /* Custom cursor everywhere */
         }
 
         html {
+            scroll-behavior: smooth;
             font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background-color: var(--c-bg);
-            scrollbar-width: none; /* Hide scrollbar Firefox */
         }
-        
-        body::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
 
         body {
-            font-family: var(--f-body);
-            color: var(--c-text-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
             overflow-x: hidden;
             width: 100vw;
-            position: relative;
+            line-height: 1.6;
         }
 
-        a { text-decoration: none; color: inherit; display: inline-block; }
-        ul, li { list-style: none; }
-        img { display: block; width: 100%; height: auto; object-fit: cover; }
-        button { background: none; border: none; color: inherit; font-family: inherit; cursor: none; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { display: block; max-width: 100%; height: auto; }
 
-        /* ====================================================================
+        /* ================================================================
         2. UTILITY CLASSES
-        Helper classes for layout and typography.
-        ==================================================================== 
+        ================================================================
         */
         .wrapper {
-            padding: 0 var(--s-gutter);
-            max-width: 1920px;
+            max-width: 1600px;
             margin: 0 auto;
-            position: relative;
-            z-index: 2;
+            padding: 0 5vw;
         }
 
-        .flex-center { display: flex; justify-content: center; align-items: center; }
-        .flex-between { display: flex; justify-content: space-between; align-items: center; }
-        .flex-col { display: flex; flex-direction: column; }
+        .section-padding {
+            padding: 15vh 0;
+        }
 
         .text-display {
-            font-family: var(--f-display);
-            font-size: clamp(3rem, 10vw, 12rem);
-            line-height: 0.85;
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
             text-transform: uppercase;
-            letter-spacing: -0.03em;
         }
 
-        .text-subtitle {
-            font-family: var(--f-body);
+        .text-label {
+            font-family: var(--font-code);
             font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--c-text-muted);
-        }
-
-        .text-body {
-            font-size: clamp(1rem, 1.5vw, 1.5rem);
-            font-weight: 200;
-            line-height: 1.6;
-            color: #ccc;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: block;
         }
 
         .highlight {
-            color: var(--c-accent);
-            font-family: var(--f-display);
+            font-family: var(--font-display);
             font-style: italic;
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
 
-        /* ====================================================================
-        3. CUSTOM CURSOR
-        The magnetic pointer implementation styles.
-        ==================================================================== 
+        /* ================================================================
+        3. GLOBAL UI ELEMENTS (Background, Cursor, Grain)
+        ================================================================
         */
-        #cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: var(--cursor-sz); height: var(--cursor-sz);
-            background: #fff;
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-            transition: width 0.4s var(--ease-out-expo), 
-                        height 0.4s var(--ease-out-expo), 
-                        background 0.4s;
-        }
-        
-        #cursor.active {
-            width: var(--cursor-active-sz);
-            height: var(--cursor-active-sz);
-            background: #fff;
-            mix-blend-mode: exclusion;
-        }
-
-        #cursor.text-mode {
-            width: 2px;
-            height: 40px;
-            border-radius: 0;
-            background: var(--c-accent);
-        }
-
-        /* ====================================================================
-        4. BACKGROUND LAYERS
-        Fixed image + Canvas particles.
-        ==================================================================== 
-        */
-        .bg-fixed {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
+        .fixed-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             z-index: -5;
             background-image: url('https://i.pinimg.com/736x/0b/4a/88/0b4a8854aaebc0e844c9f530f70f4e74.jpg');
             background-size: cover;
             background-position: center;
-            opacity: 0.3;
-            transform: scale(1.1); /* Allowing room for parallax */
+            filter: brightness(0.4) contrast(1.1) grayscale(0.2);
+            transform: scale(1.05);
         }
 
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: linear-gradient(to bottom, rgba(3,3,3,0.7), rgba(3,3,3,0.95));
-            z-index: -4;
+        .grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -4; opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
         }
 
-        #particleCanvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -3;
-            pointer-events: none;
-            opacity: 0.3;
+        #cursor {
+            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none; z-index: 9999;
+            transition: width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s;
+            mix-blend-mode: difference;
+        }
+        #cursor.hovered {
+            width: 60px; height: 60px;
+            background: #fff; mix-blend-mode: exclusion;
         }
 
-        /* ====================================================================
-        5. PRELOADER
-        Cinematic entrance sequence.
-        ==================================================================== 
+        /* ================================================================
+        4. NAVIGATION
+        ================================================================
         */
-        .loader {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--c-bg);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .loader-text {
-            font-family: var(--f-display);
-            font-size: 5rem;
-            color: var(--c-accent);
-            overflow: hidden;
-        }
-
-        .loader-bar {
-            width: 200px;
-            height: 2px;
-            background: rgba(255,255,255,0.1);
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .loader-progress {
-            position: absolute;
-            left: 0; top: 0;
-            height: 100%;
-            width: 0%;
-            background: var(--c-accent);
-            transition: width 0.1s linear;
-        }
-
-        /* ====================================================================
-        6. NAVIGATION
-        Floating header with blend modes.
-        ==================================================================== 
-        */
-        .nav-bar {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            padding: 40px var(--s-gutter);
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 30px 5%;
+            display: flex; justify-content: space-between; align-items: center;
             z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             mix-blend-mode: difference;
         }
 
-        .brand {
-            font-family: var(--f-display);
+        .logo {
+            font-family: var(--font-display);
             font-size: 1.5rem;
-            letter-spacing: 0.05em;
-            color: #fff;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
 
-        .menu-list {
-            display: flex;
-            gap: 40px;
-        }
-
-        .menu-link {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
+        .nav-links { display: flex; gap: 40px; }
+        
+        .nav-item {
             position: relative;
-            padding: 10px 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding-bottom: 5px;
             overflow: hidden;
         }
-
-        .menu-link span {
-            display: block;
-            transition: transform 0.4s var(--ease-out-expo);
+        
+        .nav-item::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 1px; background: #fff;
+            transform: translateX(-101%);
+            transition: transform 0.4s var(--ease);
         }
+        
+        .nav-item:hover::after { transform: translateX(0); }
 
-        .menu-link::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 100%; left: 0;
-            color: var(--c-accent);
-            transition: transform 0.4s var(--ease-out-expo);
-        }
-
-        .menu-link:hover span { transform: translateY(-100%); }
-        .menu-link:hover::after { transform: translateY(-100%); }
-
-        /* ====================================================================
-        7. HERO SECTION
-        The grand entrance.
-        ==================================================================== 
+        /* ================================================================
+        5. HERO SECTION
+        ================================================================
         */
-        .section-hero {
+        .hero {
             height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             text-align: center;
-            perspective: 1000px; /* For 3D text effects */
         }
 
-        .hero-title .char {
-            display: inline-block;
+        .hero h1 {
             opacity: 0;
-            transform: translateY(100px) rotateX(-45deg);
+            animation: fadeIn 1.5s var(--ease) forwards 0.5s;
         }
 
-        .hero-sub {
-            margin-top: 4vh;
+        .hero p {
+            margin-top: 30px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
             opacity: 0;
-            transform: translateY(20px);
+            animation: fadeIn 1.5s var(--ease) forwards 1s;
         }
 
-        /* ====================================================================
-        8. MANIFESTO (ABOUT)
-        Dual column layout with floating image.
-        ==================================================================== 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================================================================
+        6. MANIFESTO (ABOUT)
+        ================================================================
         */
-        .section-manifesto {
-            padding: var(--s-section) 0;
+        .manifesto-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5vw;
+            gap: 80px;
             align-items: center;
-        }
-
-        .manifesto-visual {
-            position: relative;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            border: 1px solid var(--border);
         }
 
         .manifesto-img-wrapper {
-            width: 80%;
-            margin: 0 auto;
             position: relative;
             overflow: hidden;
-            /* Applying transparency effects */
+            border-radius: 4px;
         }
 
         .manifesto-img {
             width: 100%;
-            /* The specific image requested */
-            transform: scale(1.1); /* Zoom for parallax reveal */
-            transition: transform 1s var(--ease-out-expo);
+            transition: transform 0.7s var(--ease);
+            filter: grayscale(0.2);
         }
 
-        .manifesto-content p {
-            position: relative;
-            z-index: 2;
+        .manifesto-grid:hover .manifesto-img {
+            transform: scale(1.05);
+            filter: grayscale(0);
         }
 
-        /* ====================================================================
-        9. ARSENAL (SKILLS)
-        A complex grid system with hover interactions.
-        ==================================================================== 
+        .manifesto-text {
+            font-size: 2.2rem;
+            line-height: 1.4;
+        }
+
+        /* ================================================================
+        7. PROCESS (NEW SECTION FOR CONTENT)
+        ================================================================
         */
-        .section-arsenal {
-            padding: var(--s-section) 0;
-            border-top: 1px solid var(--c-border);
-        }
-
-        .arsenal-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .arsenal-grid {
+        .process-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1px;
-            background: var(--c-border); /* Creates the border lines */
-            border: 1px solid var(--c-border);
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 50px;
         }
 
-        .arsenal-item {
-            background: rgba(5,5,5,0.8);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 200px;
-            transition: background 0.3s;
-        }
-
-        .arsenal-item:hover {
-            background: #0a0a0a;
-        }
-
-        .arsenal-item h3 {
-            font-family: var(--f-display);
-            font-size: 1.5rem;
-            color: var(--c-text-main);
-            margin-bottom: 10px;
-        }
-
-        .arsenal-item p {
-            font-size: 0.9rem;
-            color: var(--c-text-muted);
-        }
-
-        .arsenal-icon {
-            align-self: flex-end;
-            font-size: 1.5rem;
-            opacity: 0.2;
+        .process-card {
+            background: rgba(10,10,10,0.8);
+            padding: 50px 30px;
             transition: 0.3s;
         }
 
-        .arsenal-item:hover .arsenal-icon {
-            opacity: 1;
-            color: var(--c-accent);
-            transform: scale(1.1);
+        .process-card:hover {
+            background: #111;
         }
 
-        /* ====================================================================
-        10. WORKS (PROJECTS)
-        Interactive list with GL-style floating preview.
-        ==================================================================== 
+        .process-step {
+            font-family: var(--font-code);
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .process-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .process-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* ================================================================
+        8. SKILLS (RENAMED & UPGRADED)
+        ================================================================
         */
-        .section-works {
-            padding: var(--s-section) 0;
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
         }
 
-        .works-list {
-            margin-top: 100px;
+        .skill-group h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .skill-item {
+            margin-bottom: 25px;
+        }
+
+        .skill-header {
+            display: flex; justify-content: space-between;
+            margin-bottom: 8px;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+        }
+
+        .skill-bar-bg {
+            width: 100%; height: 2px;
+            background: rgba(255,255,255,0.1);
             position: relative;
         }
 
-        .work-row {
-            border-top: 1px solid var(--c-border);
-            padding: 60px 0;
+        .skill-bar-fill {
+            position: absolute; left: 0; top: 0;
+            height: 100%; background: var(--accent);
+            width: 0%; /* JS will animate this */
+            transition: width 1s var(--ease);
+        }
+
+        /* ================================================================
+        9. WORKS (PROJECTS)
+        ================================================================
+        */
+        .work-list {
+            margin-top: 60px;
+        }
+
+        .work-item {
             display: grid;
             grid-template-columns: 1fr 3fr 1fr;
-            align-items: baseline;
-            transition: padding 0.4s var(--ease-out-expo), border-color 0.4s;
-            cursor: none; /* Custom cursor takes over */
+            align-items: center;
+            padding: 50px 0;
+            border-bottom: 1px solid var(--border);
+            transition: 0.3s;
+            position: relative;
         }
-        
-        .work-row:last-child { border-bottom: 1px solid var(--c-border); }
 
-        .work-row:hover {
-            padding: 60px 20px;
-            border-color: #fff;
+        .work-item:first-child { border-top: 1px solid var(--border); }
+
+        .work-item:hover {
+            padding-left: 20px;
             background: rgba(255,255,255,0.02);
+            border-color: #fff;
         }
 
-        .work-id {
-            font-family: var(--f-body);
-            font-size: 0.9rem;
-            color: var(--c-text-muted);
-        }
+        .work-year { font-family: var(--font-code); color: var(--text-muted); }
+        .work-title { font-family: var(--font-display); font-size: 3.5rem; transition: 0.3s; }
+        .work-role { text-align: right; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
 
-        .work-title {
-            font-family: var(--f-display);
-            font-size: 4rem;
-            transition: transform 0.4s var(--ease-out-expo), color 0.3s;
-        }
-        
-        .work-row:hover .work-title {
-            transform: translateX(20px);
+        .work-item:hover .work-title {
+            color: var(--accent);
             font-style: italic;
-            color: var(--c-accent);
+            transform: translateX(20px);
         }
 
-        .work-role {
-            text-align: right;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--c-text-muted);
-        }
-
-        /* The floating image container */
-        .work-preview-proxy {
-            position: fixed;
-            top: 0; left: 0;
-            width: 400px;
-            height: 500px;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0;
-            overflow: hidden;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.3s, transform 0.5s var(--ease-out-expo);
-        }
-
-        .work-preview-img {
-            width: 100%; height: 100%;
+        /* Floating Preview Image */
+        .work-preview {
+            position: fixed; top: 0; left: 0;
+            width: 350px; height: 450px;
             object-fit: cover;
-            transform: scale(1.2);
-            transition: transform 0.5s var(--ease-out-expo);
+            z-index: 50; pointer-events: none;
+            opacity: 0; transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.3s, transform 0.5s var(--ease);
+            border: 1px solid rgba(255,255,255,0.5);
+            background: #000;
+        }
+        .work-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        /* ================================================================
+        10. GAME SECTION ("FRAME CHASER")
+        ================================================================
+        */
+        .game-section {
+            background: #000;
+            border-top: 1px solid var(--border);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .work-row:hover ~ .work-preview-proxy,
-        .work-row:focus-within ~ .work-preview-proxy {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+        .game-container {
+            width: 800px;
+            max-width: 90vw;
+            margin: 40px auto;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            background: #0a0a0a;
+            width: 100%;
+            cursor: none; /* Hide default cursor inside game */
+        }
+
+        .game-ui {
+            position: absolute; top: 20px; left: 20px;
+            text-align: left; pointer-events: none;
         }
         
-        /* ====================================================================
+        .game-score {
+            font-family: var(--font-code);
+            font-size: 1.2rem;
+            color: var(--game-ui);
+        }
+
+        .game-start-overlay {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 10;
+        }
+
+        .btn-game {
+            border: 1px solid var(--game-ui);
+            background: transparent;
+            color: var(--game-ui);
+            padding: 15px 40px;
+            font-family: var(--font-code);
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: none;
+            transition: 0.3s;
+        }
+
+        .btn-game:hover {
+            background: var(--game-ui);
+            color: #000;
+            box-shadow: 0 0 20px var(--game-ui);
+        }
+
+        /* ================================================================
         11. FOOTER
-        Massive CTA and social links.
-        ==================================================================== 
+        ================================================================
         */
         footer {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            background: #000;
+            height: 90vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            border-top: 1px solid var(--border);
         }
 
         .footer-cta {
-            font-family: var(--f-display);
-            font-size: 15vw;
-            line-height: 0.8;
+            font-family: var(--font-display);
+            font-size: 12vw;
             color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.5);
-            transition: 0.5s;
-            text-align: center;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.6);
+            line-height: 0.9;
+            transition: 0.4s;
         }
 
         .footer-cta:hover {
-            color: var(--c-accent);
+            color: var(--accent);
             -webkit-text-stroke: 0px;
             font-style: italic;
         }
 
-        .footer-meta {
-            margin-top: 100px;
-            display: flex;
-            gap: 10vw;
-            text-align: center;
+        .footer-nav {
+            margin-top: 80px;
+            display: flex; gap: 50px;
         }
 
-        .social-group a {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            color: var(--c-text-muted);
-            transition: 0.3s;
+        .footer-link {
+            font-family: var(--font-code);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            position: relative;
         }
 
-        .social-group a:hover { color: #fff; transform: skewX(-10deg); }
-
-        /* ====================================================================
-        12. SETTINGS PANEL (EXTRA FEATURE)
-        Allows user to customize the site.
-        ==================================================================== 
-        */
-        .settings-toggle {
-            position: fixed;
-            bottom: 40px; right: 40px;
-            width: 50px; height: 50px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            z-index: 100;
-            display: flex; justify-content: center; align-items: center;
-            transition: 0.3s;
+        .footer-link::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0%; height: 1px; background: var(--accent); transition: 0.3s;
         }
-        .settings-toggle:hover { background: #fff; color: #000; transform: rotate(90deg); }
+        .footer-link:hover::after { width: 100%; }
 
-        /* ====================================================================
-        13. RESPONSIVE QUERIES
-        Adapting the masterpiece for smaller screens.
-        ==================================================================== 
+        /* ================================================================
+        12. RESPONSIVE
+        ================================================================
         */
         @media (max-width: 1024px) {
-            .text-display { font-size: 12vw; }
-            .section-manifesto { grid-template-columns: 1fr; gap: 50px; }
-            .manifesto-img { transform: scale(1); }
-            .work-row { grid-template-columns: 1fr; gap: 10px; text-align: left; }
+            .manifesto-grid { grid-template-columns: 1fr; text-align: center; padding: 40px; }
+            .skills-container { grid-template-columns: 1fr; }
+            .work-item { grid-template-columns: 1fr; gap: 10px; text-align: left; }
             .work-title { font-size: 2.5rem; }
             .work-role { text-align: left; margin-top: 5px; }
-            .work-id { display: none; }
+            .work-year { display: none; }
+            .process-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            #cursor, .work-preview-proxy { display: none; }
+            #cursor, .work-preview { display: none; }
             * { cursor: auto; }
-            .nav-bar { padding: 20px; }
-            .menu-list { display: none; } /* Hamburger could go here */
-            .footer-cta { font-size: 18vw; }
-            .footer-meta { flex-direction: column; gap: 40px; }
+            .nav-links { display: none; }
+            .footer-cta { font-size: 15vw; }
+            .footer-nav { flex-direction: column; gap: 20px; }
         }
-
-        /* ====================================================================
-        14. SCROLL CONTAINER
-        Virtual scroll logic needs this.
-        ==================================================================== 
-        */
-        .scroll-content {
-            width: 100%;
-            will-change: transform;
-        }
-
     </style>
 </head>
 <body>
 
-    <button class="settings-toggle magnetic" aria-label="Settings">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-        </svg>
-    </button>
-
-    <div class="loader">
-        <div class="loader-text">0%</div>
-        <div class="loader-bar"><div class="loader-progress"></div></div>
-    </div>
-
-    <div class="bg-fixed"></div>
-    <div class="bg-overlay"></div>
-    <canvas id="particleCanvas"></canvas>
-
+    <div class="fixed-bg"></div>
+    <div class="grain"></div>
     <div id="cursor"></div>
+    <img src="" alt="Preview" class="work-preview" id="previewImg">
 
-    <nav class="nav-bar">
-        <div class="brand magnetic">JAYESH.</div>
-        <ul class="menu-list">
-            <li><a href="#about" class="menu-link magnetic" data-text="About"><span>About</span></a></li>
-            <li><a href="#skills" class="menu-link magnetic" data-text="Arsenal"><span>Arsenal</span></a></li>
-            <li><a href="#work" class="menu-link magnetic" data-text="Work"><span>Work</span></a></li>
-            <li><a href="mailto:jayeshsharmattk@gmail.com" class="menu-link magnetic" data-text="Contact"><span>Contact</span></a></li>
-        </ul>
+    <nav>
+        <div class="logo">JAYESH.</div>
+        <div class="nav-links">
+            <a href="#about" class="nav-item hover-trigger">Vision</a>
+            <a href="#process" class="nav-item hover-trigger">Process</a>
+            <a href="#skills" class="nav-item hover-trigger">Skills</a>
+            <a href="#work" class="nav-item hover-trigger">Work</a>
+            <a href="#arcade" class="nav-item hover-trigger" style="color:var(--game-ui);">Arcade</a>
+        </div>
     </nav>
 
-    <main class="scroll-content">
+    <section class="hero">
+        <h1 class="text-display">
+            JAYESH<br>SHARMA
+        </h1>
+        <p>Visual Artist & Editor</p>
+    </section>
 
-        <section class="section-hero" data-scroll-speed="0.5">
-            <h1 class="text-display hero-title">
-                JAYESH<br>SHARMA
-            </h1>
-            <p class="text-subtitle hero-sub">
-                Finance Analyst <span style="color:var(--c-accent); margin:0 10px;">/</span> Visual Artist
-            </p>
-        </section>
+    <div class="wrapper">
 
-        <div class="wrapper">
-            
-            <section id="about" class="section-manifesto">
-                <div class="manifesto-visual" data-scroll-speed="0.1">
-                    <div class="manifesto-img-wrapper">
-                        <img src="https://i.pinimg.com/736x/0b/62/e6/0b62e639f4ada503eac1730dd06c94ae.jpg" alt="Jayesh Visual" class="manifesto-img">
-                    </div>
+        <section id="about" class="section-padding">
+            <span class="text-label">01 // The Vision</span>
+            <div class="manifesto-grid">
+                <div class="manifesto-img-wrapper">
+                    <img src="https://i.pinimg.com/736x/06/00/65/060065c842b3bcc4beeac075a44d9e27.jpg" alt="Jayesh Visuals" class="manifesto-img">
                 </div>
-                <div class="manifesto-content" data-scroll-speed="0.2">
-                    <p class="text-display" style="font-size: 3rem; text-transform: none;">
+                <div class="manifesto-content">
+                    <p class="manifesto-text">
                         I make videos that <span class="highlight">connect</span> and upload them every 10th on the month on youtube.
                     </p>
+                    <p style="margin-top: 30px; font-size: 1rem; color: #aaa;">
+                        My work is a blend of precision editing and fluid storytelling. I don't just cut footage; I sculpt time to create rhythm and emotion.
+                    </p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="skills" class="section-arsenal">
-                <div class="arsenal-header">
-                    <p class="text-subtitle">The Technical Arsenal</p>
+        <section id="process" class="section-padding">
+            <span class="text-label">02 // The Workflow</span>
+            <h2 class="text-display" style="font-size: 3rem; margin-bottom: 40px;">How It Happens</h2>
+            
+            <div class="process-grid">
+                <div class="process-card hover-trigger">
+                    <span class="process-step">Phase 01</span>
+                    <h3 class="process-title">Pre-Production</h3>
+                    <p class="process-desc">
+                        Conceptualization, Scripting, and Storyboarding. This is where the narrative structure is built before a single frame is shot.
+                    </p>
                 </div>
-                
-                <div class="arsenal-grid">
-                    <div class="arsenal-item">
-                        <div class="arsenal-icon">◆</div>
-                        <div>
-                            <h3>Premiere Pro</h3>
-                            <p>Advanced NLE Workflows & Proxy Editing</p>
-                        </div>
-                    </div>
-                    <div class="arsenal-item">
-                        <div class="arsenal-icon">●</div>
-                        <div>
-                            <h3>After Effects</h3>
-                            <p>Motion Graphics & Compositing</p>
-                        </div>
-                    </div>
-                    <div class="arsenal-item">
-                        <div class="arsenal-icon">▲</div>
-                        <div>
-                            <h3>DaVinci Resolve</h3>
-                            <p>Color Grading & Delivery</p>
-                        </div>
-                    </div>
-                    <div class="arsenal-item">
-                        <div class="arsenal-icon">■</div>
-                        <div>
-                            <h3>Python</h3>
-                            <p>Data Automation & Scripting</p>
-                        </div>
-                    </div>
-                    <div class="arsenal-item">
-                        <div class="arsenal-icon">★</div>
-                        <div>
-                            <h3>Storytelling</h3>
-                            <p>Narrative Structure & Pacing</p>
-                        </div>
-                    </div>
-                    <div class="arsenal-item">
-                        <div class="arsenal-icon">∞</div>
-                        <div>
-                            <h3>Financial Modeling</h3>
-                            <p>ACCA / Data Analysis</p>
-                        </div>
-                    </div>
+                <div class="process-card hover-trigger">
+                    <span class="process-step">Phase 02</span>
+                    <h3 class="process-title">Production</h3>
+                    <p class="process-desc">
+                        Cinematography and Asset Creation. Capturing raw high-fidelity footage and designing the visual language.
+                    </p>
                 </div>
-            </section>
+                <div class="process-card hover-trigger">
+                    <span class="process-step">Phase 03</span>
+                    <h3 class="process-title">Post-Production</h3>
+                    <p class="process-desc">
+                        Editing, Color Grading, Sound Design, and VFX. The magic sauce where raw data becomes a cohesive story.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-            <section id="work" class="section-works">
-                <p class="text-subtitle" style="margin-bottom: 50px;">Selected Narratives</p>
-                
-                <div class="works-list">
+        <section id="skills" class="section-padding">
+            <span class="text-label">03 // The Toolkit</span>
+            <h2 class="text-display" style="font-size: 3rem; margin-bottom: 60px;">Skills & Proficiency</h2>
+
+            <div class="skills-container">
+                <div class="skill-group">
+                    <h3>Creative</h3>
                     
-                    <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="work-row" 
-                       data-img="https://i.pinimg.com/736x/ac/93/a6/ac93a6ef162b334279b9c90246aacdd6.jpg">
-                        <div class="work-id">01</div>
-                        <div class="work-title">The Documentary</div>
-                        <div class="work-role">Cinematography</div>
-                    </a>
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Premiere Pro</span> <span>95%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95%"></div></div>
+                    </div>
 
-                    <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="work-row" 
-                       data-img="https://i.pinimg.com/1200x/6e/09/ef/6e09ef265927b7b61a2babe935848dcf.jpg">
-                        <div class="work-id">02</div>
-                        <div class="work-title">Video Essays</div>
-                        <div class="work-role">Art Direction</div>
-                    </a>
+                    <div class="skill-item">
+                        <div class="skill-header"><span>After Effects</span> <span>80%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80%"></div></div>
+                    </div>
 
-                    <a href="#" class="work-row" 
-                       data-img="https://i.pinimg.com/736x/41/f7/6e/41f76e7e7ffea6293d30316f6405a56a.jpg">
-                        <div class="work-id">03</div>
-                        <div class="work-title">Vlogs</div>
-                        <div class="work-role">Series / Ongoing</div>
-                    </a>
+                    <div class="skill-item">
+                        <div class="skill-header"><span>DaVinci Resolve</span> <span>75%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75%"></div></div>
+                    </div>
 
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Sound Design</span> <span>70%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div>
+                    </div>
                 </div>
-            </section>
 
-        </div> <footer>
-            <p class="text-subtitle" style="margin-bottom: 50px;">Initiate Sequence</p>
-            <a href="mailto:jayeshsharmattk@gmail.com" class="footer-cta magnetic" data-strength="50">EMAIL ME</a>
-            
-            <div class="footer-meta">
-                <div class="social-group">
-                    <p class="text-subtitle" style="margin-bottom: 20px;">Connect</p>
-                    <a href="https://instagram.com/ihyjayesh" target="_blank" class="magnetic">Instagram</a>
-                    <a href="https://youtube.com/@beastbalak" target="_blank" class="magnetic">YouTube</a>
-                    <a href="https://www.linkedin.com/in/jayeshsharma7" target="_blank" class="magnetic">LinkedIn</a>
+                <div class="skill-group">
+                    <h3>Technical</h3>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Python / Scripting</span> <span>65%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Financial Analysis (ACCA)</span> <span>90%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Data Visualization</span> <span>85%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="work" class="section-padding">
+            <span class="text-label">04 // Selected Works</span>
+            <div class="work-list">
                 
-                <div class="social-group">
-                    <p class="text-subtitle" style="margin-bottom: 20px;">Location</p>
-                    <a>Earth</a>
-                </div>
-            </div>
-            
-            <div style="margin-top: 150px; opacity: 0.2; font-size: 0.8rem;">
-                &copy; 2026 JAYESH SHARMA
-            </div>
-        </footer>
+                <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="work-item project-link" 
+                   data-img="https://i.pinimg.com/736x/ac/93/a6/ac93a6ef162b334279b9c90246aacdd6.jpg">
+                    <span class="work-year">2025</span>
+                    <span class="work-title">The Documentary</span>
+                    <span class="work-role">Cinematography</span>
+                </a>
 
-    </main> <div class="work-preview-proxy">
-        <img src="" alt="Work Preview" class="work-preview-img">
-    </div>
+                <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="work-item project-link" 
+                   data-img="https://i.pinimg.com/1200x/6e/09/ef/6e09ef265927b7b61a2babe935848dcf.jpg">
+                    <span class="work-year">2024</span>
+                    <span class="work-title">Video Essays</span>
+                    <span class="work-role">Art Direction</span>
+                </a>
+
+                <a href="#" class="work-item project-link" 
+                   data-img="https://i.pinimg.com/736x/41/f7/6e/41f76e7e7ffea6293d30316f6405a56a.jpg">
+                    <span class="work-year">ONGOING</span>
+                    <span class="work-title">Vlogs</span>
+                    <span class="work-role">Series</span>
+                </a>
+
+            </div>
+        </section>
+
+    </div> <section id="arcade" class="game-section">
+        <span class="text-label" style="color: var(--game-ui);">05 // THE RENDER ZONE</span>
+        <h2 class="text-display" style="font-size: 3rem; margin-bottom: 10px; color: #fff;">FRAME CHASER</h2>
+        <p style="font-family: var(--font-code); color: #aaa; margin-bottom: 30px;">Collect Keyframes (Blue). Avoid Glitches (Red).</p>
+        
+        <div class="game-container">
+            <canvas id="gameCanvas" width="800" height="400"></canvas>
+            
+            <div class="game-ui">
+                <div class="game-score">FRAMES: <span id="scoreDisplay">0</span></div>
+            </div>
+
+            <div class="game-start-overlay" id="gameOverlay">
+                <h3 style="font-family: var(--font-display); font-size: 2rem; color: #fff; margin-bottom: 20px;">READY TO EDIT?</h3>
+                <button class="btn-game hover-trigger" onclick="startGame()">Start Sequence</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <span class="text-label">Final Cut</span>
+        <a href="mailto:jayeshsharmattk@gmail.com" class="footer-cta hover-trigger">EMAIL ME</a>
+        
+        <div class="footer-nav">
+            <a href="https://instagram.com/ihyjayesh" target="_blank" class="footer-link hover-trigger">Instagram</a>
+            <a href="https://youtube.com/@beastbalak" target="_blank" class="footer-link hover-trigger">YouTube</a>
+            <a href="https://www.linkedin.com/in/jayeshsharma7" target="_blank" class="footer-link hover-trigger">LinkedIn</a>
+        </div>
+        
+        <div style="margin-top: 80px; font-family: var(--font-code); font-size: 0.8rem; opacity: 0.3;">
+            © 2026 Jayesh Sharma. All rights reserved.
+        </div>
+    </footer>
+
 
     <script>
-        /**
-         * ENGINE CONFIGURATION
-         */
-        const CONFIG = {
-            smoothScroll: {
-                enabled: true,
-                damping: 0.1, // Lower is smoother/slower
-                velocityCheck: 0.1
-            },
-            cursor: {
-                enabled: true,
-                lerp: 0.15 // Lag factor
-            }
-        };
+        // --- 1. CURSOR LOGIC ---
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
 
-        /**
-         * STATE MANAGEMENT
-         */
-        const state = {
-            mouseX: 0,
-            mouseY: 0,
-            scroll: {
-                current: 0,
-                target: 0,
-                limit: 0
-            },
-            viewWidth: window.innerWidth,
-            viewHeight: window.innerHeight
-        };
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
 
-        /**
-         * DOM ELEMENTS
-         */
-        const dom = {
-            body: document.body,
-            scrollContent: document.querySelector('.scroll-content'),
-            cursor: document.getElementById('cursor'),
-            loader: document.querySelector('.loader'),
-            loaderText: document.querySelector('.loader-text'),
-            loaderProgress: document.querySelector('.loader-progress'),
-            previewProxy: document.querySelector('.work-preview-proxy'),
-            previewImg: document.querySelector('.work-preview-img'),
-            heroTitle: document.querySelector('.hero-title'),
-            heroSub: document.querySelector('.hero-sub'),
-            magnets: document.querySelectorAll('.magnetic')
-        };
+        function animateCursor() {
+            // Smooth follow
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
 
-        /* -------------------------------------------------------------
-           SYSTEM 1: PRELOADER
-           Simulates asset loading for cinematic effect.
-        ------------------------------------------------------------- */
-        function initPreloader() {
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 5;
-                if (progress > 100) progress = 100;
+        // Hover Triggers
+        const triggers = document.querySelectorAll('.hover-trigger, a, button');
+        triggers.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
 
-                dom.loaderText.innerText = Math.floor(progress) + '%';
-                dom.loaderProgress.style.width = progress + '%';
+        // --- 2. WORK PREVIEW LOGIC ---
+        const previewImg = document.getElementById('previewImg');
+        const projectLinks = document.querySelectorAll('.project-link');
 
-                if (progress === 100) {
-                    clearInterval(interval);
-                    revealSite();
+        projectLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                previewImg.src = link.getAttribute('data-img');
+                previewImg.classList.add('active');
+                cursor.classList.add('hovered');
+            });
+            link.addEventListener('mouseleave', () => {
+                previewImg.classList.remove('active');
+                cursor.classList.remove('hovered');
+            });
+            link.addEventListener('mousemove', (e) => {
+                const x = e.clientX;
+                const y = e.clientY;
+                previewImg.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+            });
+        });
+
+        // --- 3. SKILLS BAR ANIMATION (Intersection Observer) ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('skill-bar-fill')) {
+                        entry.target.style.width = entry.target.getAttribute('data-width');
+                    } else {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
                 }
-            }, 50);
+            });
+        }, { threshold: 0.1 });
+
+        // Observe Skills
+        document.querySelectorAll('.skill-bar-fill').forEach(el => observer.observe(el));
+        
+        // Observe Sections for Fade In
+        document.querySelectorAll('section').forEach(sec => {
+            sec.style.opacity = 0;
+            sec.style.transform = 'translateY(30px)';
+            sec.style.transition = 'all 0.8s ease-out';
+            observer.observe(sec);
+        });
+
+        // --- 4. GAME LOGIC (FRAME CHASER) ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('scoreDisplay');
+        const overlay = document.getElementById('gameOverlay');
+
+        let gameRunning = false;
+        let score = 0;
+        let animationId;
+
+        // Player
+        const player = { x: 50, y: 200, width: 30, height: 30, color: '#00ffcc', dy: 0 };
+        
+        // Arrays
+        let obstacles = []; // Red (Bad)
+        let rewards = []; // Blue (Good)
+        let particles = []; // Effects
+
+        function startGame() {
+            if(gameRunning) return;
+            gameRunning = true;
+            score = 0;
+            scoreEl.innerText = '0';
+            obstacles = [];
+            rewards = [];
+            particles = [];
+            overlay.style.display = 'none';
+            player.y = 200;
+            animateGame();
+            spawnEntities();
         }
 
-        function revealSite() {
-            // Animate Loader Out
-            dom.loader.style.transition = 'transform 0.8s cubic-bezier(0.7,0,0.3,1)';
-            dom.loader.style.transform = 'translateY(-100%)';
-
-            // Trigger Hero Animations
-            setTimeout(() => {
-                // Split text logic for Hero Title
-                const text = dom.heroTitle.innerText;
-                dom.heroTitle.innerHTML = '';
-                text.split('').forEach((char, i) => {
-                    const span = document.createElement('span');
-                    span.className = 'char';
-                    span.innerText = char;
-                    span.style.transition = `transform 0.8s cubic-bezier(0.2,1,0.3,1) ${i * 0.05}s, opacity 0.8s ease ${i * 0.05}s`;
-                    dom.heroTitle.appendChild(span);
-                    
-                    // Trigger reflow
-                    setTimeout(() => {
-                        span.style.opacity = '1';
-                        span.style.transform = 'translateY(0) rotateX(0)';
-                    }, 100);
+        function spawnEntities() {
+            if(!gameRunning) return;
+            
+            // Spawn Obstacle (Glitch)
+            if(Math.random() < 0.02) {
+                obstacles.push({
+                    x: canvas.width,
+                    y: Math.random() * (canvas.height - 30),
+                    width: 30,
+                    height: Math.random() * 80 + 20,
+                    speed: 5 + Math.random() * 3
                 });
+            }
 
-                dom.heroSub.style.transition = 'all 1s ease 0.5s';
-                dom.heroSub.style.opacity = '1';
-                dom.heroSub.style.transform = 'translateY(0)';
-
-            }, 800);
+            // Spawn Reward (Keyframe)
+            if(Math.random() < 0.015) {
+                rewards.push({
+                    x: canvas.width,
+                    y: Math.random() * (canvas.height - 20),
+                    size: 15,
+                    speed: 4
+                });
+            }
+            requestAnimationFrame(spawnEntities);
         }
 
-        /* -------------------------------------------------------------
-           SYSTEM 2: CUSTOM SCROLL ENGINE (VIRTUAL SCROLL)
-           Mimics Lenis but written from scratch for lightweight control.
-        ------------------------------------------------------------- */
-        function initScroll() {
-            // Calculate scroll limit
-            function resize() {
-                state.viewWidth = window.innerWidth;
-                state.viewHeight = window.innerHeight;
-                dom.body.style.height = `${dom.scrollContent.getBoundingClientRect().height}px`;
+        function createParticles(x, y, color) {
+            for(let i=0; i<8; i++) {
+                particles.push({
+                    x: x, y: y,
+                    dx: (Math.random() - 0.5) * 5,
+                    dy: (Math.random() - 0.5) * 5,
+                    life: 20,
+                    color: color
+                });
             }
-            window.addEventListener('resize', resize);
-            resize();
+        }
 
-            // Loop
-            function raf() {
-                // Linear Interpolation (Lerp) for smoothness
-                state.scroll.current += (state.scroll.target - state.scroll.current) * CONFIG.smoothScroll.damping;
+        // Mouse Control for Game
+        canvas.addEventListener('mousemove', (e) => {
+            if(!gameRunning) return;
+            const rect = canvas.getBoundingClientRect();
+            player.y = e.clientY - rect.top - player.height/2;
+        });
+
+        function animateGame() {
+            if(!gameRunning) return;
+            
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Player
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = player.color;
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+            ctx.shadowBlur = 0;
+
+            // Handle Rewards
+            rewards.forEach((r, index) => {
+                r.x -= r.speed;
+                ctx.fillStyle = '#3399ff';
+                ctx.beginPath();
+                ctx.moveTo(r.x, r.y);
+                ctx.lineTo(r.x + r.size/2, r.y + r.size/2);
+                ctx.lineTo(r.x, r.y + r.size);
+                ctx.lineTo(r.x - r.size/2, r.y + r.size/2);
+                ctx.fill();
+
+                // Collision Reward
+                if (
+                    player.x < r.x + r.size &&
+                    player.x + player.width > r.x - r.size &&
+                    player.y < r.y + r.size &&
+                    player.y + player.height > r.y
+                ) {
+                    score += 100;
+                    scoreEl.innerText = score;
+                    createParticles(r.x, r.y, '#3399ff');
+                    rewards.splice(index, 1);
+                }
                 
-                // Precision clamping to stop micro-jitters
-                if (Math.abs(state.scroll.target - state.scroll.current) < 0.1) {
-                    state.scroll.current = state.scroll.target;
-                }
-
-                // Apply transform
-                dom.scrollContent.style.transform = `translate3d(0, -${state.scroll.current}px, 0)`;
-
-                // Parallax Effects
-                applyParallax();
-
-                requestAnimationFrame(raf);
-            }
-            raf();
-
-            // Listeners
-            window.addEventListener('scroll', () => {
-                state.scroll.target = window.scrollY;
-            });
-        }
-
-        function applyParallax() {
-            // Skew effect based on velocity
-            const velocity = state.scroll.target - state.scroll.current;
-            dom.scrollContent.style.transform = `translate3d(0, -${state.scroll.current}px, 0) skewY(${velocity * 0.005}deg)`;
-            
-            // Hero Parallax
-            const hero = document.querySelector('.section-hero');
-            if (hero) {
-                const speed = 0.5;
-                hero.style.transform = `translateY(${state.scroll.current * speed}px)`;
-                hero.style.opacity = 1 - (state.scroll.current / state.viewHeight);
-            }
-        }
-
-        /* -------------------------------------------------------------
-           SYSTEM 3: CURSOR & MAGNETISM
-        ------------------------------------------------------------- */
-        function initCursor() {
-            let cursorX = 0;
-            let cursorY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                state.mouseX = e.clientX;
-                state.mouseY = e.clientY;
+                // Out of bounds
+                if(r.x + r.size < 0) rewards.splice(index, 1);
             });
 
-            function renderCursor() {
-                // Lerp logic
-                cursorX += (state.mouseX - cursorX) * CONFIG.cursor.lerp;
-                cursorY += (state.mouseY - cursorY) * CONFIG.cursor.lerp;
+            // Handle Obstacles
+            obstacles.forEach((obs, index) => {
+                obs.x -= obs.speed;
+                ctx.fillStyle = '#ff3333';
+                ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
 
-                dom.cursor.style.left = `${cursorX}px`;
-                dom.cursor.style.top = `${cursorY}px`;
-
-                // Hover check for preview proxy movement
-                if(dom.previewProxy.style.opacity > 0) {
-                     // Move preview with cursor but inverted or delayed
-                     dom.previewProxy.style.left = `${cursorX}px`;
-                     dom.previewProxy.style.top = `${cursorY}px`;
+                // Collision Hit
+                if (
+                    player.x < obs.x + obs.width &&
+                    player.x + player.width > obs.x &&
+                    player.y < obs.y + obs.height &&
+                    player.y + player.height > obs.y
+                ) {
+                    gameOver();
                 }
 
-                requestAnimationFrame(renderCursor);
-            }
-            renderCursor();
-
-            // Magnetic Buttons
-            dom.magnets.forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    
-                    const deltaX = (e.clientX - centerX) * 0.5; // Strength
-                    const deltaY = (e.clientY - centerY) * 0.5;
-
-                    btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-                    dom.cursor.classList.add('active');
-                });
-
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = `translate(0px, 0px)`;
-                    dom.cursor.classList.remove('active');
-                });
-            });
-        }
-
-        /* -------------------------------------------------------------
-           SYSTEM 4: WORK PREVIEW REVEAL
-        ------------------------------------------------------------- */
-        function initWorkPreviews() {
-            const items = document.querySelectorAll('.work-row');
-            
-            items.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    const img = item.getAttribute('data-img');
-                    dom.previewImg.src = img;
-                    dom.previewProxy.style.opacity = 1;
-                    dom.previewProxy.style.transform = 'translate(-50%, -50%) scale(1)';
-                    dom.cursor.classList.add('text-mode');
-                });
-
-                item.addEventListener('mouseleave', () => {
-                    dom.previewProxy.style.opacity = 0;
-                    dom.previewProxy.style.transform = 'translate(-50%, -50%) scale(0.8)';
-                    dom.cursor.classList.remove('text-mode');
-                });
-            });
-        }
-
-        /* -------------------------------------------------------------
-           SYSTEM 5: CANVAS PARTICLE BACKGROUND
-           Generates floating dust motes for atmosphere.
-        ------------------------------------------------------------- */
-        function initCanvas() {
-            const canvas = document.getElementById('particleCanvas');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2;
-                    this.speedX = Math.random() * 0.5 - 0.25;
-                    this.speedY = Math.random() * 0.5 - 0.25;
-                    this.opacity = Math.random() * 0.5;
+                if(obs.x + obs.width < 0) {
+                    obstacles.splice(index, 1);
+                    score += 10; // Passive score
+                    scoreEl.innerText = score;
                 }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.y > canvas.height) this.y = 0;
-                    if (this.y < 0) this.y = canvas.height;
-                }
-                draw() {
-                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                for (let i = 0; i < 50; i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                }
-                requestAnimationFrame(animateParticles);
-            }
-
-            initParticles();
-            animateParticles();
-        }
-
-        /* -------------------------------------------------------------
-           SYSTEM 6: OBSERVER (SCROLL REVEALS)
-           Triggers animations when elements enter viewport.
-        ------------------------------------------------------------- */
-        function initObserver() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            // Arsenal Items
-            const arsenalItems = document.querySelectorAll('.arsenal-item');
-            arsenalItems.forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(20px)';
-                item.style.transition = `all 0.6s ease ${index * 0.1}s`;
-                observer.observe(item);
             });
 
-            // Override class addition for custom logic
-            window.addEventListener('scroll', () => {
-                arsenalItems.forEach(item => {
-                    const rect = item.getBoundingClientRect();
-                    if(rect.top < window.innerHeight - 50) {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }
-                });
+            // Handle Particles
+            particles.forEach((p, index) => {
+                p.x += p.dx;
+                p.y += p.dy;
+                p.life--;
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, 3, 3);
+                if(p.life <= 0) particles.splice(index, 1);
             });
+
+            animationId = requestAnimationFrame(animateGame);
         }
 
-        /* -------------------------------------------------------------
-           INITIALIZATION
-        ------------------------------------------------------------- */
-        window.onload = () => {
-            initPreloader();
-            initScroll();
-            initCursor();
-            initWorkPreviews();
-            initCanvas();
-            initObserver();
-            
-            // Log for "Developer Credibility"
-            console.log(
-                "%c JAYESH SHARMA %c VISUAL ARTIST ", 
-                "background: #fff; color: #000; font-weight: bold; padding: 5px;", 
-                "background: #000; color: #fff; padding: 5px;"
-            );
-        };
+        function gameOver() {
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+            overlay.style.display = 'flex';
+            overlay.innerHTML = `
+                <h3 style="font-family: var(--font-display); font-size: 2rem; color: #ff3333; margin-bottom: 10px;">SEQUENCE FAILED</h3>
+                <p style="color:#fff; margin-bottom:20px; font-family:var(--font-code);">FINAL FRAMES: ${score}</p>
+                <button class="btn-game hover-trigger" onclick="startGame()">RETRY RENDER</button>
+            `;
+            // Re-attach triggers for new button
+            document.querySelectorAll('.btn-game').forEach(b => {
+                 b.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                 b.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+        }
 
     </script>
 </body>
