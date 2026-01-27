@@ -3,399 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYESH SHARMA | FINAL PORTFOLIO</title>
+    <title>JAYESH SHARMA | VISUAL ARTIST</title>
     
     <link rel="icon" href="https://yt3.googleusercontent.com/CY2fQXnL7DIhKoLYvPUsFA-FxgUSLD1QYqkrDGk3WLFk32yzIE7C6rloy1ljXmkcbMDcgJFg7Q=s160-c-k-c0x00ffffff-no-rj">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;300;400&display=swap" rel="stylesheet">
 
     <style>
-        /* --- 0. RESET & VARIABLES --- */
+        /* --- 0. RESET & ATMOSPHERE --- */
         :root {
-            --bg: #050505;
+            --bg: #030303;
             --text: #e0e0e0;
-            --accent: #ffffff;
-            --highlight: #7000ff;
-            --border: 1px solid rgba(255, 255, 255, 0.15);
+            --gold: #d4af37; /* Subtle accent */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        
         body {
-            background: var(--bg);
+            background-color: var(--bg);
             color: var(--text);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Manrope', sans-serif;
             overflow-x: hidden;
-            line-height: 1.4;
+            cursor: crosshair; /* Artistic cursor */
         }
 
-        /* --- ARTISTIC GRAIN OVERLAY --- */
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.07;
+        /* --- TEXTURE --- */
+        .grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999; opacity: 0.08;
             background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            filter: contrast(120%) brightness(100%);
         }
 
-        /* --- 1. TYPOGRAPHY (NEO-BRUTALIST) --- */
-        h1, h2, h3, .mega-text {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, .serif-font {
+            font-family: 'Italiana', serif;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: -0.03em;
-            line-height: 0.85;
         }
 
-        p {
-            font-size: 1.15rem;
-            color: #999;
-            max-width: 600px;
-            font-weight: 300;
-        }
+        a { text-decoration: none; color: inherit; transition: 0.5s ease; }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1); display: inline-block; cursor: pointer; }
-
-        /* --- 2. LAYOUT GRID SYSTEM --- */
-        .page-section {
-            min-height: 100vh;
+        /* --- HERO SECTION (The Masterpiece) --- */
+        .hero {
+            height: 100vh;
             width: 100%;
-            border-bottom: var(--border);
             position: relative;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-        }
-
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 5%;
-            width: 100%;
-        }
-
-        /* --- 3. NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            padding: 25px 50px;
-            mix-blend-mode: difference;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { font-family: 'Syne'; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: white;}
-        .nav-links a:hover { color: var(--highlight); text-decoration: line-through; }
-
-        /* --- PAGE 1: HERO & PARALLAX IMAGE --- */
-        .hello-wrapper {
-            display: flex; height: 100vh; width: 100%;
-            position: relative;
+            align-items: center;
             overflow: hidden;
         }
-        
-        .hero-bg-container {
+
+        /* The Image Container - Centered like a painting */
+        .art-frame {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 120%;
-            z-index: -1;
+            width: 40vw;
+            height: 60vh;
+            z-index: 1;
+            opacity: 0.8;
+            filter: grayscale(40%) contrast(110%);
+            transition: transform 0.2s ease-out;
+            box-shadow: 0 0 100px rgba(0,0,0,0.8) inset; /* Vignette */
         }
 
-        .hero-image {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0.5; 
-            
-            /* Two Hands Image */
-            background-image: url('https://i.pinimg.com/736x/0b/4a/88/0b4a8854aaebc0e844c9f530f70f4e74.jpg'); 
-            
-            background-size: cover;
-            background-position: center;
-            will-change: transform;
-            filter: grayscale(30%); 
+        .art-frame img {
+            width: 100%; height: 100%; object-fit: cover;
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
 
-        .hello-column {
-            width: 15%;
-            border-right: var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(5, 5, 5, 0.4);
-            padding: 20px;
-            backdrop-filter: blur(5px);
+        /* The Overlapping Text - The "Magazine" Look */
+        .title-layer {
+            position: absolute;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+            pointer-events: none; /* Let clicks pass through */
+        }
+
+        .huge-name {
+            font-size: 14vw;
+            line-height: 0.8;
+            color: #fff;
+            mix-blend-mode: exclusion; /* This creates the artsy inversion */
+            letter-spacing: -0.05em;
+            opacity: 0; /* Animated in JS */
+            transform: translateY(50px);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 0.5em;
+            margin-top: 20px;
+            font-weight: 200;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 40px; width: 100%; 
+            display: flex; justify-content: space-between; padding: 0 50px;
+            z-index: 100; mix-blend-mode: difference;
+        }
+        .nav-item { font-family: 'Manrope'; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- SECTION: THE GALLERY (Selected Works) --- */
+        .gallery-section {
+            padding: 150px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            font-size: 4rem; margin-bottom: 100px; text-align: center;
+            opacity: 0.5;
+        }
+
+        .project-card {
+            display: flex; align-items: center; justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 60px 0;
+            transition: 0.4s;
         }
         
-        .vertical-text {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-            font-family: 'Syne';
-            font-size: 10vh; 
-            font-weight: 800;
-            white-space: nowrap;
-            color: var(--accent);
-            mix-blend-mode: overlay;
+        .project-card:hover {
+            padding-left: 30px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
         }
 
-        .hero-content {
-            width: 85%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 80px;
+        .project-title { font-size: 3rem; margin-bottom: 10px; }
+        .project-meta { font-family: 'Manrope'; font-weight: 200; color: #888; text-transform: uppercase; letter-spacing: 1px;}
+        .project-arrow { font-size: 2rem; opacity: 0; transform: translateX(-20px); transition: 0.4s; }
+        
+        .project-card:hover .project-arrow { opacity: 1; transform: translateX(0); }
+        .project-card:hover .project-title { color: var(--gold); } /* Subtle gold hover */
+
+        /* --- SECTION: THE MIND (Skills/Philosophy) --- */
+        .mind-section {
+            min-height: 80vh;
+            display: grid; grid-template-columns: 1fr 1fr;
+            padding: 0 5%;
+            align-items: center;
         }
 
-        .blend-text {
-            mix-blend-mode: exclusion;
-            color: #fff;
+        .mind-text p {
+            font-size: 1.8rem; line-height: 1.6; font-weight: 200; color: #ccc;
+            margin-bottom: 40px;
         }
+        .highlight { font-family: 'Italiana'; color: #fff; font-style: italic; }
 
-        /* --- PAGE 2: ALL VIDEOS --- */
-        .archive-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 60px 0; border-bottom: var(--border);
-            transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            cursor: pointer;
-        }
-        .archive-row:hover { 
-            background: var(--accent); 
-            padding-left: 20px; 
-            padding-right: 20px; 
-        }
-        .archive-row:hover * { color: #000 !important; }
-
-        /* --- PAGE 3: SKILLS --- */
-        .skills-container {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            border-top: var(--border); border-left: var(--border);
-            height: 60vh;
-        }
-        .skill-box {
-            padding: 20px;
-            border-right: var(--border); border-bottom: var(--border);
-            text-align: center;
-            transition: 0.3s;
-            display: flex; align-items: center; justify-content: center;
-            cursor: default;
-        }
-        .skill-box:hover { background: var(--text); }
-        .skill-box:hover span { color: #000; letter-spacing: 2px;}
-        .skill-box span { 
-            display: block; font-family: 'Syne'; font-weight: 700; font-size: 1.5rem; 
+        .tags-cloud { display: flex; flex-wrap: wrap; gap: 15px; }
+        .tag {
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
-
-        /* --- MARQUEE --- */
-        .marquee {
-            width: 100%; background: var(--accent);
-            padding: 15px 0; overflow: hidden;
-            transform: rotate(-1deg) scale(1.02);
-            border-top: 1px solid black; border-bottom: 1px solid black;
-        }
-        .marquee-inner {
-            display: flex; white-space: nowrap; animation: scroll 20s linear infinite;
-        }
-        .marquee span {
-            color: #000; font-family: 'Syne'; font-weight: 800; font-size: 2rem;
-            margin-right: 50px; text-transform: uppercase;
-        }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        .tag:hover { border-color: #fff; background: #fff; color: #000; }
 
         /* --- FOOTER --- */
-        .contact-footer {
-            min-height: 80vh;
+        footer {
+            height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center;
             position: relative;
-            overflow: hidden;
         }
-        .giant-link {
-            font-size: 9vw; font-family: 'Syne'; font-weight: 800;
-            line-height: 0.9; color: #333; transition: 0.4s;
-            position: relative; z-index: 2;
+        
+        .contact-link {
+            font-family: 'Italiana';
+            font-size: 8vw;
+            line-height: 1;
+            border-bottom: 2px solid transparent;
+            transition: 0.5s;
         }
-        .giant-link:hover { color: var(--highlight); letter-spacing: -5px; }
+        .contact-link:hover {
+            font-style: italic;
+            border-bottom: 2px solid #fff;
+            transform: scale(1.05);
+        }
 
-        /* Responsive */
+        .socials {
+            margin-top: 50px; display: flex; gap: 40px;
+        }
+        .social-link {
+            font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
+            position: relative;
+        }
+        .social-link::after {
+            content: ''; position: absolute; width: 0; height: 1px; background: #fff; bottom: -5px; left: 0; transition: 0.3s;
+        }
+        .social-link:hover::after { width: 100%; }
+
+        /* Mobile Adjustments */
         @media(max-width: 768px) {
-            .hello-column { display: none; }
-            .hero-content { width: 100%; padding: 30px; }
-            .skills-container { grid-template-columns: repeat(2, 1fr); height: auto; }
-            .archive-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .giant-link { font-size: 15vw; }
-            nav { padding: 20px; }
-            .nav-links { display: none; } 
+            .art-frame { width: 80vw; height: 50vh; opacity: 0.6; }
+            .huge-name { font-size: 20vw; }
+            .mind-section { grid-template-columns: 1fr; gap: 50px; }
+            .project-title { font-size: 2rem; }
+            .contact-link { font-size: 12vw; }
         }
-
     </style>
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
+    <div class="grain"></div>
 
     <nav>
-        <div class="nav-logo" style="font-family:'Syne'; font-weight:800; color:white;">JAYESH.</div>
-        <div class="nav-links">
-            <a href="#videos">Work</a>
-            <a href="#skills">Stack</a>
-            <a href="#vision">Vision</a>
-            <a href="#contact">Contact</a>
-        </div>
+        <div class="nav-item">Jayesh Sharma</div>
+        <div class="nav-item">Jaipur, IN</div>
     </nav>
 
-    <section class="page-section" style="border-bottom:none;">
-        <div class="hello-wrapper">
-            
-            <div class="hero-bg-container">
-                <div class="hero-image" id="parallaxImg"></div>
-            </div>
-
-            <div class="hello-column">
-                <div class="vertical-text">PORTFOLIO '25</div>
-            </div>
-            
-            <div class="hero-content">
-                <h1 class="blend-text" data-aos="fade-up" style="font-size: 6vw; margin-bottom: 20px;">
-                    FINANCE ANALYST<br>
-                    <span style="font-style: italic; font-weight: 400; font-family: 'Inter'">meets</span> <br>
-                    VISUAL ARTIST
-                </h1>
-                
-                <p data-aos="fade-up" data-aos-delay="100" style="color: #e0e0e0; font-size:1.2rem; mix-blend-mode: difference;">
-                    Capturing the raw human experience through a cinematic lens.<br>
-                    Based in Jaipur.
-                </p>
-            </div>
+    <section class="hero">
+        <div class="art-frame" id="artFrame">
+            <img src="https://i.pinimg.com/736x/0b/4a/88/0b4a8854aaebc0e844c9f530f70f4e74.jpg" alt="Artistic Hands">
+        </div>
+        
+        <div class="title-layer">
+            <div class="huge-name" id="name1">JAYESH</div>
+            <div class="huge-name" id="name2">SHARMA</div>
+            <div class="subtitle" data-aos="fade-in" data-aos-delay="800">Visual Storyteller</div>
         </div>
     </section>
 
-    <div class="marquee">
-        <div class="marquee-inner">
-            <span>Scroll Down ✦</span>
-            <span>Experience The Vision ✦</span>
-            <span>Visual Stories ✦</span>
-            <span>Scroll Down ✦</span>
-            <span>Experience The Vision ✦</span>
-            <span>Visual Stories ✦</span>
-        </div>
-    </div>
+    <section class="gallery-section">
+        <h2 class="section-header" data-aos="fade-up">Selected Narratives</h2>
 
-    <section class="page-section" id="videos">
-        <div class="container">
-            <h2 data-aos="fade-right" style="font-size: 4rem; margin-bottom: 20px;">SELECTED WORKS</h2>
-            <p style="margin-bottom: 60px;">A curation of visual narratives and experiments.</p>
-            
+        <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="project-card" data-aos="fade-up">
             <div>
-                <a href="https://youtu.be/2vnaxQhUXi8" target="_blank" class="archive-row">
-                    <span class="mega-text" style="font-size:3rem;">THE DOCUMENTARY</span>
-                    <span style="font-family:'Inter'; text-transform:uppercase; font-size: 0.9rem; opacity: 0.6;">Latest Upload</span>
-                </a>
-                
-                <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="archive-row">
-                    <span class="mega-text" style="font-size:3rem;">CONCEPT VISUALS</span>
-                    <span style="font-family:'Inter'; text-transform:uppercase; font-size: 0.9rem; opacity: 0.6;">Art Direction</span>
-                </a>
-
-                <a href="#" class="archive-row">
-                    <span class="mega-text" style="font-size:3rem;">HOSTEL VLOGS</span>
-                    <span style="font-family:'Inter'; text-transform:uppercase; font-size: 0.9rem; opacity: 0.6;">Series</span>
-                </a>
-
-                <a href="https://ilyjayesh.github.io/youtube/" target="_blank" class="archive-row">
-                    <span class="mega-text" style="font-size:3rem;">FULL ARCHIVE</span>
-                    <span style="font-family:'Inter'; text-transform:uppercase; font-size: 0.9rem; opacity: 0.6;">External Link</span>
-                </a>
+                <div class="project-title">The Documentary</div>
+                <div class="project-meta">Cinematography / Editing / 2025</div>
             </div>
+            <div class="project-arrow">→</div>
+        </a>
+
+        <a href="https://youtu.be/RDGhEXpmVgk" target="_blank" class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div>
+                <div class="project-title">Concept Visuals</div>
+                <div class="project-meta">Art Direction / Sound Design</div>
+            </div>
+            <div class="project-arrow">→</div>
+        </a>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200" style="opacity: 0.5; cursor: not-allowed;">
+            <div>
+                <div class="project-title">Hostel Archives</div>
+                <div class="project-meta">Vlog Series / Ongoing</div>
+            </div>
+            <div class="project-arrow">locked</div>
         </div>
     </section>
 
-    <section class="page-section" id="skills">
-        <div class="container">
-            <h2 style="margin-bottom: 40px; font-size: 4rem;">TECHNICAL STACK</h2>
-            <div class="skills-container">
-                <div class="skill-box"><span>FINANCE</span></div>
-                <div class="skill-box"><span>ACCA / IFRS</span></div>
-                <div class="skill-box"><span>PYTHON</span></div>
-                <div class="skill-box"><span>SQL</span></div>
-                <div class="skill-box"><span>EDITING</span></div>
-                <div class="skill-box"><span>PREMIERE PRO</span></div>
-                <div class="skill-box"><span>AFTER EFFECTS</span></div>
-                <div class="skill-box"><span>PHOTOSHOP</span></div>
-                <div class="skill-box"><span>WEB</span></div>
-                <div class="skill-box"><span>HTML/CSS</span></div>
-                <div class="skill-box"><span>STORYTELLING</span></div>
-                <div class="skill-box"><span>DIRECTION</span></div>
-            </div>
+    <section class="mind-section">
+        <div class="mind-text" data-aos="fade-right">
+            <p>
+                I don't just edit videos; I sculpt <span class="highlight">time</span>. 
+            </p>
+            <p>
+                Coming from a background in Finance Analysis, I understand structure, rhythm, and precision. I deconstruct the chaotic world of data and rebuild it as visual poetry.
+            </p>
         </div>
-    </section>
-
-    <section class="page-section" id="vision" style="background: #0a0a0a;">
-        <div class="container">
-            <div style="display: flex; gap: 80px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 300px;" data-aos="fade-up">
-                    <h3 style="font-size: 2rem; margin-bottom: 30px; border-bottom: 1px solid white; padding-bottom: 10px;">THE ROADMAP</h3>
-                    <ul style="list-style: none;">
-                        <li style="margin-bottom: 40px;">
-                            <strong style="color:white; font-size:1.5rem;">01. COLLABORATION</strong>
-                            <p style="margin-top: 10px;">Work with top-tier musicians and brands to visualize sound.</p>
-                        </li>
-                        <li style="margin-bottom: 40px;">
-                            <strong style="color:white; font-size:1.5rem;">02. MENTORSHIP</strong>
-                            <p style="margin-top: 10px;">Build a creative studio that mentors young editors.</p>
-                        </li>
-                        <li>
-                            <strong style="color:white; font-size:1.5rem;">03. INNOVATION</strong>
-                            <p style="margin-top: 10px;">Innovate with immersive AR/VR storytelling experiences.</p>
-                        </li>
-                    </ul>
-                </div>
-                <div style="flex: 1; min-width: 300px;" data-aos="fade-up" data-aos-delay="100">
-                     <h3 style="font-size: 2rem; margin-bottom: 30px; border-bottom: 1px solid white; padding-bottom: 10px;">MANIFESTO</h3>
-                     <p style="font-size: 1.8rem; line-height: 1.4; color: #fff; font-family: 'Syne'; font-weight: 700;">
-                        "My passion isn't just recording reality—it's about blending storytelling with visual artistry to make the viewer <em style="color:var(--highlight)">feel</em> the moment."
-                     </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="page-section contact-footer" id="contact" style="border-bottom: none;">
-        <p style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; font-size: 0.9rem;">Ready to create magic?</p>
         
-        <a href="mailto:jayeshsharmattk@gmail.com" class="giant-link">EMAIL ME</a>
-        
-        <div style="margin-top: 50px; display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;">
-            <a href="https://instagram.com/ihyjayesh" target="_blank" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">INSTAGRAM</a>
-            <a href="https://www.linkedin.com/in/jayeshsharma7" target="_blank" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">LINKEDIN</a>
-            <a href="https://youtube.com/@beastbalak" target="_blank" class="mega-text" style="font-size: 1.5rem; border-bottom: 1px solid white;">YOUTUBE</a>
-        </div>
-
-        <div style="margin-top: 150px; opacity: 0.4; font-size: 0.8rem;">
-            © 2025 JAYESH SHARMA | JAIPUR, RAJASTHAN
+        <div data-aos="fade-left">
+            <h3 style="font-size: 1.5rem; margin-bottom: 20px; color: #888;">The Toolkit</h3>
+            <div class="tags-cloud">
+                <div class="tag">Premiere Pro</div>
+                <div class="tag">After Effects</div>
+                <div class="tag">Cinematography</div>
+                <div class="tag">Sound Design</div>
+                <div class="tag">Color Grading</div>
+                <div class="tag">Visual Storytelling</div>
+                <div class="tag">Python (Data)</div>
+                <div class="tag">Financial Modeling</div>
+            </div>
         </div>
     </section>
+
+    <footer>
+        <div style="margin-bottom: 20px; font-family: 'Manrope'; font-size: 0.9rem; letter-spacing: 2px;">LET'S COLLABORATE</div>
+        <a href="mailto:jayeshsharmattk@gmail.com" class="contact-link">EMAIL ME</a>
+        
+        <div class="socials">
+            <a href="https://instagram.com/ihyjayesh" target="_blank" class="social-link">Instagram</a>
+            <a href="https://www.linkedin.com/in/jayeshsharma7" target="_blank" class="social-link">LinkedIn</a>
+            <a href="https://youtube.com/@beastbalak" target="_blank" class="social-link">YouTube</a>
+        </div>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 1200, once: true });
 
-        // --- SCROLL ANIMATION SCRIPT ---
-        const heroImg = document.getElementById('parallaxImg');
-        
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
+        // --- ENTRANCE ANIMATION ---
+        window.onload = () => {
+            const n1 = document.getElementById('name1');
+            const n2 = document.getElementById('name2');
             
-            // Only animate if we are near the top to save performance
-            if (scrollPosition < 900) {
-                // Scale increases (zooms in) and translateY moves it down slowly (parallax)
-                const scaleValue = 1 + (scrollPosition * 0.0005);
-                const yValue = scrollPosition * 0.2;
-                
-                heroImg.style.transform = `translate3d(0, ${yValue}px, 0) scale(${scaleValue})`;
-            }
+            // Staggered reveal
+            setTimeout(() => {
+                n1.style.transition = "all 1.5s ease-out";
+                n1.style.opacity = "1";
+                n1.style.transform = "translateY(0)";
+            }, 300);
+
+            setTimeout(() => {
+                n2.style.transition = "all 1.5s ease-out";
+                n2.style.opacity = "1";
+                n2.style.transform = "translateY(0)";
+            }, 600);
+        };
+
+        // --- MOUSE PARALLAX ON IMAGE ---
+        // This makes the art frame move slightly opposite to your mouse
+        const artFrame = document.getElementById('artFrame');
+        
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth - e.pageX*2) / 50;
+            const y = (window.innerHeight - e.pageY*2) / 50;
+            
+            artFrame.style.transform = `translate(${x}px, ${y}px)`;
         });
+
     </script>
 </body>
 </html>
