@@ -512,7 +512,7 @@
     </nav>
 
     <section class="hero">
-        <h1 class="text-display">
+        <h1 class="text-display hover-trigger" id="nameTitle" style="cursor: pointer; transition: color 0.3s;">
             JAYESH<br>SHARMA
         </h1>
         <p>Visual Artist & Editor</p>
@@ -755,6 +755,19 @@
             sec.style.transition = 'all 0.8s ease-out';
             observer.observe(sec);
         });
+            // --- 5. NAME COLOR CHANGER ---
+        const nameTitle = document.getElementById('nameTitle');
+        
+        nameTitle.addEventListener('click', () => {
+            // Generate a random bright color
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            
+            // Apply the color
+            nameTitle.style.color = randomColor;
+            
+            // Optional: Add a text shadow glow for extra effect
+            nameTitle.style.textShadow = `0 0 20px ${randomColor}`;
+        });
 
         // --- 4. GAME LOGIC (FRAME CHASER) ---
         const canvas = document.getElementById('gameCanvas');
@@ -926,6 +939,7 @@
             });
         }
 
+                
     </script>
 </body>
 </html>
