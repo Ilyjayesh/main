@@ -358,6 +358,7 @@
             background: #000;
         }
         .work-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        
 
         /* ================================================================
         10. GAME SECTION ("FRAME CHASER")
@@ -424,9 +425,26 @@
             color: #000;
             box-shadow: 0 0 20px var(--game-ui);
         }
+        /* ================================================================
+        11. Email logic
+        ================================================================
+        */
+        
+
+        <div id="emailModal" class="modal-overlay">
+    <div class="modal-box">
+        <span class="close-modal hover-trigger">&times;</span>
+        <h3 style="font-family: var(--font-display); color: var(--accent); margin-bottom: 15px;">Connect</h3>
+        <p id="myEmail" style="font-family: var(--font-code); font-size: 1.1rem; margin-bottom: 30px;">
+            jayeshsharmattk@gmail.com
+        </p>
+        <button class="btn-game hover-trigger" onclick="copyEmail()">COPY ADDRESS</button>
+        <p id="copyMsg" style="font-size: 0.8rem; color: var(--game-ui); opacity: 0; margin-top: 10px;">COPIED!</p>
+    </div>
+</div>
 
         /* ================================================================
-        11. FOOTER
+        12. Footer
         ================================================================
         */
         footer {
@@ -469,6 +487,33 @@
             width: 0%; height: 1px; background: var(--accent); transition: 0.3s;
         }
         .footer-link:hover::after { width: 100%; }
+        /* --- EMAIL MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none; /* Hidden by default */
+            justify-content: center; align-items: center;
+        }
+        
+        .modal-box {
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            width: 500px;
+            max-width: 90%;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+        
+        .close-modal {
+            position: absolute; top: 15px; right: 20px;
+            font-size: 2rem; color: var(--text-muted);
+            cursor: none; line-height: 1;
+        }
+        .close-modal:hover { color: #fff; }
 
         /* ================================================================
         12. RESPONSIVE
@@ -755,6 +800,41 @@
             sec.style.transition = 'all 0.8s ease-out';
             observer.observe(sec);
         });
+                    // --- 6. EMAIL MODAL LOGIC ---
+            const emailBtn = document.querySelector('.footer-cta');
+            const modal = document.getElementById('emailModal');
+            const closeBtn = document.querySelector('.close-modal');
+            
+            // Open Modal
+            emailBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Stops it from opening the Mail app
+                modal.style.display = 'flex';
+            });
+            
+            // Close Modal
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.getElementById('copyMsg').style.opacity = '0'; // Reset copy message
+            });
+            
+            // Close if clicking outside the box
+            window.addEventListener('click', (e) => {
+                if (e.target == modal) {
+                    modal.style.display = 'none';
+                    document.getElementById('copyMsg').style.opacity = '0';
+                }
+            });
+            
+            // Copy to Clipboard Function
+            function copyEmail() {
+                const emailText = document.getElementById('myEmail').innerText;
+                navigator.clipboard.writeText(emailText);
+                
+                // Show "Copied" message
+                const msg = document.getElementById('copyMsg');
+                msg.style.opacity = '1';
+                setTimeout(() => { msg.style.opacity = '0'; }, 2000);
+            }
             // --- 5. NAME COLOR CHANGER ---
         const nameTitle = document.getElementById('nameTitle');
         
