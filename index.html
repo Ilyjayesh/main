@@ -282,7 +282,7 @@
         }
 
         /* ================================================================
-        8. SKILLS (RENAMED & UPGRADED)
+        8. SKILLS
         ================================================================
         */
         .skills-container {
@@ -308,6 +308,11 @@
             margin-bottom: 8px;
             font-family: var(--font-code);
             font-size: 0.9rem;
+        }
+
+        /* Hide the progress bars as requested */
+        .skill-bar-bg {
+            display: none; 
         }
 
         /* ================================================================
@@ -346,10 +351,10 @@
             transform: translateX(20px);
         }
 
-        /* Floating Preview Image */
+        /* Floating Preview Image - Adjusted to 16:9 for YouTube Thumbnails */
         .work-preview {
             position: fixed; top: 0; left: 0;
-            width: 480px; height: 270px;
+            width: 480px; height: 270px; /* 16:9 Aspect Ratio */
             object-fit: cover;
             z-index: 50; pointer-events: none;
             opacity: 0; transform: translate(-50%, -50%) scale(0.8);
@@ -358,7 +363,6 @@
             background: #000;
         }
         .work-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        
 
         /* ================================================================
         10. GAME SECTION ("FRAME CHASER")
@@ -425,26 +429,40 @@
             color: #000;
             box-shadow: 0 0 20px var(--game-ui);
         }
+
         /* ================================================================
-        11. Email logic
+        11. EMAIL MODAL CSS (Fixed Placement)
         ================================================================
         */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none; /* Hidden by default */
+            justify-content: center; align-items: center;
+        }
         
-
-        <div id="emailModal" class="modal-overlay">
-    <div class="modal-box">
-        <span class="close-modal hover-trigger">&times;</span>
-        <h3 style="font-family: var(--font-display); color: var(--accent); margin-bottom: 15px;">Connect</h3>
-        <p id="myEmail" style="font-family: var(--font-code); font-size: 1.1rem; margin-bottom: 30px;">
-            jayeshsharmattk@gmail.com
-        </p>
-        <button class="btn-game hover-trigger" onclick="copyEmail()">COPY ADDRESS</button>
-        <p id="copyMsg" style="font-size: 0.8rem; color: var(--game-ui); opacity: 0; margin-top: 10px;">COPIED!</p>
-    </div>
-</div>
+        .modal-box {
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            width: 500px;
+            max-width: 90%;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+        
+        .close-modal {
+            position: absolute; top: 15px; right: 20px;
+            font-size: 2rem; color: var(--text-muted);
+            cursor: none; line-height: 1;
+        }
+        .close-modal:hover { color: #fff; }
 
         /* ================================================================
-        12. Footer
+        12. FOOTER
         ================================================================
         */
         footer {
@@ -487,36 +505,9 @@
             width: 0%; height: 1px; background: var(--accent); transition: 0.3s;
         }
         .footer-link:hover::after { width: 100%; }
-        /* --- EMAIL MODAL STYLES --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            display: none; /* Hidden by default */
-            justify-content: center; align-items: center;
-        }
-        
-        .modal-box {
-            background: #111;
-            border: 1px solid var(--border);
-            padding: 60px 40px;
-            text-align: center;
-            position: relative;
-            width: 500px;
-            max-width: 90%;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
-        
-        .close-modal {
-            position: absolute; top: 15px; right: 20px;
-            font-size: 2rem; color: var(--text-muted);
-            cursor: none; line-height: 1;
-        }
-        .close-modal:hover { color: #fff; }
 
         /* ================================================================
-        12. RESPONSIVE
+        13. RESPONSIVE
         ================================================================
         */
         @media (max-width: 1024px) {
@@ -712,6 +703,18 @@
         </div>
     </section>
 
+    <div id="emailModal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal hover-trigger">×</span>
+            <h3 style="font-family: var(--font-display); color: var(--accent); margin-bottom: 15px;">Connect</h3>
+            <p id="myEmail" style="font-family: var(--font-code); font-size: 1.1rem; margin-bottom: 30px;">
+                jayeshsharmattk@gmail.com
+            </p>
+            <button class="btn-game hover-trigger" onclick="copyEmail()">COPY ADDRESS</button>
+            <p id="copyMsg" style="font-size: 0.8rem; color: var(--game-ui); opacity: 0; margin-top: 10px;">COPIED!</p>
+        </div>
+    </div>
+
     <footer>
         <span class="text-label">Connect</span>
         <a href="mailto:jayeshsharmattk@gmail.com" class="footer-cta hover-trigger">EMAIL ME</a>
@@ -777,6 +780,7 @@
         });
 
         // --- 3. SKILLS BAR ANIMATION (Intersection Observer) ---
+        // Bars are hidden, but we keep this so it doesn't break if you re-enable them later
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -800,42 +804,44 @@
             sec.style.transition = 'all 0.8s ease-out';
             observer.observe(sec);
         });
-                    // --- 6. EMAIL MODAL LOGIC ---
-            const emailBtn = document.querySelector('.footer-cta');
-            const modal = document.getElementById('emailModal');
-            const closeBtn = document.querySelector('.close-modal');
-            
-            // Open Modal
-            emailBtn.addEventListener('click', (e) => {
-                e.preventDefault(); // Stops it from opening the Mail app
-                modal.style.display = 'flex';
-            });
-            
-            // Close Modal
-            closeBtn.addEventListener('click', () => {
+
+        // --- 4. EMAIL MODAL LOGIC ---
+        const emailBtn = document.querySelector('.footer-cta');
+        const modal = document.getElementById('emailModal');
+        const closeBtn = document.querySelector('.close-modal');
+        
+        // Open Modal
+        emailBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Stops it from opening the Mail app
+            modal.style.display = 'flex';
+        });
+        
+        // Close Modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.getElementById('copyMsg').style.opacity = '0'; // Reset copy message
+        });
+        
+        // Close if clicking outside the box
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
                 modal.style.display = 'none';
-                document.getElementById('copyMsg').style.opacity = '0'; // Reset copy message
-            });
-            
-            // Close if clicking outside the box
-            window.addEventListener('click', (e) => {
-                if (e.target == modal) {
-                    modal.style.display = 'none';
-                    document.getElementById('copyMsg').style.opacity = '0';
-                }
-            });
-            
-            // Copy to Clipboard Function
-            function copyEmail() {
-                const emailText = document.getElementById('myEmail').innerText;
-                navigator.clipboard.writeText(emailText);
-                
-                // Show "Copied" message
-                const msg = document.getElementById('copyMsg');
-                msg.style.opacity = '1';
-                setTimeout(() => { msg.style.opacity = '0'; }, 2000);
+                document.getElementById('copyMsg').style.opacity = '0';
             }
-            // --- 5. NAME COLOR CHANGER ---
+        });
+        
+        // Copy to Clipboard Function
+        function copyEmail() {
+            const emailText = document.getElementById('myEmail').innerText.trim();
+            navigator.clipboard.writeText(emailText);
+            
+            // Show "Copied" message
+            const msg = document.getElementById('copyMsg');
+            msg.style.opacity = '1';
+            setTimeout(() => { msg.style.opacity = '0'; }, 2000);
+        }
+
+        // --- 5. NAME COLOR CHANGER ---
         const nameTitle = document.getElementById('nameTitle');
         
         nameTitle.addEventListener('click', () => {
@@ -849,7 +855,7 @@
             nameTitle.style.textShadow = `0 0 20px ${randomColor}`;
         });
 
-        // --- 4. GAME LOGIC (FRAME CHASER) ---
+        // --- 6. GAME LOGIC (FRAME CHASER) ---
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const scoreEl = document.getElementById('scoreDisplay');
@@ -1018,8 +1024,6 @@
                  b.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
             });
         }
-
-                
     </script>
 </body>
 </html>
